@@ -384,6 +384,11 @@ body{background:var(--berry);color:var(--ink);font-family:var(--sans);font-size:
 .mu-txt small{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .mu-txt b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.05;color:var(--berry)}
 .mu-txt span{font-size:13px;color:var(--muted)}
+.mu-play{display:flex;gap:14px;align-items:center;padding:14px 16px 16px;text-decoration:none;color:inherit;transition:background-color .2s}
+.mu-play:hover{background:color-mix(in srgb,var(--pink) 45%,transparent)}
+.mu-cta{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font:500 12px var(--sans);background:var(--berry);color:#fff!important;border-radius:999px;padding:6px 12px}
+.mu-cta i{font-style:normal;font-size:9px}
+.mu-play:hover .vinyl{animation-duration:1.2s}
 .mu-links{display:flex;gap:8px;padding:0 16px 16px;flex-wrap:wrap}
 .mu-links a{font:500 12px var(--sans);text-decoration:none;border-radius:999px;padding:6px 12px;background:var(--berry);color:#fff}
 .mu-links a.alt{background:var(--powder2);color:var(--ink)}
@@ -633,10 +638,11 @@ input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(
   </div>
 </div>
 <aside class="music" id="music" aria-label="Song of the site">
-  <div class="bar"><button class="tl r" aria-label="Close player" id="mu-close"></button><span class="tl y"></span><span class="tl g"></span><span class="t">now playing</span></div>
-  <div class="mu"><span class="vinyl" aria-hidden="true"></span><div class="mu-txt"><small>lulwah's London song</small><b>London Boy</b><span>Taylor Swift</span></div></div>
-  <p class="mu-lyric">"...walk into some bar called The Black Dog" <a href="#moments">see the pub ↓</a></p>
-  <div class="mu-links"><a href="https://open.spotify.com/playlist/0hGg16h3dzFgRK9vjakqfv" target="_blank" rel="noopener">My Spotify playlist ↗</a><a class="alt" href="https://music.apple.com/search?term=London%20Boy%20Taylor%20Swift" target="_blank" rel="noopener">Apple Music ↗</a></div>
+  <div class="bar"><button class="tl r" aria-label="Close player" id="mu-close"></button><span class="tl y"></span><span class="tl g"></span><span class="t">♪ music</span></div>
+  <a class="mu-play" href="https://open.spotify.com/playlist/0hGg16h3dzFgRK9vjakqfv" target="_blank" rel="noopener">
+    <span class="vinyl" aria-hidden="true"></span>
+    <span class="mu-txt"><small>for the music aesthetic ♪</small><b>My winter playlist</b><span class="mu-cta">click to play <i aria-hidden="true">▶</i></span></span>
+  </a>
 </aside>
 <div class="overlay" id="ov" hidden>
   <div class="win" role="dialog" aria-modal="true" aria-labelledby="wt">
