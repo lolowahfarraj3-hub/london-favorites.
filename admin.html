@@ -36,6 +36,14 @@ button.blue{background:var(--powder);color:var(--ink)}
 .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
 .acts button{padding:8px 12px;font-size:13px}
 .empty{text-align:center;padding:50px 0;color:var(--muted)}
+.notes{display:grid;gap:14px}
+.note{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;background:var(--card);border-radius:14px;padding:12px;box-shadow:0 8px 22px rgba(80,10,5,.1);align-items:start}
+.note img{width:96px;height:96px;object-fit:cover;border-radius:10px;display:block}
+.note h3{margin:0 0 2px;font-family:"Instrument Serif",serif;font-weight:400;font-size:24px;color:var(--berry)}
+.note textarea{width:100%;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;resize:vertical;min-height:80px;margin:8px 0}
+.note .row{display:flex;gap:10px;align-items:center}
+.note .ok{font-family:Caveat,cursive;font-size:20px;color:var(--berry)}
+@media (max-width:520px){.note{grid-template-columns:64px minmax(0,1fr)}.note img{width:64px;height:64px}}
 </style></head>
 <body><div class="wrap">
 <div class="login" id="login">
@@ -55,12 +63,16 @@ button.blue{background:var(--powder);color:var(--ink)}
 const SB='https://bvpruzwymudrsgfloidc.supabase.co',SBK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2cHJ1end5bXVkcnNnZmxvaWRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxNzQyNjksImV4cCI6MjEwOTc1MDI2OX0.EhDhKxqjLDka1480JdJ6zPK3HAQToZ7dCIY8eNIP7fY';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rpc=(fn,body)=>fetch(SB+'/rest/v1/rpc/'+fn,{method:'POST',headers:{apikey:SBK,Authorization:'Bearer '+SBK,'Content-Type':'application/json'},body:JSON.stringify(body)});
-let pass='',rows=[],tab='new';
+let pass='',rows=[],tab='notes';
 try{pass=localStorage.getItem('lf-pass')||''}catch(e){}
-const tabsDef=[['new','New'],['approved','On the site'],['hidden','Hidden'],['all','All']];
-async function load(){const r=await rpc('admin_list',{pass});if(!r.ok)throw new Error('bad');rows=await r.json();render();}
+const tabsDef=[['notes','My spot notes'],['new','New'],['approved','On the site'],['hidden','Hidden'],['all','All']];
+const SPOTS=[["Big Ben", "Westminster", "big-ben"], ["Tower Bridge", "Tower Hill", "tower-bridge"], ["Piccadilly Circus", "West End", "piccadilly"], ["The London Eye at night", "South Bank", "london-eye"], ["V&A Museum", "South Kensington", "va"], ["Harrods", "Knightsbridge", "harrods"], ["Shad Thames", "Bermondsey", "shad-thames"], ["The Queen's Walk at sunset", "Near Tower Bridge", "queens-walk"], ["The Serpentine", "Hyde Park", "serpentine"], ["Holland Park", "Kensington", "holland-park"], ["Old Bond Street", "Mayfair", "old-bond-street"], ["HMV", "Oxford Street", "hmv"], ["Flabelus", "Shoe shopping", "flabelus"], ["Superdrug", "London", "superdrug"], ["The Black Dog", "Vauxhall", "black-dog"], ["Jenki Matcha", "Selfridges", "jenki"], ["Qinwan", "Ya marhaba coffee", "qinwan"], ["Blank Street Coffee", "London", "blank-street"], ["Flat Iron", "London", "flat-iron"], ["Best bagels in town", "Utopia Bagels", "bagels"], ["Holburne Museum", "Great Pulteney Street view", "holburne"], ["Lemonade by the river", "Parade Gardens", "lemonade"], ["River Avon", "Pulteney Bridge", "river-avon"], ["Green walks", "Bath", "bath-trees"]];
+let notes={};
+async function load(){const r=await rpc('admin_list',{pass});if(!r.ok)throw new Error('bad');rows=await r.json();try{const n=await fetch(SB+'/rest/v1/spot_notes?select=spot_key,note',{headers:{apikey:SBK,Authorization:'Bearer '+SBK}});if(n.ok)(await n.json()).forEach(x=>notes[x.spot_key]=x.note);}catch(e){}render();}
 function render(){
-  document.getElementById('tabs').innerHTML=tabsDef.map(([k,l])=>{const n=k==='all'?rows.length:rows.filter(x=>x.status===k).length;return `<button data-tab="${k}" class="${k===tab?'on':''}">${l} (${n})</button>`}).join('');
+  document.getElementById('tabs').innerHTML=tabsDef.map(([k,l])=>{const n=k==='notes'?'':' ('+(k==='all'?rows.length:rows.filter(x=>x.status===k).length)+')';return `<button data-tab="${k}" class="${k===tab?'on':''}">${l}${n}</button>`}).join('');
+  if(tab==='notes'){document.getElementById('grid').className='notes';document.getElementById('grid').innerHTML=SPOTS.map(([n,a,k])=>`<div class="note"><img src="images/${k}.jpg" alt=""><div><h3>${esc(n)}</h3><div class="meta">${esc(a)}</div><textarea data-k="${k}" maxlength="1500" placeholder="What do you love about ${esc(n)}?">${esc(notes[k]||'')}</textarea><div class="row"><button data-save="${k}">Save</button><span class="ok" id="ok-${k}"></span></div></div></div>`).join('');return;}
+  document.getElementById('grid').className='grid';
   const list=rows.filter(x=>tab==='all'||x.status===tab);
   document.getElementById('grid').innerHTML=list.length?list.map(s=>{
     const d=new Date(s.created_at).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
@@ -70,7 +82,8 @@ function render(){
   }).join(''):`<p class="empty hand">Nothing here yet.</p>`;
 }
 document.getElementById('tabs').onclick=e=>{const b=e.target.closest('[data-tab]');if(b){tab=b.dataset.tab;render();}};
-document.getElementById('grid').onclick=async e=>{const b=e.target.closest('[data-act]');if(!b)return;b.disabled=true;const r=await rpc('admin_set_status',{pass,sub_id:b.dataset.id,new_status:b.dataset.act});if(r.ok){rows.find(x=>x.id===b.dataset.id).status=b.dataset.act;render();}else{b.disabled=false;alert('That did not work, please try again.');}};
+document.getElementById('grid').onclick=async e=>{const sv=e.target.closest('[data-save]');if(sv){const k=sv.dataset.save,t=document.querySelector(`textarea[data-k="${k}"]`).value;sv.disabled=true;const ok=document.getElementById('ok-'+k);ok.textContent='saving…';const r=await rpc('admin_save_note',{pass,key:k,body:t});sv.disabled=false;if(r.ok){notes[k]=t;ok.textContent='saved ♡';}else ok.textContent='didn’t save, try again';return;}
+  const b=e.target.closest('[data-act]');if(!b)return;b.disabled=true;const r=await rpc('admin_set_status',{pass,sub_id:b.dataset.id,new_status:b.dataset.act});if(r.ok){rows.find(x=>x.id===b.dataset.id).status=b.dataset.act;render();}else{b.disabled=false;alert('That did not work, please try again.');}};
 document.getElementById('refresh').onclick=()=>load().catch(()=>alert('Could not load. Check your internet.'));
 document.getElementById('out').onclick=()=>{try{localStorage.removeItem('lf-pass')}catch(e){}location.reload();};
 function show(){document.getElementById('login').hidden=true;document.getElementById('app').hidden=false;}

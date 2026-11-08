@@ -602,9 +602,9 @@ document.getElementById('wstrip').innerHTML=winter.map(([f,c])=>`<figure class="
 document.getElementById('strip').innerHTML=moments.map(([f,c])=>`<figure class="mo"><img src="images/m-${f}.jpg" alt="${esc(c)}" loading="lazy"><span>${esc(c)}</span></figure>`).join('');
 document.getElementById('bathgrid').addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(b)grid.dispatchEvent(new CustomEvent('openspot',{detail:+b.dataset.i}));});
 grid.addEventListener('openspot',e=>showSpot(spots[e.detail]));
-function showSpot(s){openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>A note about why you love this place can go here, plus a tip like the best time to go.</p>${mapLink(s)}`);}
+function showSpot(s){openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);}
 grid.addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(!b)return;const s=spots[b.dataset.i];
-  openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>A note about why you love this place can go here, plus a tip like the best time to go.</p>${mapLink(s)}`);});
+  openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);});
 document.getElementById('hero-btn').onclick=()=>document.getElementById('spots').scrollIntoView({behavior:'smooth'});
 function openAdd(){openWin('Add your favorite spot',`<form id="af" class="wb" style="padding:0">
   <label>Place name<input id="a-name" required placeholder="e.g. Daunt Books"></label>
@@ -681,6 +681,8 @@ wb.addEventListener('change',e=>{if(e.target.id!=='p-files')return;const th=docu
 /* saving submissions (Supabase) */
 const SB='https://bvpruzwymudrsgfloidc.supabase.co',SBK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2cHJ1end5bXVkcnNnZmxvaWRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxNzQyNjksImV4cCI6MjEwOTc1MDI2OX0.EhDhKxqjLDka1480JdJ6zPK3HAQToZ7dCIY8eNIP7fY';
 const sbH={apikey:SBK,Authorization:'Bearer '+SBK};
+let notes={};const spotNote=s=>notes[s[3]]?esc(notes[s[3]]).replace(/\n/g,'<br>'):'A little favorite of mine in '+esc(s[1])+'.';
+fetch(SB+'/rest/v1/spot_notes?select=spot_key,note',{headers:sbH}).then(r=>r.ok?r.json():[]).then(rows=>rows.forEach(r=>{if(r.note.trim())notes[r.spot_key]=r.note;})).catch(()=>{});
 async function shrink(f){try{const bmp=await createImageBitmap(f);const s=Math.min(1,1600/Math.max(bmp.width,bmp.height));const c=document.createElement('canvas');c.width=Math.round(bmp.width*s);c.height=Math.round(bmp.height*s);c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.85));return b||f;}catch(e){return f;}}
 async function uploadPhoto(f){const b=await shrink(f);const ext=b.type==='image/jpeg'?'jpg':((f.name||'').split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'');const path=new Date().toISOString().slice(0,10)+'/'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2))+'.'+ext;const r=await fetch(SB+'/storage/v1/object/submissions/'+path,{method:'POST',headers:{...sbH,'Content-Type':b.type||'image/jpeg'},body:b});if(!r.ok)throw new Error('upload '+r.status);return SB+'/storage/v1/object/public/submissions/'+path;}
 async function saveSub(row){const r=await fetch(SB+'/rest/v1/submissions',{method:'POST',headers:{...sbH,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)});if(!r.ok)throw new Error('save '+r.status);}
