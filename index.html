@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>London Favorites</title>
+<meta name="description" content="lulwah's favorite corners of London, in photos.">
+<meta property="og:title" content="London Favorites"><meta property="og:description" content="lulwah's favorite corners of London, in photos."><meta property="og:image" content="images/me.jpg">
+<style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}img,svg,video{max-width:100%}</style>
+</head><body>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Caveat:wght@600&family=Pinyon+Script&family=DM+Mono:wght@400;500&family=Noto+Naskh+Arabic:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap">
+<style>
+/* Layout: a scrapbook landing page. Scalloped pink nav, grid-paper hero with a taped photo collage and stickers, a red band holding the spot cards, a powder-blue striped "about me" notebook, a pink add-your-spot strip. Clicking a spot opens a Mac-style window. */
+:root{
+  /* lulwah's palette: Cosmic Latte #FFF8E7, Sangria #930500, Cornflower #95BBEA */
+  --paper:#FFF8E7; --grid:#f1e4cc; --ink:#3a0a05; --muted:#7a4f48;
+  --berry:#930500; --red:#930500; --pink:#f5dcd5; --pink2:#fbede7; --powder:#95BBEA; --powder2:#d9e7f8; --sage:#c4d9f3;
+  --manila:#f2d9ad; --card:#fffdf7; --line:rgba(58,10,5,.14); --shade:rgba(40,8,4,.34);
+  --tl-r:#ff5f57; --tl-y:#febc2e; --tl-g:#28c840;
+  --serif:"Instrument Serif", Georgia, serif; --hand:"Caveat", cursive; --mono:"DM Mono", ui-monospace, monospace; --sans:"DM Sans", system-ui, sans-serif;
+}
+
+
+[hidden]{display:none!important}
+body{background:var(--berry);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+.page{max-width:1120px;margin:0 auto;background:var(--paper);overflow:hidden}
+.in{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 16px;font:500 13px var(--sans);cursor:pointer;transition:transform .15s}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--red)}
+.pill.solid{background:var(--berry);color:#fff;border-color:var(--berry)}
+.pill:active,.spot:active{transform:scale(.97)}
+.pill:focus-visible,.spot:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+/* nav with scallop */
+.nav{background:var(--pink);position:relative}
+.nav .in{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px;flex-wrap:wrap}
+.nav::after{content:"";position:absolute;left:0;right:0;bottom:-11px;height:12px;background:radial-gradient(circle at 12px 0,var(--pink) 11px,transparent 12px) 0 0/24px 12px repeat-x;z-index:2}
+.nav a{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--berry);text-decoration:none}
+.links{display:flex;gap:18px;flex-wrap:wrap}
+.logo{font-family:var(--serif);font-size:30px;color:var(--berry);line-height:1}
+.logo i{font-family:var(--hand);font-style:normal;font-size:24px;color:var(--red)}
+
+/* hero */
+.hero{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;position:relative}
+.hero .in{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px;align-items:center;padding-block:64px 70px}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,6.6vw,80px);line-height:.98;margin:12px 0 16px;color:var(--berry);text-wrap:balance}
+.hero h1 em{color:var(--red)}
+.hero p{max-width:40ch;color:var(--muted);margin:0 0 22px}
+.hand{font-family:var(--hand);color:var(--red);font-size:24px;line-height:1.1}
+.arrow{display:flex;align-items:center;gap:6px;margin-top:18px}
+.arrow svg{width:90px;height:40px}
+.arrow path{fill:none;stroke:var(--berry);stroke-width:2;stroke-linecap:round}
+.collage{position:relative;height:420px}
+.polaroid{position:absolute;background:var(--card);padding:10px 10px 34px;box-shadow:0 10px 30px rgba(60,20,25,.18);border-radius:3px;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.polaroid:hover{transform:rotate(0) scale(1.03)!important;z-index:5}
+.polaroid .ph{width:100%;height:100%;border-radius:2px}
+.polaroid span{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:var(--hand);font-size:20px;color:var(--ink)}
+.tape{position:absolute;width:74px;height:22px;background:rgba(194,58,51,.55);top:-10px;left:50%;margin-left:-37px;transform:rotate(-4deg)}
+.tape.b{background:rgba(188,208,228,.8)}
+.p1{width:230px;height:270px;left:4%;top:40px;transform:rotate(-5deg)}
+.p2{width:210px;height:250px;right:4%;top:0;transform:rotate(4deg)}
+.p3{width:190px;height:200px;left:36%;top:200px;transform:rotate(-1deg);z-index:2}
+.sticker{position:absolute;pointer-events:none}
+.stamp{position:absolute;right:2%;bottom:20px;width:96px;height:96px;border-radius:50%;background:var(--pink);border:2px dashed var(--berry);display:grid;place-items:center;text-align:center;font-family:var(--hand);font-size:19px;line-height:1;color:var(--berry);transform:rotate(-10deg);z-index:3}
+/* photo placeholders */
+.g-rain{background:linear-gradient(180deg,#b9bdc1 0 50%,#6f767c 50%)}
+.g-vintage{background:linear-gradient(180deg,#d6b991 0 55%,#6b5641 55%)}
+.g-sea{background:linear-gradient(180deg,#c9d6e3 0 55%,#8fa7bd 55% 75%,#cfc8bd 75%)}
+.g-cream{background:linear-gradient(160deg,#f3ece0,#e6d9c3)}
+.g-dusk{background:linear-gradient(180deg,#efc9b8 0 60%,#3d4f66 60%)}
+.g-sky{background:linear-gradient(180deg,#c9d6e3,#f3ece0)}
+.g-red{background:linear-gradient(180deg,#c9d6e3 0 35%,#b3302a 35%)}
+.g-navy{background:linear-gradient(170deg,#3d4f66,#8fa7bd)}
+
+/* ticker */
+.ticker{background:var(--powder);border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.ticker div{display:inline-block;padding-block:9px;animation:slide 30s linear infinite}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* spots band */
+.band{background:var(--red)}
+.band>.in{padding-block:56px}
+.sheet{background:var(--paper);border-radius:6px;position:relative;padding:54px 28px 36px;text-align:center}
+.sheet::before{content:"";position:absolute;left:10px;right:10px;top:12px;height:26px;background:radial-gradient(circle,var(--red) 11px,transparent 12px) 0 0/34px 26px repeat-x}
+.sheet h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,52px);margin:6px 0 4px;color:var(--berry);line-height:1}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:18px 0 26px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:500 13px var(--sans);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--berry);color:#fff;border-color:var(--berry)}
+.spots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;text-align:left}
+.spot{border:0;padding:0;text-align:left;cursor:pointer;border-radius:14px;overflow:hidden;background:var(--pink);color:var(--ink);font:inherit;display:flex;flex-direction:column;transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s}
+.spot:hover{transform:translateY(-4px) rotate(-.5deg);box-shadow:0 12px 24px rgba(60,20,25,.15)}
+.spot.c1{background:var(--pink)}.spot.c2{background:var(--powder)}.spot.c3{background:var(--sage)}.spot.c4{background:var(--pink2)}
+.spot .ph{aspect-ratio:4/3;max-width:100%}
+.spot .txt{padding:12px 14px 16px;display:flex;flex-direction:column;gap:2px}
+.spot b{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.1}
+.spot small{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.signup{margin-top:22px;background:var(--pink);border-radius:999px;padding:12px 14px 12px 26px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.signup span{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--berry)}
+
+/* about notebook */
+.stripes{background:repeating-linear-gradient(90deg,var(--powder) 0 22px,var(--powder2) 22px 44px)}
+.stripes>.in{padding-block:64px}
+.book{max-width:760px;margin:0 auto;background:var(--paper);border-radius:6px;display:grid;grid-template-columns:1fr 1fr;position:relative;box-shadow:0 14px 40px rgba(30,50,80,.18)}
+.book::before{content:"";position:absolute;left:50%;top:18px;bottom:18px;width:2px;margin-left:-1px;background:var(--ink);opacity:.6}
+.ring{position:absolute;left:50%;width:26px;height:10px;margin-left:-13px;border:2px solid var(--ink);border-radius:8px;opacity:.6}
+.pg{padding:40px 34px;min-width:0}
+.pg h2{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1;margin:0 0 12px;color:var(--berry)}
+.pg ul{margin:0;padding-left:18px;color:var(--muted)}
+.pg li{margin-bottom:6px}
+.pg p{color:var(--muted);margin:0 0 10px}
+.bow{position:absolute;right:-18px;bottom:-22px;width:90px}
+
+/* passport */
+.stripes>.in{position:relative}
+.pp-head{text-align:center;margin-bottom:22px}
+.pp-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;margin:6px 0 0;color:var(--berry)}
+.pp-head .eyebrow{background:var(--paper);padding:3px 8px;border-radius:4px}
+.passport{max-width:920px;margin:0 auto;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:6px;position:relative}
+.pp-page{background:var(--berry);border-radius:22px;padding:6px;box-shadow:0 14px 40px rgba(30,50,80,.2)}
+.pp-in{height:100%;border-radius:17px;padding:30px;position:relative;background-color:var(--paper);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ctext x='11' y='16' text-anchor='middle' font-size='13' fill='%23930500'%3E%E2%98%85%3C/text%3E%3C/svg%3E");background-repeat:round;background-size:22px 22px}
+.pp-in::before{content:"";position:absolute;inset:24px;background:var(--paper);border-radius:6px}
+.pp-in>*{position:relative}
+.pp-script{font-family:"Pinyon Script",cursive;color:var(--berry);font-size:46px;line-height:1}
+.pp-cover{display:flex;align-items:center;gap:10px;min-height:360px}
+.pp-vert{writing-mode:vertical-rl;transform:rotate(180deg);font-size:62px}
+.pp-photo{flex:1;align-self:stretch;min-height:150px;border:1px solid var(--line);background-color:var(--powder2);background-image:radial-gradient(color-mix(in srgb,var(--berry) 55%,transparent) 1px,transparent 1.4px);background-size:5px 5px;display:grid;place-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--berry)}
+.pp-photo span{background:var(--paper);padding:3px 8px;border-radius:3px}
+.pp-photo.big{margin:10px 6px 10px 0;min-height:260px}
+.pp-star{position:absolute;font-style:normal;color:var(--berry);font-size:44px;line-height:1}
+.s1{right:-12px;top:-18px;transform:rotate(14deg)}.s2{left:-16px;bottom:-14px;font-size:38px;transform:rotate(-10deg)}.s3{right:-12px;bottom:-14px;font-size:30px}
+.pp-photo{position:relative}
+.pp-data{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:18px;align-items:start}
+.pp-left{display:flex;flex-direction:column;gap:6px;padding-top:6px}
+.pp-left .pp-photo{min-height:170px;flex:none}
+.pp-tiny{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.pp-fields{margin:6px 0 0;display:grid;grid-template-columns:1fr 1fr;border:1.5px solid color-mix(in srgb,var(--berry) 55%,transparent)}
+.pp-fields div{padding:6px 10px 8px;border-right:1px solid color-mix(in srgb,var(--berry) 35%,transparent);border-bottom:1px solid color-mix(in srgb,var(--berry) 35%,transparent);min-width:0}
+.pp-fields div.w{grid-column:span 2}
+.pp-fields dt{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.pp-fields dd{margin:2px 0 0;font-family:var(--mono);font-size:14px;letter-spacing:.04em;color:var(--ink);overflow-wrap:anywhere}
+.pp-fields dd.sig{font-family:"Pinyon Script",cursive;font-size:30px;letter-spacing:0;color:var(--berry);text-align:center;line-height:1.1}
+.stripes .bow{right:max(20px,8%);bottom:28px}
+@media (max-width:820px){.passport{grid-template-columns:1fr}.pp-cover{min-height:300px}}
+@media (max-width:520px){.pp-data{grid-template-columns:1fr}.pp-in{padding:28px 26px}.pp-vert{font-size:46px}}
+/* add strip */
+.add .in{padding-block:58px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center}
+.add h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,50px);line-height:1;margin:6px 0 8px;color:var(--berry)}
+.add p{margin:0;color:var(--muted);max-width:48ch}
+.foot{background:var(--pink)}
+.foot .in{padding-block:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--berry)}
+
+.spot.c3{background-color:var(--paper);background-image:linear-gradient(90deg,color-mix(in srgb,var(--powder) 45%,transparent) 50%,transparent 50%),linear-gradient(color-mix(in srgb,var(--powder) 45%,transparent) 50%,transparent 50%);background-size:16px 16px}
+.spot .txt{background:inherit}
+.spot{cursor:default}
+.spots{grid-template-columns:repeat(3,minmax(0,1fr))}
+.spot-open{border:0;padding:0;margin:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;width:100%}
+.spot-open:focus-visible{outline:2px solid var(--red);outline-offset:-4px}
+.spot img.ph,.polaroid img.ph{display:block;width:100%;object-fit:cover}
+.polaroid img.ph{height:100%}
+.maps{display:inline-flex;align-items:center;gap:6px;margin:0 14px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--berry);text-decoration:underline;text-underline-offset:3px}
+.maps:hover{text-decoration-thickness:2px}
+.wb img.big{width:100%;height:auto;max-height:60vh;object-fit:cover}
+.wb .maps{margin:0}
+.daytrip{background:var(--powder2)}
+.daytrip>.in{padding-block:60px}
+.daytrip .head{text-align:center;margin-bottom:28px}
+.daytrip h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,50px);line-height:1;margin:6px 0 4px;color:var(--berry)}
+.spots.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.mo{margin:0}
+/* little moments */
+.moments{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px}
+.moments>.in{padding-block:60px}
+.moments h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,50px);line-height:1;margin:6px 0 4px;color:var(--berry);text-align:center}
+.moments .head{text-align:center;margin-bottom:30px;position:relative}
+.st-1d{width:120px;right:4%;top:-26px;transform:rotate(9deg)}
+@media (max-width:700px){.st-1d{width:74px;right:-2%;top:-40px}}
+.strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
+.mo{background:var(--card);padding:8px 8px 30px;box-shadow:0 8px 20px rgba(60,10,5,.14);border-radius:3px;position:relative;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.mo:nth-child(odd){transform:rotate(-3deg)}.mo:nth-child(even){transform:rotate(2.5deg);margin-top:18px}
+.mo:hover{transform:rotate(0) scale(1.05);z-index:2}
+.mo img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.mo span{position:absolute;left:0;right:0;bottom:5px;text-align:center;font-family:var(--hand);font-size:18px;color:var(--ink)}
+@media (max-width:820px){.strip{grid-template-columns:repeat(3,minmax(0,1fr))}.spots,.spots.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.spots,.spots.four{grid-template-columns:1fr}}
+.dark-text{color:var(--paper)}
+/* calendar */
+.cal{background:var(--pink2);background-image:linear-gradient(90deg,color-mix(in srgb,var(--pink) 70%,transparent) 50%,transparent 50%),linear-gradient(color-mix(in srgb,var(--pink) 70%,transparent) 50%,transparent 50%);background-size:28px 28px}
+.cal>.in{padding-block:64px}
+.cal-head{text-align:center;margin-bottom:28px}
+.cal-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;margin:6px 0 4px;color:var(--berry)}
+.cals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.month{background:var(--paper);border-radius:16px;padding:24px 18px 20px;position:relative;box-shadow:0 10px 30px rgba(80,10,5,.12)}
+.month h3{margin:0 0 2px;font-family:var(--serif);font-weight:400;font-size:30px;color:var(--berry);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.month h3 span{font-family:var(--hand);font-size:22px;color:var(--powder)}
+.dow,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.dow{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding:12px 0 6px}
+.dow span{padding-left:6px}
+.days{border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.day{aspect-ratio:1/1;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:4px 6px;font-family:var(--mono);font-size:11px;color:var(--muted);position:relative;min-width:0}
+.day.here{background:var(--berry);color:var(--paper)}
+.day.first::after{content:"✶";position:absolute;right:5px;bottom:2px;font-size:12px}
+.save{position:absolute;right:-10px;top:-16px;background:var(--berry);color:var(--paper);font-family:var(--hand);font-size:20px;line-height:1;padding:10px 14px;transform:rotate(5deg);border-radius:2px;box-shadow:0 6px 14px rgba(80,10,5,.2);z-index:2}
+.save small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:4px;opacity:.85}
+.clip{position:absolute;left:18px;top:-22px;width:46px;z-index:2}
+.cal-note{text-align:center;margin-top:18px}
+.cals:has(.year){grid-template-columns:1fr;max-width:760px;margin-inline:auto}
+.months{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:18px}
+.mth{border:1.5px solid var(--line);border-radius:12px;padding:16px 8px;text-align:center;font-family:var(--serif);font-size:22px;color:var(--muted);min-width:0;overflow-wrap:anywhere}
+.mth small{display:block;font-family:var(--hand);font-size:17px;margin-top:2px}
+.mth.summer{background:var(--berry);border-color:var(--berry);color:var(--paper)}
+.mth.winter{background:var(--powder);border-color:var(--powder);color:var(--berry)}
+.mth{position:relative}.months{margin-top:46px}
+.mth.bday{background:#f2a7b8;border:2px dashed var(--berry);color:var(--berry)}
+.bday-note{position:absolute;left:58%;bottom:100%;margin-bottom:2px;white-space:nowrap;font-family:var(--hand);font-weight:700;font-size:20px;color:var(--berry);display:flex;align-items:flex-end;gap:2px;transform:rotate(-4deg);flex-direction:row-reverse}
+.bday-note svg{width:34px;height:26px;flex:none}
+.k.bday{background:#f2a7b8;outline:1.5px dashed var(--berry)}
+.legend{display:flex;gap:18px;justify-content:center;margin-top:16px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:6px}.k{width:14px;height:14px;border-radius:4px;display:inline-block}.k.summer{background:var(--berry)}.k.winter{background:var(--powder)}
+@media (max-width:560px){.months{grid-template-columns:repeat(3,minmax(0,1fr))}.mth{font-size:16px;padding:12px 4px}.bday-note{font-size:17px;left:40%}}
+/* photo folder */
+.candy{background:repeating-linear-gradient(90deg,var(--pink) 0 26px,var(--paper) 26px 52px)}
+.candy>.in{padding-block:70px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:center}
+.candy h2{font-family:var(--serif);font-weight:400;font-size:clamp(46px,7vw,84px);line-height:.92;margin:8px 0 12px;color:var(--berry)}
+.candy h2 em{font-style:italic}
+.candy p{margin:0 0 6px;color:var(--ink);max-width:36ch}
+.pp-in,.pp-page{box-sizing:border-box}
+.cam-stage{position:relative;width:100%;max-width:460px;aspect-ratio:1/1;justify-self:center}
+.postcard{position:absolute;left:0;top:4%;width:78%;aspect-ratio:3/2;background:var(--paper);border:8px solid var(--pink);border-radius:8px;transform:rotate(-7deg);box-shadow:0 10px 26px rgba(80,10,5,.16);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px}
+.pc-top{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.pc-big{font-family:"Pinyon Script",cursive;font-size:clamp(46px,7vw,70px);line-height:1.1;color:var(--berry)}
+.pc-note{font-family:var(--hand);font-size:18px;color:var(--powder);align-self:flex-end;margin-right:8%}
+.camera{position:absolute;right:0;bottom:2%;width:66%;aspect-ratio:1.08/1;border:0;padding:0;cursor:pointer;border-radius:20%/22%;background:linear-gradient(145deg,#fbfbfb,#cfd2d6 55%,#b7bbc0);box-shadow:inset 0 2px 0 #fff,inset 0 -4px 8px rgba(0,0,0,.12),0 20px 40px rgba(60,20,25,.25);transform:rotate(5deg);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.camera:hover{transform:rotate(2deg) translateY(-6px)}
+.camera:active{transform:rotate(2deg) scale(.96)}
+.camera:focus-visible{outline:2px solid var(--berry);outline-offset:6px}
+.camera span{position:absolute;display:block}
+.lens{left:30%;top:6%;width:13%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 40% 40%,#4a5568 0 20%,#111 22% 60%,#c8ccd1 62%)}
+.flash{left:45%;top:8%;width:6%;height:6%;border-radius:3px;background:#e7e9ec;box-shadow:inset 0 0 0 1px #aab}
+.dial{right:8%;top:7%;width:20%;height:8%;border-radius:4px;background:repeating-linear-gradient(90deg,#9aa0a6 0 2px,#e5e7ea 2px 6px)}
+.screen{left:8%;top:21%;width:52%;height:68%;background:#fff;border-radius:10px;border:5px solid #8d9298;display:flex!important;align-items:center;justify-content:center;gap:4px;font-family:var(--serif);font-size:clamp(22px,3.4vw,34px);color:#111}
+.screen b{font-weight:400}
+.pad{right:9%;top:42%;width:24%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#d4d7db 0 30%,#aeb3b8 32% 34%,#e9ebee 36%);box-shadow:0 2px 4px rgba(0,0,0,.15)}
+.btn1{right:16%;top:26%;width:11%;aspect-ratio:1;border-radius:50%;background:#dfe2e5;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.btn2{right:16%;bottom:9%;width:11%;aspect-ratio:1;border-radius:50%;background:#dfe2e5;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.folder-btn{border:0;background:none;padding:0;cursor:pointer;position:relative;width:100%;max-width:440px;aspect-ratio:5/4;justify-self:center;transform:rotate(-6deg);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.folder-btn:hover{transform:rotate(-3deg) translateY(-6px)}
+.folder-btn:active{transform:rotate(-3deg) scale(.97)}
+.folder-btn:focus-visible{outline:2px solid var(--berry);outline-offset:6px}
+.f-back{position:absolute;inset:8% 0 0 0;background:color-mix(in srgb,var(--manila) 88%,#000);border-radius:10px}
+.f-tab{position:absolute;left:8%;top:2%;width:34%;height:12%;background:color-mix(in srgb,var(--manila) 88%,#000);border-radius:10px 10px 0 0}
+.f-paper{position:absolute;left:6%;right:8%;top:4%;bottom:10%;background:var(--card);border-radius:4px;transform:rotate(3deg);box-shadow:0 2px 6px rgba(0,0,0,.1);transition:transform .25s}
+.folder-btn:hover .f-paper{transform:rotate(5deg) translateY(-14px)}
+.f-front{position:absolute;inset:22% 0 0 0;background:var(--manila);border-radius:10px;box-shadow:0 18px 40px rgba(80,10,5,.22);display:grid;place-items:center}
+.f-front span{font-family:var(--mono);font-size:clamp(20px,3vw,30px);color:var(--berry);transform:rotate(-6deg)}
+.f-front i{position:absolute;right:14%;top:18%;font-style:normal;color:var(--berry);font-size:26px;transform:rotate(14deg)}
+.thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.thumbs img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:6px}
+.add{background:var(--paper)}
+.ph.empty{background:var(--pink2);border:1.5px dashed color-mix(in srgb,var(--berry) 40%,transparent);display:grid;place-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+/* music pop-up */
+.music{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:25;width:min(320px,calc(100% - 32px));background:var(--paper);border-radius:14px;box-shadow:0 20px 50px rgba(60,10,5,.3),0 0 0 .5px rgba(0,0,0,.2);overflow:hidden;animation:slideup .5s cubic-bezier(.2,.9,.25,1.1) .6s both}
+.music .bar{position:static}
+.mu{display:flex;gap:14px;align-items:center;padding:14px 16px 16px}
+.vinyl{width:64px;height:64px;flex:none;border-radius:50%;background:radial-gradient(circle,var(--berry) 0 18%,var(--paper) 19% 21%,#1a1a1a 22% 100%);box-shadow:inset 0 0 0 6px #222,inset 0 0 0 7px #444;animation:spin 4s linear infinite}
+.mu-txt{min-width:0;flex:1}
+.mu-txt small{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mu-txt b{display:block;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.05;color:var(--berry)}
+.mu-txt span{font-size:13px;color:var(--muted)}
+.mu-links{display:flex;gap:8px;padding:0 16px 16px;flex-wrap:wrap}
+.mu-links a{font:500 12px var(--sans);text-decoration:none;border-radius:999px;padding:6px 12px;background:var(--berry);color:#fff}
+.mu-links a.alt{background:var(--powder2);color:var(--ink)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes slideup{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.rules{background:var(--pink2);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--ink)}
+.rules ul{margin:6px 0 0;padding-left:18px;color:var(--muted)}.rules li{margin-bottom:3px}
+.check{flex-direction:row;align-items:flex-start;gap:8px;font-weight:500;color:var(--ink);font-size:13px}
+.check input{margin-top:2px;accent-color:var(--berry)}
+.small-note{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--berry)!important}
+.mu-lyric{margin:-6px 16px 12px;font-family:var(--hand);font-size:17px;line-height:1.2;color:var(--ink)}
+.mu-lyric a{font-family:var(--mono);font-size:10px;color:var(--berry);white-space:nowrap}
+.winter{background:var(--berry);background-image:radial-gradient(rgba(255,248,231,.22) 1.5px,transparent 2px),radial-gradient(rgba(255,248,231,.14) 1px,transparent 1.5px);background-size:46px 46px,23px 23px;background-position:0 0,11px 17px}
+.winter>.in{padding-block:60px}
+.winter .head{text-align:center;margin-bottom:30px}
+.winter h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,50px);line-height:1;margin:6px 0 4px;color:#FFF8E7}
+.winter .eyebrow{color:#f3d6cf}.winter .hand{color:#95BBEA}
+.wlinks{text-align:center;margin:30px 0 0;font-family:var(--mono);font-size:12px;color:#FFF8E7}
+.wlinks a{color:#FFF8E7}
+.pme{width:min(440px,92%);aspect-ratio:1.25/1;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-3deg);padding:12px 12px 42px}
+.pme:hover{transform:translate(-50%,-50%) rotate(0) scale(1.02)!important}
+.tape.tr{left:auto;right:-14px;top:14px;margin:0;transform:rotate(40deg)}
+.pp-photo.has{padding:0;overflow:hidden}
+.pp-photo.has img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:sepia(.25) saturate(.9)}
+.pp-photo.big.has img{object-position:45% 50%}
+.pp-photo.has::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(147,5,0,.18) 1px,transparent 1.4px);background-size:4px 4px;pointer-events:none}
+.pp-photo.has .pp-star{z-index:2}
+.idcard{position:absolute;left:50%;top:50%;width:min(470px,96%);transform:translate(-50%,-50%) rotate(-3deg);background:var(--berry);border-radius:20px;padding:6px;box-shadow:0 18px 40px rgba(80,10,5,.22);transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.idcard:hover{transform:translate(-50%,-50%) rotate(-1deg) scale(1.02)}
+.idcard .tape{z-index:3}
+.id-in{border-radius:15px;padding:26px;position:relative;background-color:var(--paper);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ctext x='10' y='15' text-anchor='middle' font-size='12' fill='%23930500'%3E%E2%98%85%3C/text%3E%3C/svg%3E");background-repeat:round;background-size:20px 20px}
+.id-in::before{content:"";position:absolute;inset:21px;background:var(--paper);border-radius:6px}
+.id-in>*{position:relative}
+.id-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;padding:2px 4px 8px}
+.id-top .pp-script{font-size:38px}
+.id-tag{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.id-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:0 4px 4px}
+.id-photo{min-height:190px;align-self:stretch}
+.id-f{margin:0;border:1.5px solid color-mix(in srgb,var(--berry) 55%,transparent)}
+.id-f div{padding:5px 8px 6px;border-bottom:1px solid color-mix(in srgb,var(--berry) 35%,transparent)}
+.id-f div:last-child{border-bottom:0}
+.id-f dt{font-family:var(--mono);font-size:9px;color:var(--muted)}
+.id-f dd{margin:1px 0 0;font-family:var(--mono);font-size:13px;color:var(--ink)}
+.id-f dd.sig{font-family:"Pinyon Script",cursive;font-size:24px;color:var(--berry);line-height:1}
+.collage .stamp{bottom:-6px;right:-1%}
+.sticker{position:absolute;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(80,10,5,.25));z-index:4}
+.st-queen{width:110px;left:-3%;bottom:-4px;transform:rotate(-10deg)}
+@media (max-width:460px){.idcard{width:90%}.collage .stamp{display:none}.st-queen{width:72px;left:0;bottom:-14px}.id-in{padding:22px}.id-photo{min-height:150px}.id-f dd{font-size:11px}}
+.spot.me{background:var(--paper);border:1.5px dashed color-mix(in srgb,var(--berry) 45%,transparent)}
+.spot.me .txt{background:var(--paper)}
+.spot.me .hand{font-size:20px}
+.me-open{border:0;padding:0;margin:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;width:100%}
+.me-open img.ph{aspect-ratio:4/3;object-fit:cover;object-position:50% 30%;display:block;width:100%}
+.spot.me .heart{font-size:26px;line-height:1;color:var(--berry);text-align:center;padding:10px 0 12px}
+.big-heart{font-size:34px;color:var(--berry);text-align:center}
+/* mac window */
+.overlay{position:fixed;inset:0;background:var(--shade);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:30;animation:fade .2s}
+.win{background:var(--paper);border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.35),0 0 0 .5px rgba(0,0,0,.25);width:min(520px,100%);max-height:100%;overflow:auto;animation:pop .28s cubic-bezier(.2,.9,.25,1.12)}
+.bar{display:flex;align-items:center;gap:8px;padding:11px 13px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--paper);z-index:1}
+.tl{width:12px;height:12px;border-radius:50%;border:0;padding:0;flex:none}
+.tl.r{background:var(--tl-r);cursor:pointer}.tl.y{background:var(--tl-y)}.tl.g{background:var(--tl-g)}
+.bar .t{flex:1;text-align:center;font-size:13px;font-weight:500;color:var(--muted);margin-right:52px}
+.wb{padding:18px;display:flex;flex-direction:column;gap:12px}
+.wb .big{height:260px;border-radius:8px}
+.wb h3{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1;margin:0;color:var(--berry)}
+.wb p{margin:0;color:var(--muted)}
+label{font-size:12px;font-weight:500;display:flex;flex-direction:column;gap:5px;color:var(--muted)}
+input,select,textarea{font:14px var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(--red) 30%,transparent);border-color:var(--red)}
+.drop{border:1.5px dashed var(--line);border-radius:10px;padding:14px;text-align:center;cursor:pointer;display:block;font-weight:500}
+.drop img{max-height:150px;border-radius:8px;margin:0 auto 8px;display:block}
+.drop input{display:none}
+.row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+@media (max-width:820px){
+  .hero .in{grid-template-columns:1fr}
+  .collage{height:380px}
+  .spots{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .book{grid-template-columns:1fr}.book::before,.ring{display:none}
+  .add .in{grid-template-columns:1fr}
+  .cals{grid-template-columns:1fr}
+  .candy>.in{grid-template-columns:1fr}
+}
+@media (max-width:460px){
+  .p1{width:170px;height:200px}.p2{width:160px;height:190px}.p3{width:150px;height:160px;left:28%;top:190px}
+  .spots{grid-template-columns:1fr}
+  .sheet{padding:50px 16px 28px}
+  .links{display:none}
+}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* first-visit notice */
+.notice{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(60,20,20,.28);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.notice-card{width:min(440px,100%);background:#e4ecf6;border:1.5px solid #b9cbe2;border-radius:18px;box-shadow:0 22px 50px rgba(40,20,30,.25);overflow:hidden;color:#3c3f58}
+.notice-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;background:#d3dff0;border-bottom:1px solid #b9cbe2}
+.notice-bar i{width:11px;height:11px;border-radius:50%;background:#c9d6e8;display:block}
+.notice-bar span{flex:1;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;margin-right:40px;color:#5d6688}
+.notice-body{padding:24px 24px 22px;text-align:center}
+.notice-body h2{margin:0 0 10px;font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.05;color:#3c3f58}
+.notice-body p{margin:0;font-size:15px;line-height:1.55}
+.notice-body hr{border:0;border-top:1px dashed #a9bbd6;margin:16px 0}
+.notice-body .ar{direction:rtl;font-family:"Noto Naskh Arabic",serif}
+.notice-body .ar h2{font-family:"Noto Naskh Arabic",serif;font-weight:700;font-size:24px}
+.notice-body .ar p{font-size:16px;line-height:1.8}
+.notice-ok{margin-top:20px;border:0;border-radius:999px;background:#3c3f58;color:#f3f6fb;font:500 14px var(--sans,"DM Sans"),sans-serif;padding:11px 22px;cursor:pointer}
+.notice-ok:hover{background:#2c2e44}
+
+/* London map */
+.mapsec{background:#f6ead9;background-image:radial-gradient(rgba(147,5,0,.05) 1px,transparent 1px);background-size:14px 14px}
+.mapsec>.in{padding-block:60px}
+.mapsec .head{text-align:center;margin-bottom:22px}
+.mapsec h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;margin:6px 0 4px;color:var(--berry)}
+.map-scroll{overflow-x:auto;overflow-y:hidden;border-radius:10px;-webkit-overflow-scrolling:touch;box-shadow:0 18px 40px rgba(80,10,5,.18);border:6px solid var(--berry);background:#f3e2c7}
+.map{position:relative;min-width:880px;aspect-ratio:2/1}
+.map svg.base{position:absolute;inset:0;width:100%;height:100%;display:block}
+.map::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 24.8%,rgba(90,40,20,.08) 25%,transparent 25.4%,transparent 49.8%,rgba(90,40,20,.1) 50%,transparent 50.4%,transparent 74.8%,rgba(90,40,20,.08) 75%,transparent 75.4%),linear-gradient(transparent 49.7%,rgba(90,40,20,.09) 50%,transparent 50.4%)}
+.pin{position:absolute;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;padding:0;border:3px solid var(--berry);background:var(--paper);cursor:pointer;box-shadow:0 6px 14px rgba(80,10,5,.3);transition:transform .2s;z-index:2}
+.pin img{width:100%;height:100%;object-fit:cover;border-radius:50%;display:block}
+.pin b{position:absolute;right:-6px;top:-6px;width:22px;height:22px;border-radius:50%;background:var(--berry);color:var(--paper);font:500 11px/22px var(--mono);text-align:center}
+.pin span{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;font-family:var(--hand);font-size:17px;line-height:1;color:var(--berry);background:rgba(255,248,231,.9);padding:2px 6px;border-radius:6px}
+.pin:hover,.pin:focus-visible{transform:translate(-50%,-50%) scale(1.15);z-index:5}
+.map-note{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-top:18px}
+.map-note .hand{margin-right:4px}
+.map-note button{border:1.5px solid var(--berry);background:var(--paper);color:var(--berry);border-radius:999px;padding:6px 12px;font:500 13px var(--sans,"DM Sans"),sans-serif;cursor:pointer}
+.map-hint{display:none;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.map-hint{display:block}}
+</style>
+
+<div class="page">
+  <header class="nav"><div class="in">
+    <nav class="links"><a href="#map">Map</a><a href="#spots">My spots</a><a href="#moments">Moments</a></nav>
+    <div class="logo">London <i>favorites</i></div>
+    <nav class="links"><a href="#dates">When I'm there</a><a href="#photos">Share photos</a></nav>
+  </div></header>
+
+  <section class="hero"><div class="in">
+    <div>
+      <span class="eyebrow">(based in London, UK)</span>
+      <h1>My favorite corners of <em>London</em></h1>
+      <p>The cafés, parks and rainy little streets I keep going back to, all in photos I took myself.</p>
+      <button class="pill solid" id="hero-btn">See my spots</button>
+      <div class="arrow"><svg viewBox="0 0 90 40" aria-hidden="true"><path d="M4 8c10 26 30 30 42 18 8-8-2-18-8-8-6 12 18 22 46 12M76 22l8 8-10 4"/></svg><span class="hand">coffeeeee first, then a walk!</span></div>
+    </div>
+    <div class="collage" aria-hidden="true">
+      <div class="idcard"><i class="tape"></i>
+        <div class="id-in">
+          <div class="id-top"><span class="pp-script">Passport.</span><span class="id-tag">London Favorites · traveler ID</span></div>
+          <div class="id-body">
+            <div class="pp-photo has id-photo"><img src="images/me.jpg" alt="lulwah"><i class="pp-star s3">★</i></div>
+            <dl class="id-f"><div><dt>name:</dt><dd>LULWAH</dd></div><div><dt>from:</dt><dd>KHOBAR</dd></div><div><dt>favorite city:</dt><dd>LONDON, UK</dd></div><div><dt>signature:</dt><dd class="sig">lulwah</dd></div></dl>
+          </div>
+        </div>
+      </div>
+      <img class="sticker st-queen" src="images/st-queen.png" alt="">
+      <div class="stamp">made<br>with love</div>
+      <!-- cherries -->
+      <svg class="sticker" style="left:-2%;top:6px;width:46px" viewBox="0 0 46 46"><path d="M14 30 C18 16 24 8 34 4 M30 32 C30 20 32 12 34 4" stroke="#4d6b3a" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M34 4 c6-2 10 2 8 6 c-4 0-7-2-8-6z" fill="#7c9a5a"/><circle cx="13" cy="34" r="8" fill="#c23a33"/><circle cx="30" cy="36" r="8" fill="#a51f1b"/><circle cx="10" cy="31" r="2" fill="#fff" opacity=".7"/></svg>
+      <!-- heart -->
+      <svg class="sticker" style="right:30%;top:-6px;width:38px;transform:rotate(12deg)" viewBox="0 0 40 36"><path d="M20 34 C6 24 0 16 4 8 c4-8 13-7 16 0 c3-7 12-8 16 0 c4 8-2 16-16 26z" fill="#f2a7b5" stroke="#7a1c27" stroke-width="1.5"/></svg>
+      <!-- crown -->
+      <svg class="sticker" style="left:30%;bottom:-4px;width:52px;transform:rotate(-8deg)" viewBox="0 0 52 36"><path d="M4 30 L8 8 L18 20 L26 4 L34 20 L44 8 L48 30 Z" fill="#e8c26a" stroke="#7a1c27" stroke-width="1.5"/><circle cx="26" cy="22" r="3" fill="#c23a33"/></svg>
+    </div>
+  </div></section>
+
+  <div class="ticker" aria-hidden="true"><div>mind the gap · tea at four · rainy day walks · red phone boxes · flowers on sunday · sunset on primrose hill · mind the gap · tea at four · rainy day walks · red phone boxes · flowers on sunday · sunset on primrose hill · </div></div>
+
+
+  <section class="mapsec" id="map"><div class="in">
+    <div class="head"><span class="eyebrow">Every spot, pinned</span><h2>My London map</h2><span class="hand">tap a photo to see the place</span></div>
+    <div class="map-scroll"><div class="map" id="lmap"></div></div>
+    <p class="map-hint">swipe the map sideways ↔</p>
+    <div class="map-note" id="mapmore"></div>
+  </div></section>
+
+  <section class="band" id="spots"><div class="in">
+    <div class="sheet">
+      <span class="eyebrow">Where to find me</span>
+      <h2>My favorite spots</h2>
+      <div class="chips" role="group" aria-label="Filter spots">
+        <button class="chip" id="f-all" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" id="f-landmark" data-f="landmark" aria-pressed="false">Landmarks</button>
+        <button class="chip" id="f-river" data-f="river" aria-pressed="false">By the river</button>
+        <button class="chip" id="f-park" data-f="park" aria-pressed="false">Parks</button>
+        <button class="chip" id="f-shop" data-f="shop" aria-pressed="false">Streets &amp; shops</button>
+        <button class="chip" id="f-food" data-f="food" aria-pressed="false">Food &amp; coffee</button>
+      </div>
+      <div class="spots" id="grid"></div>
+      <div class="signup"><span>Psst! Got a favorite London place too?</span><button class="pill solid" id="band-add">Add your spot</button></div>
+    </div>
+  </div></section>
+
+  <section class="moments" id="moments"><div class="in">
+    <div class="head"><span class="eyebrow">Little moments</span><h2>Bits of London I loved</h2><span class="hand">squirrels, books, matcha and pink skies</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
+    <div class="strip" id="strip"></div>
+  </div></section>
+
+  <section class="winter" id="winter"><div class="in">
+    <div class="head"><span class="eyebrow">Winter in London</span><h2>Christmas lights &amp; cozy days</h2><span class="hand">my favorite time to be here</span></div>
+    <div class="strip" id="wstrip"></div>
+    <p class="wlinks">Find them: <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Ritz+London" target="_blank" rel="noopener">The Ritz ↗</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Dorchester+London" target="_blank" rel="noopener">The Dorchester ↗</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Hyde+Park+Winter+Wonderland" target="_blank" rel="noopener">Winter Wonderland ↗</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Regent+Street+London" target="_blank" rel="noopener">Regent Street lights ↗</a></p>
+  </div></section>
+
+  <section class="daytrip" id="bath"><div class="in">
+    <div class="head"><span class="eyebrow">Day trip</span><h2>A day in <em>Bath</em></h2><span class="hand">just a train ride from London!</span></div>
+    <div class="spots four" id="bathgrid"></div>
+  </div></section>
+
+
+  <section class="cal" id="dates"><div class="in">
+    <div class="cal-head">
+      <span class="eyebrow">Save the date</span>
+      <h2>When I'm in London</h2>
+      <span class="hand">the colored months are when you can find me there!</span>
+    </div>
+    <div class="cals" id="cals"></div>
+      </div></section>
+
+  <section class="candy" id="photos"><div class="in">
+    <div>
+      <span class="eyebrow">Your England photos</span>
+      <h2>Share your <em>London</em> photos</h2>
+      <p>Took a pretty photo in England? Pop it into my camera. I look at every one and add my favorites to the site.</p>
+      <p class="small-note">England photos only, please. Read the photo rules before you send.</p>
+      <span class="hand">tap the camera to add yours ↘</span>
+    </div>
+    <div class="cam-stage">
+      <div class="postcard" aria-hidden="true"><span class="pc-top">greetings from</span><span class="pc-big">London</span><span class="pc-note">wish you were here! x</span></div>
+      <button class="camera" id="folder-btn" aria-label="Add your England photos">
+        <span class="lens"></span><span class="flash"></span><span class="dial"></span>
+        <span class="screen"><b>photo</b> +</span>
+        <span class="pad"><i></i></span><span class="btn1"></span><span class="btn2"></span>
+      </button>
+    </div>
+  </div></section>
+
+  <section class="add" id="add"><div class="in">
+    <div>
+      <span class="eyebrow">Your turn</span>
+      <h2>Tell me your favorite spot</h2>
+      <p>Send me a London place you love, with a photo if you like. I read every one and add my favorites here.</p>
+    </div>
+    <button class="pill solid" id="add-btn">Add your spot</button>
+  </div></section>
+
+  <section class="moments" id="visitors" hidden><div class="in">
+    <div class="head"><span class="eyebrow">From you</span><h2>Your London</h2><span class="hand">favorite photos sent in by visitors</span></div>
+    <div class="strip" id="vstrip"></div>
+  </div></section>
+
+  <footer class="foot"><div class="in"><span>London favorites</span><span>made by lulwah · all photos are my own</span></div></footer>
+</div>
+
+<div class="notice" id="notice" role="dialog" aria-modal="true" aria-labelledby="notice-t">
+  <div class="notice-card">
+    <div class="notice-bar"><i></i><i></i><i></i><span>Before you look around</span></div>
+    <div class="notice-body">
+      <div lang="en"><h2 id="notice-t">Please respect my photos</h2><p>No one is allowed to take my photos and post them on another platform. If I find out, action will be taken.</p></div>
+      <hr>
+      <div class="ar" lang="ar"><h2>رجاءً</h2><p>يُمنع منعًا باتًا أخذ صوري أو نشرها في أي منصة أخرى. وفي حال علمت بذلك، سيتم اتخاذ الإجراءات اللازمة.</p></div>
+      <button class="notice-ok" id="notice-ok" type="button">I understand · أوافق</button>
+    </div>
+  </div>
+</div>
+<aside class="music" id="music" aria-label="Song of the site">
+  <div class="bar"><button class="tl r" aria-label="Close player" id="mu-close"></button><span class="tl y"></span><span class="tl g"></span><span class="t">now playing</span></div>
+  <div class="mu"><span class="vinyl" aria-hidden="true"></span><div class="mu-txt"><small>lulwah's London song</small><b>London Boy</b><span>Taylor Swift</span></div></div>
+  <p class="mu-lyric">"...walk into some bar called The Black Dog" <a href="#spots">see the pub ↓</a></p>
+  <div class="mu-links"><a href="https://open.spotify.com/playlist/0hGg16h3dzFgRK9vjakqfv" target="_blank" rel="noopener">My Spotify playlist ↗</a><a class="alt" href="https://music.apple.com/search?term=London%20Boy%20Taylor%20Swift" target="_blank" rel="noopener">Apple Music ↗</a></div>
+</aside>
+<div class="overlay" id="ov" hidden>
+  <div class="win" role="dialog" aria-modal="true" aria-labelledby="wt">
+    <div class="bar"><button class="tl r" aria-label="Close" data-close></button><span class="tl y"></span><span class="tl g"></span><span class="t" id="wt"></span></div>
+    <div class="wb" id="wb"></div>
+  </div>
+</div>
+
+<script>
+/* name, area, type, photo, Google Maps search */
+const spots=[
+  ["Big Ben","Westminster","landmark","big-ben","Elizabeth Tower, London"],
+  ["Tower Bridge","Tower Hill","landmark","tower-bridge","Tower Bridge, London"],
+  ["Piccadilly Circus","West End","landmark","piccadilly","Piccadilly Circus, London"],
+  ["The London Eye at night","South Bank","river","london-eye","London Eye, London"],
+  ["V&A Museum","South Kensington","landmark","va","Victoria and Albert Museum, London"],
+  ["Harrods","Knightsbridge","shop","harrods","Harrods, Knightsbridge, London"],
+  ["Shad Thames","Bermondsey","river","shad-thames","Shad Thames, London SE1"],
+  ["The Queen's Walk at sunset","Near Tower Bridge","river","queens-walk","The Queen's Walk, London SE1"],
+  ["The Serpentine","Hyde Park","park","serpentine","The Serpentine, Hyde Park, London"],
+  ["Holland Park","Kensington","park","holland-park","Holland Park, London"],
+  ["Old Bond Street","Mayfair","shop","old-bond-street","Old Bond Street, London"],
+  ["HMV","Oxford Street","shop","hmv","HMV Oxford Street, London"],
+  ["Flabelus","Shoe shopping","shop","flabelus","Flabelus, London"],
+  ["Superdrug","London","shop","superdrug","Superdrug, London"],
+  ["The Black Dog","Vauxhall","food","black-dog","The Black Dog pub, Vauxhall, London"],
+  ["Jenki Matcha","Selfridges","food","jenki","Jenki Selfridges, London"],
+  ["Qinwan","Ya marhaba coffee","food","qinwan","Qinwan, London"],
+  ["Blank Street Coffee","London","food","blank-street","Blank Street Coffee, London"],
+  ["Flat Iron","London","food","flat-iron","Flat Iron steak, London"],
+  ["Best bagels in town","Utopia Bagels","food","bagels","Utopia Bagels, London"]
+];
+const names={food:"Food & coffee",landmark:"Landmark",shop:"Streets & shops",river:"By the river",park:"Park",bath:"Bath"};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const maps=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+const mapLink=s=>`<a class="maps" href="${maps(s[4])}" target="_blank" rel="noopener">Open in Google Maps ↗</a>`;
+const grid=document.getElementById('grid');
+const me=[["me-flowers","flowers for me"],["me-matcha","matcha date"],["me-bigben","Big Ben & me"],["me-park","park day"],["me-hoodie","cozy hoodie day"],["me-groceries","groceries stop"],["me-birthday","birthday girl"],["me-train","on the train"],["me-book","my birthday book"],["me-lego","Lego haul"],["me-walk","walk with music"],["me-run","my morning run"],["me-tube","Tube mirror"],["me-camera","my pink camera"],["me-ticket","birthday treat"],["me-bookmirror","bookshop mirror"],["me-mirror","shop mirror"],["me-tube2","red on the Tube"],["me-5k","Battersea 5K medal!"],["me","rooftop at dusk"]];
+const spotCard=(s,i)=>`<article class="spot c${i%4+1}" data-t="${s[2]}"><button class="spot-open" data-i="${i}"><img class="ph" src="images/${s[3]}.jpg" alt="${esc(s[0])}" loading="lazy"><span class="txt"><small>${esc(s[1])} · ${names[s[2]]}</small><b>${esc(s[0])}</b></span></button>${mapLink(s)}</article>`;
+const meCard=(m,j)=>`<article class="spot me" data-t="me"><button class="me-open" data-m="${j}"><img class="ph" src="images/${m[0]}.jpg" alt="lulwah: ${esc(m[1])}" loading="lazy"><span class="txt heart" aria-hidden="true">♡</span></button></article>`;
+let cards=[];spots.forEach((s,i)=>{cards.push(spotCard(s,i));if(me[i])cards.push(meCard(me[i],i));});
+grid.innerHTML=cards.join('');
+grid.addEventListener('click',e=>{const b=e.target.closest('.me-open');if(!b)return;const m=me[b.dataset.m];openWin('♡',`<img class="big" src="images/${m[0]}.jpg" alt="lulwah"><span class="heart big-heart" aria-hidden="true">♡</span>`);});
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));
+  grid.querySelectorAll('.spot').forEach(p=>p.hidden=!(c.dataset.f==='all'||p.dataset.t===c.dataset.f));
+}));
+const ov=document.getElementById('ov'),wt=document.getElementById('wt'),wb=document.getElementById('wb');
+function openWin(t,h){wt.textContent=t;wb.innerHTML=h;ov.hidden=false;(wb.querySelector('input')||ov.querySelector('.tl.r')).focus();}
+function closeWin(){ov.hidden=true;}
+ov.addEventListener('click',e=>{if(e.target===ov||e.target.closest('[data-close]'))closeWin();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWin();});
+const bath=[
+  ["Holburne Museum","Great Pulteney Street view","bath","holburne","Holburne Museum, Bath"],
+  ["Lemonade by the river","Parade Gardens","bath","lemonade","Parade Gardens, Bath"],
+  ["River Avon","Pulteney Bridge","bath","river-avon","Pulteney Bridge, Bath"],
+  ["Green walks","Bath","bath","bath-trees","Bath, UK"]
+];
+const base=spots.length;spots.push(...bath);
+document.getElementById('bathgrid').innerHTML=bath.map((s,j)=>`<article class="spot c${j%4+1}"><button class="spot-open" data-i="${base+j}"><img class="ph" src="images/${s[3]}.jpg" alt="${esc(s[0])}" loading="lazy"><span class="txt"><small>${esc(s[1])}</small><b>${esc(s[0])}</b></span></button>${mapLink(s)}</article>`).join('');
+const moments=[["squirrel","park friend"],["happy-place","reading in the park"],["pasta","truffle pasta"],["bus","bus & crisps"],["thames-sunset","Thames sunset"],["thames-night","Thames at night"],["tennis","Wimbledon!"],["book","reading time"],["flowers","Tesco flowers"],["victoria-tower","Victoria Tower"],["shard-night","the Shard"],["whitehall","autumn in Whitehall"],["phonebox","red phone box"],["phone-inside","inside the phone box"],["pub-lights","pub fairy lights"],["tunnel","little tunnel"],["serpentine-dusk","Serpentine at dusk"],["fair","summer fair"],["vauxhall-shore","Thames shore, Vauxhall"],["stjames","St James's Park"],["lobby-stairs","grand stairs"],["horseguards","Horse Guards & the Eye"],["tree-restaurant","dinner under a tree"],["shoe-wall","the shoe wall"],["under-bridge","sunset under the bridge"],["train-coffee","coffee on the train"],["latte-matcha","latte & matcha"],["cinema","movie night"],["park-sunset","park sunset"],["story-card","our story card"],["camden-caps","1D caps by the canal"],["rooftop","rooftop sunset"],["westminster-sunset","sunset over Westminster"],["staircase","red carpet stairs"],["nero","Christmas at Caffè Nero"],["toast","I'm happy"],["chanel","Chanel window"]].filter(m=>m.length);
+const winter=[["x-ritz","The Ritz"],["x-angels","Regent Street angels"],["x-bigtree","the big tree"],["x-tree","golden lights"],["x-bow","a red bow"],["m-stocking","my stocking"],["x-ornaments","ornaments"],["x-chandelier","Dorchester chandeliers"],["x-lobby","The Dorchester"],["x-ww","Winter Wonderland"],["x-prizes","fairground prizes"],["x-potatoes","spiral potatoes"],["x-corndog","corn dog at the fair"],["x-matcha","warm matcha"],["x-mayfair","Mayfair sunset"],["x-trees","bare winter trees"],["x-joseph","cozy knits"]];
+document.getElementById('wstrip').innerHTML=winter.map(([f,c])=>`<figure class="mo"><img src="images/${f}.jpg" alt="${esc(c)}" loading="lazy"><span>${esc(c)}</span></figure>`).join('');
+document.getElementById('strip').innerHTML=moments.map(([f,c])=>`<figure class="mo"><img src="images/m-${f}.jpg" alt="${esc(c)}" loading="lazy"><span>${esc(c)}</span></figure>`).join('');
+document.getElementById('bathgrid').addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(b)grid.dispatchEvent(new CustomEvent('openspot',{detail:+b.dataset.i}));});
+grid.addEventListener('openspot',e=>showSpot(spots[e.detail]));
+function showSpot(s){openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>A note about why you love this place can go here, plus a tip like the best time to go.</p>${mapLink(s)}`);}
+grid.addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(!b)return;const s=spots[b.dataset.i];
+  openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>A note about why you love this place can go here, plus a tip like the best time to go.</p>${mapLink(s)}`);});
+document.getElementById('hero-btn').onclick=()=>document.getElementById('spots').scrollIntoView({behavior:'smooth'});
+function openAdd(){openWin('Add your favorite spot',`<form id="af" class="wb" style="padding:0">
+  <label>Place name<input id="a-name" required placeholder="e.g. Daunt Books"></label>
+  <label>Area<input id="a-area" placeholder="e.g. Marylebone"></label>
+  <label>Type<select id="a-type"><option>Café</option><option>Park</option><option>Street</option><option>By the river</option><option>Something else</option></select></label>
+  <label>Why do you love it?<textarea id="a-why" rows="3" placeholder="One or two sentences"></textarea></label>
+  <label class="drop" id="drop">Add a photo (optional)<input type="file" id="a-photo" accept="image/*"></label>
+  <div class="row"><button type="button" class="pill" data-close>Cancel</button><button class="pill solid">Send spot</button></div></form>`);}
+document.getElementById('add-btn').onclick=openAdd;document.getElementById('band-add').onclick=openAdd;
+wb.addEventListener('change',e=>{if(e.target.id!=='a-photo'||!e.target.files[0])return;const r=new FileReader();r.onload=()=>{const d=document.getElementById('drop');d.querySelector('img')?.remove();const im=new Image();im.src=r.result;im.alt='Your photo';d.prepend(im);};r.readAsDataURL(e.target.files[0]);});
+document.getElementById('notice-ok').onclick=()=>document.getElementById('notice').hidden=true;
+
+/* London map */
+(function(){
+const W=1000,H=500,L0=-0.215,L1=-0.065,T=51.526,B=51.478;
+const P=(lng,lat)=>[(lng-L0)/(L1-L0)*W,(T-lat)/(T-B)*H];
+const smooth=pts=>{let d=`M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;d+=` C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)} ${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)} ${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;}return d;};
+const thames=[[-0.235,51.490],[-0.225,51.485],[-0.217,51.474],[-0.205,51.467],[-0.190,51.464],[-0.180,51.470],[-0.172,51.4805],[-0.160,51.4835],[-0.148,51.4850],[-0.135,51.4865],[-0.126,51.4900],[-0.1225,51.4960],[-0.1222,51.5010],[-0.1205,51.5060],[-0.1140,51.5093],[-0.1040,51.5096],[-0.0920,51.5083],[-0.0800,51.5068],[-0.0720,51.5050],[-0.0600,51.5035],[-0.0500,51.5045],[-0.040,51.508]].map(a=>P(...a));
+const tp=smooth(thames);
+let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+let streets='';for(let i=0;i<520;i++){const x=rnd()*W,y=rnd()*H,a=rnd()*Math.PI,l=14+rnd()*46;streets+=`M${x.toFixed(0)} ${y.toFixed(0)}l${(Math.cos(a)*l).toFixed(0)} ${(Math.sin(a)*l).toFixed(0)}`;}
+const poly=pts=>smooth([...pts,pts[0]].map(a=>P(...a)))+'Z';
+const parks=[
+ [[-0.1905,51.5115],[-0.1530,51.5130],[-0.1515,51.5050],[-0.1575,51.5023],[-0.1880,51.5020]],
+ [[-0.1480,51.5065],[-0.1420,51.5072],[-0.1390,51.5030],[-0.1450,51.5010]],
+ [[-0.1395,51.5040],[-0.1290,51.5045],[-0.1285,51.5010],[-0.1400,51.5012]],
+ [[-0.2080,51.5060],[-0.1990,51.5058],[-0.1995,51.5000],[-0.2075,51.5005]],
+ [[-0.1650,51.4830],[-0.1500,51.4825],[-0.1505,51.4760],[-0.1655,51.4760]],
+ [[-0.1650,51.5300],[-0.1440,51.5300],[-0.1440,51.5230],[-0.1650,51.5230]],
+ [[-0.0915,51.5010],[-0.0860,51.5012],[-0.0862,51.4990],[-0.0912,51.4988]]];
+const roads=[[[-0.215,51.5010],[-0.185,51.5015],[-0.160,51.5018],[-0.150,51.5032],[-0.134,51.5100],[-0.128,51.5110],[-0.118,51.5115],[-0.104,51.5135],[-0.090,51.5140],[-0.075,51.5160]],[[-0.200,51.5140],[-0.170,51.5135],[-0.158,51.5130],[-0.142,51.5150],[-0.131,51.5165],[-0.115,51.5175]],[[-0.1395,51.5160],[-0.1390,51.5120],[-0.1340,51.5101]],[[-0.215,51.4960],[-0.185,51.4950],[-0.170,51.4955],[-0.160,51.4975]],[[-0.1222,51.5010],[-0.1100,51.4995],[-0.090,51.4990],[-0.075,51.4985]],[[-0.170,51.4870],[-0.150,51.4930],[-0.135,51.4955],[-0.1260,51.4995]],[[-0.120,51.5265],[-0.140,51.5245],[-0.165,51.5235],[-0.180,51.5220]]];
+const labels=[["KENSINGTON",-0.198,51.4985,-4],["KNIGHTSBRIDGE",-0.168,51.5005,0],["MAYFAIR",-0.148,51.5105,-6],["SOHO",-0.133,51.5135,0],["MARYLEBONE",-0.155,51.5195,0],["WESTMINSTER",-0.135,51.4985,0],["SOUTH BANK",-0.110,51.5035,-8],["THE CITY",-0.092,51.5150,0],["CHELSEA",-0.172,51.4875,-6],["BERMONDSEY",-0.075,51.4980,0],["VAUXHALL",-0.120,51.4830,0],["HYDE PARK",-0.172,51.5085,0],["COVENT GARDEN",-0.122,51.5130,0]];
+const lab=labels.map(([t,a,b,r])=>{const[x,y]=P(a,b);return `<text x="${x.toFixed(0)}" y="${y.toFixed(0)}" transform="rotate(${r} ${x.toFixed(0)} ${y.toFixed(0)})" text-anchor="middle" font-family="Instrument Serif,serif" font-size="15" letter-spacing="3" fill="#7a3a2a" opacity=".75">${t}</text>`}).join('');
+const pins=[[0,-0.1246,51.5007,-55,55],[1,-0.0754,51.5055,15,-70],[2,-0.1340,51.5101,25,-72],[3,-0.1196,51.5033,62,-48],[4,-0.1722,51.4966,-45,58],[5,-0.1634,51.4994,35,62],[6,-0.0725,51.5035,55,55],[7,-0.0790,51.5050,-62,58],[8,-0.1680,51.5050,-15,-72],[9,-0.2040,51.5030,30,-70],[10,-0.1415,51.5088,-28,78],[11,-0.1480,51.5142,30,-68],[14,-0.1210,51.4865,68,22],[15,-0.1527,51.5144,-75,-50]];
+let arrows='',btns='';
+pins.forEach(([i,lng,lat,dx,dy],n)=>{const s=spots[i];if(!s)return;const[x,y]=P(lng,lat);const px=Math.min(965,Math.max(35,x+dx)),py=Math.min(455,Math.max(35,y+dy));const mx=(x+px)/2+dy*.25,my=(y+py)/2-dx*.25;
+ arrows+=`<path d="M${px.toFixed(0)} ${py.toFixed(0)} Q${mx.toFixed(0)} ${my.toFixed(0)} ${x.toFixed(0)} ${y.toFixed(0)}" fill="none" stroke="#930500" stroke-width="1.8" stroke-dasharray="4 4" marker-end="url(#ah)"/><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="4.5" fill="#930500" stroke="#FFF8E7" stroke-width="2"/>`;
+ btns+=`<button class="pin" data-i="${i}" style="left:${(px/W*100).toFixed(2)}%;top:${(py/H*100).toFixed(2)}%" aria-label="${esc(s[0])}"><img src="images/${s[3]}.jpg" alt="" loading="lazy"><b>${n+1}</b><span>${esc(s[0].replace(/^The /,'').replace(' at night','').replace(' at sunset',''))}</span></button>`;});
+const lm=document.getElementById('lmap');if(!lm)return;
+lm.innerHTML=`<svg class="base" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#930500"/></marker></defs>
+<rect width="${W}" height="${H}" fill="#f3e2c7"/>
+<path d="${streets}" stroke="#a88a6c" stroke-width=".7" opacity=".45" fill="none"/>
+${roads.map(r=>`<path d="${smooth(r.map(a=>P(...a)))}" stroke="#e7b9a8" stroke-width="7" fill="none" stroke-linecap="round"/><path d="${smooth(r.map(a=>P(...a)))}" stroke="#fbeee0" stroke-width="3.5" fill="none" stroke-linecap="round"/>`).join('')}
+${parks.map(pk=>`<path d="${poly(pk)}" fill="#c9d9a8" stroke="#9fb27a" stroke-width="1.2"/>`).join('')}
+<path d="${poly([[-0.1770,51.5065],[-0.1700,51.5060],[-0.1640,51.5048],[-0.1650,51.5040],[-0.1710,51.5050],[-0.1775,51.5058]])}" fill="#95BBEA"/>
+<path d="${tp}" stroke="#6f97c8" stroke-width="30" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="${tp}" stroke="#a9c8ee" stroke-width="24" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="${tp}" stroke="#d3e4f7" stroke-width="1.2" stroke-dasharray="6 9" fill="none"/>
+${(()=>{const[x,y]=P(-0.106,51.5113);return `<text x="${x}" y="${y}" font-family="Instrument Serif,serif" font-style="italic" font-size="22" fill="#3f6aa1" transform="rotate(-2 ${x} ${y})">River Thames</text>`})()}
+${lab}
+<g transform="translate(940 440)"><circle r="26" fill="#FFF8E7" stroke="#930500" stroke-width="1.5"/><path d="M0 -22L6 0L0 22L-6 0Z" fill="#930500"/><path d="M0 -22L6 0L-6 0Z" fill="#c43a2f"/><text y="-30" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#930500">N</text></g>
+<g transform="translate(30 470)"><text font-family="Pinyon Script,cursive" font-size="26" fill="#930500" y="-6">London</text><text y="10" font-family="DM Mono,monospace" font-size="9" letter-spacing="2" fill="#7a3a2a">LULWAH'S POCKET MAP</text></g>
+${arrows}</svg>${btns}`;
+requestAnimationFrame(()=>{const sc=lm.parentElement;sc.scrollLeft=(sc.scrollWidth-sc.clientWidth)*.55;});
+lm.addEventListener('click',e=>{const b=e.target.closest('.pin');if(b)document.querySelector(`.spot-open[data-i="${b.dataset.i}"]`)?.click();});
+const placed=new Set(pins.map(p=>p[0]));const more=document.getElementById('mapmore');
+more.innerHTML='<span class="hand">and all over London:</span>'+spots.map((s,i)=>placed.has(i)||s[2]==='bath'?'':`<button data-i="${i}">${esc(s[0])}</button>`).join('');
+more.addEventListener('click',e=>{const b=e.target.closest('button');if(b)document.querySelector(`.spot-open[data-i="${b.dataset.i}"]`)?.click();});
+})();
+/* calendar: months I'm in London */
+const calSummer=[5,6,7,8],calWinter=[10,11,0];
+const clip=`<svg class="clip" viewBox="0 0 46 40" aria-hidden="true"><rect x="4" y="16" width="38" height="20" rx="3" fill="#b07a52"/><rect x="4" y="16" width="38" height="6" rx="2" fill="#c99168"/><path d="M14 18 C14 4 32 4 32 18" stroke="#8a5a3a" stroke-width="3" fill="none"/></svg>`;
+document.getElementById('cals').innerHTML=`<div class="month year">${clip}<h3>My London year</h3><div class="months">${['January','February','March','April','May','June','July','August','September','October','November','December'].map((m,i)=>{const t=calSummer.includes(i)?'summer':calWinter.includes(i)?'winter':'';const bd=i===0;return `<span class="mth${t?' here '+t:''}${bd?' bday':''}">${bd?'<b class="bday-note">my birthday month <svg viewBox="0 0 40 30" aria-hidden="true"><path d="M36 4 C26 6 14 10 8 24" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M3 17 L8 25 L15 19" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></b>':''}${m}${t?`<small>${bd?'winter ♡':t}</small>`:''}</span>`}).join('')}</div><div class="legend"><span><i class="k summer"></i>summer</span><span><i class="k winter"></i>winter</span><span><i class="k bday"></i>birthday</span></div></div>`;
+/* photo folder */
+document.getElementById('folder-btn').onclick=()=>openWin('Add your England photos',`<form id="pf" class="wb" style="padding:0">
+  <div class="rules"><b>Photo rules</b><ul><li>Photos taken in <b>England only</b></li><li>Only photos you took yourself</li><li>Nothing private, like names or home addresses</li><li>lulwah checks every photo first and can choose not to post it</li><li>Approved photos are shown <b>publicly</b> on this website for anyone to see</li></ul></div>
+  <label class="drop" id="pdrop">Choose photos<input type="file" id="p-files" accept="image/*" multiple></label>
+  <div class="thumbs" id="thumbs"></div>
+  <label>Where did you take them?<input id="p-where" placeholder="e.g. Notting Hill, London"></label>
+  <label>Your name (optional)<input id="p-name" placeholder="So I can credit you"></label>
+  <label class="check"><input type="checkbox" id="p-agree" required> I took these photos in England and I agree they can be shared publicly on London Favorites.</label>
+  <div class="row"><button type="button" class="pill" data-close>Cancel</button><button class="pill solid">Send photos</button></div></form>`);
+wb.addEventListener('change',e=>{if(e.target.id!=='p-files')return;const th=document.getElementById('thumbs');th.innerHTML='';[...e.target.files].slice(0,9).forEach(f=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.src=r.result;im.alt='';th.appendChild(im);};r.readAsDataURL(f);});});
+/* saving submissions (Supabase) */
+const SB='https://bvpruzwymudrsgfloidc.supabase.co',SBK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2cHJ1end5bXVkcnNnZmxvaWRjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxNzQyNjksImV4cCI6MjEwOTc1MDI2OX0.EhDhKxqjLDka1480JdJ6zPK3HAQToZ7dCIY8eNIP7fY';
+const sbH={apikey:SBK,Authorization:'Bearer '+SBK};
+async function shrink(f){try{const bmp=await createImageBitmap(f);const s=Math.min(1,1600/Math.max(bmp.width,bmp.height));const c=document.createElement('canvas');c.width=Math.round(bmp.width*s);c.height=Math.round(bmp.height*s);c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);const b=await new Promise(r=>c.toBlob(r,'image/jpeg',.85));return b||f;}catch(e){return f;}}
+async function uploadPhoto(f){const b=await shrink(f);const ext=b.type==='image/jpeg'?'jpg':((f.name||'').split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'');const path=new Date().toISOString().slice(0,10)+'/'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2))+'.'+ext;const r=await fetch(SB+'/storage/v1/object/submissions/'+path,{method:'POST',headers:{...sbH,'Content-Type':b.type||'image/jpeg'},body:b});if(!r.ok)throw new Error('upload '+r.status);return SB+'/storage/v1/object/public/submissions/'+path;}
+async function saveSub(row){const r=await fetch(SB+'/rest/v1/submissions',{method:'POST',headers:{...sbH,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)});if(!r.ok)throw new Error('save '+r.status);}
+const val=id=>(document.getElementById(id)?.value||'').trim();
+const sending=()=>{wt.textContent='Sending…';wb.innerHTML='<h3>Sending…</h3><p>Hold on a second, your photos are on their way.</p>';};
+const sentMsg=(h,p)=>{wt.textContent='Thank you!';wb.innerHTML=`<h3>${h}</h3><p>${p}</p><div class="row"><button class="pill solid" data-close>Done</button></div>`;};
+const failMsg=()=>{wt.textContent='Oops';wb.innerHTML='<h3>That didn’t send</h3><p>Something went wrong. Please check your internet and try again.</p><div class="row"><button class="pill solid" data-close>Close</button></div>';};
+wb.addEventListener('click',async e=>{if(e.target.id==='p-back'){document.getElementById('pf').hidden=false;document.getElementById('p-sure').remove();wt.textContent='Add your England photos';}
+  if(e.target.id==='p-yes'){const files=[...(document.getElementById('p-files')?.files||[])].slice(0,6);const row={kind:'photo',place:val('p-where').slice(0,120),name:val('p-name').slice(0,80)};sending();
+    try{row.photos=[];for(const f of files)row.photos.push(await uploadPhoto(f));await saveSub(row);sentMsg('Photos sent!','lulwah will look at them and may add them to London Favorites.');}catch(err){console.error(err);failMsg();}}});
+
+wb.addEventListener('submit',e=>{if(e.target.id!=='pf')return;e.preventDefault();e.stopImmediatePropagation();const f=document.getElementById('pf');f.hidden=true;wt.textContent='Are you sure?';f.insertAdjacentHTML('afterend',`<div id="p-sure" class="wb" style="padding:0"><h3>Are you sure?</h3><p>If lulwah picks your photo, <b>anyone on the internet</b> will be able to see it on London Favorites. Are you sure you want your photo shared in public?</p><div class="row"><button type="button" class="pill" id="p-back">Go back</button><button type="button" class="pill solid" id="p-yes">Yes, share it</button></div></div>`);},true);
+wb.addEventListener('submit',async e=>{if(e.target.id!=='af')return;e.preventDefault();const n=val('a-name');if(!n)return;const row={kind:'spot',place:n.slice(0,120),area:val('a-area').slice(0,120),spot_type:val('a-type').slice(0,40),why:val('a-why').slice(0,600),photos:[]};const f=document.getElementById('a-photo')?.files?.[0];sending();
+  try{if(f)row.photos.push(await uploadPhoto(f));await saveSub(row);sentMsg('Thanks for sharing!',`lulwah will look at ${esc(n)} and may add it to London Favorites.`);}catch(err){console.error(err);failMsg();}});
+/* approved visitor submissions */
+fetch(SB+'/rest/v1/rpc/approved_submissions',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{const items=[];rows.forEach(s=>(s.photos.length?s.photos:[null]).forEach(u=>{if(u)items.push([u,s.place||'London',s.name]);}));if(!items.length)return;document.getElementById('vstrip').innerHTML=items.slice(0,30).map(([u,pl,nm])=>`<figure class="mo"><img src="${esc(u)}" alt="${esc(pl)}" loading="lazy"><span>${esc(pl)}${nm?' · '+esc(nm):''}</span></figure>`).join('');document.getElementById('visitors').hidden=false;}).catch(()=>{});
+document.getElementById('mu-close').onclick=()=>{document.getElementById('music').hidden=true;};
+</script>
+
+</body></html>
