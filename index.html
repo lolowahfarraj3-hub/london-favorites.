@@ -55,6 +55,14 @@
 .pk0{transform:rotate(-6deg)}.pk1{transform:rotate(4deg) translateY(10px)}.pk2{transform:rotate(-2deg) translateY(4px)}
 .flayer.on .fl-tab{font-weight:500;color:var(--berry)}
 @media (max-width:600px){.flayer{height:150px;margin-top:-72px}.pk{width:64px;height:80px;border-width:4px}.pk2{display:none}.pkw{top:-20px}.fl-tab{min-width:0;padding:9px 16px 12px;font-size:11px}.flayer.l .pkw{right:6%}.flayer.r .pkw{left:6%}}
+
+.spot.slot{background:var(--paper);border:2px dashed color-mix(in srgb,var(--berry) 40%,transparent)}
+.slot-btn{border:0;padding:0;margin:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;width:100%;height:100%}
+.slot-ph{aspect-ratio:4/3;display:grid;place-items:center;color:color-mix(in srgb,var(--berry) 55%,transparent);background:repeating-linear-gradient(45deg,transparent 0 12px,rgba(147,5,0,.04) 12px 24px)}
+.slot-ph svg{width:56px}
+.spot.slot .txt{background:var(--paper)}
+.slot b{color:var(--berry)}
+.slot:hover .slot-ph{color:var(--berry)}
 </style>
 </head><body>
 
@@ -450,7 +458,7 @@ input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(
 
 <div class="page">
   <header class="nav"><div class="in">
-    <nav class="links"><a href="#map">Map</a><a href="#spots">My spots</a><a href="#moments">Moments</a></nav>
+    <nav class="links"><a href="#map">Map</a><a href="#moments">My spots</a><a href="#spots">Your photos</a></nav>
     <div class="logo">London <i>favorites</i></div>
     <nav class="links"><a href="#dates">When I'm there</a><a href="#photos">Share photos</a></nav>
   </div></header>
@@ -496,16 +504,10 @@ input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(
 
   <section class="band" id="spots"><div class="in">
     <div class="sheet">
-      <span class="eyebrow">Where to find me</span>
-      <h2>My favorite spots</h2>
-      <span class="hand spots-hint">pick a folder to open it</span>
-      <div class="spot-folders stack" id="fold-spots">
-    <div class="ftabs" role="tablist"></div>
-    <div class="folder">
-      <div class="f-left"><span class="f-label"></span><p class="f-sub hand"></p><p class="f-count"></p><div class="f-extra"></div></div>
-      <div class="f-right"><svg class="clipper" viewBox="0 0 60 70" aria-hidden="true"><path d="M18 30 C18 4 42 4 42 30" stroke="#2a1a18" stroke-width="4" fill="none"/><path d="M14 30 C14 -2 46 -2 46 30" stroke="#2a1a18" stroke-width="3" fill="none" opacity=".55"/><rect x="4" y="28" width="52" height="40" rx="4" fill="#1d1211"/><rect x="8" y="32" width="44" height="6" rx="2" fill="#3a2a28"/></svg><div class="f-photos"></div><button class="pill f-more" hidden>Show all photos</button></div>
-    </div>
-      </div>
+      <span class="eyebrow">Your turn</span>
+      <h2>Your favorite spots</h2>
+      <span class="hand spots-hint">send me your London photo and it could be here!</span>
+      <div class="spots" id="wall"></div>
       <div id="grid" hidden></div>
       <div class="signup"><span>Psst! Got a favorite London place too?</span><button class="pill solid" id="band-add">Add your spot</button></div>
     </div>
@@ -575,7 +577,7 @@ input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(
 <aside class="music" id="music" aria-label="Song of the site">
   <div class="bar"><button class="tl r" aria-label="Close player" id="mu-close"></button><span class="tl y"></span><span class="tl g"></span><span class="t">now playing</span></div>
   <div class="mu"><span class="vinyl" aria-hidden="true"></span><div class="mu-txt"><small>lulwah's London song</small><b>London Boy</b><span>Taylor Swift</span></div></div>
-  <p class="mu-lyric">"...walk into some bar called The Black Dog" <a href="#spots">see the pub ↓</a></p>
+  <p class="mu-lyric">"...walk into some bar called The Black Dog" <a href="#moments">see the pub ↓</a></p>
   <div class="mu-links"><a href="https://open.spotify.com/playlist/0hGg16h3dzFgRK9vjakqfv" target="_blank" rel="noopener">My Spotify playlist ↗</a><a class="alt" href="https://music.apple.com/search?term=London%20Boy%20Taylor%20Swift" target="_blank" rel="noopener">Apple Music ↗</a></div>
 </aside>
 <div class="overlay" id="ov" hidden>
@@ -650,26 +652,21 @@ show(0);
 return {add(f){F.push(f);drawTabs();}};
 }
 const meLeft=me.filter(m=>m[0]!=='me');
+const spotIdx=t=>spots.map((s,i)=>[s,i]).filter(([s])=>t==='all'?s[2]!=='bath':s[2]===t).map(([s,i])=>[s[3],s[0],i]);
 makeFolder(document.getElementById('fold-moments'),[
+ {tab:'My spots',color:'#f5dcd5',label:'My favorite spots',sub:'every place I love in London',items:spotIdx('all'),unit:' spots'},
  {tab:'Little moments',color:'#f2c4cf',label:'Little moments',sub:'squirrels, books, matcha and pink skies',items:moments.map(([f,c])=>['m-'+f,c])},
  {tab:'Winter',color:'#95BBEA',label:'Winter in London',sub:'Christmas lights & cozy days',items:winter,extra:'Find them:<br>'+'<a href="https://www.google.com/maps/search/?api=1&amp;query=The+Ritz+London" target="_blank" rel="noopener">The Ritz ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Dorchester+London" target="_blank" rel="noopener">The Dorchester ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=Hyde+Park+Winter+Wonderland" target="_blank" rel="noopener">Winter Wonderland ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=Regent+Street+London" target="_blank" rel="noopener">Regent Street lights ↗</a>'},
  {tab:'Bath',color:'#c9d9a8',label:'A day in Bath',sub:'just a train ride from London!',items:bath.map((b,j)=>[b[3],b[0],base+j])},
  {tab:'More of me',color:'#e9d3a8',label:'More of me',sub:'little moments of me around London ♡',items:meLeft.map(m=>[m[0],'♡'])}
 ]);
-const spotIdx=t=>spots.map((s,i)=>[s,i]).filter(([s])=>t==='all'?s[2]!=='bath':s[2]===t).map(([s,i])=>[s[3],s[0],i]);
-const spotFolder=makeFolder(document.getElementById('fold-spots'),[
- {tab:'All',color:'#f5dcd5',label:'All my spots',sub:'every place I love, in one folder',items:spotIdx('all'),unit:' spots'},
- {tab:'Landmarks',color:'#95BBEA',label:'Landmarks',sub:'the classics, still magic',items:spotIdx('landmark'),unit:' spots'},
- {tab:'By the river',color:'#b9d3f0',label:'By the river',sub:'Thames walks & sunsets',items:spotIdx('river'),unit:' spots'},
- {tab:'Parks',color:'#c9d9a8',label:'Parks',sub:'green corners to breathe',items:spotIdx('park'),unit:' spots'},
- {tab:'Streets & shops',color:'#f2c4cf',label:'Streets & shops',sub:'window shopping & wandering',items:spotIdx('shop'),unit:' spots'},
- {tab:'Food & coffee',color:'#e9d3a8',label:'Food & coffee',sub:'matcha, bagels & a pub',items:spotIdx('food'),unit:' spots'}
-]);
+const spotFolder=null;
+
 grid.addEventListener('openspot',e=>showSpot(spots[e.detail]));
 function showSpot(s){openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);}
 grid.addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(!b)return;const s=spots[b.dataset.i];
   openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);});
-document.getElementById('hero-btn').onclick=()=>document.getElementById('spots').scrollIntoView({behavior:'smooth'});
+document.getElementById('hero-btn').onclick=()=>document.getElementById('moments').scrollIntoView({behavior:'smooth'});
 function openAdd(){openWin('Add your favorite spot',`<form id="af" class="wb" style="padding:0">
   <label>Place name<input id="a-name" required placeholder="e.g. Daunt Books"></label>
   <label>Area<input id="a-area" placeholder="e.g. Marylebone"></label>
@@ -761,8 +758,15 @@ wb.addEventListener('click',async e=>{if(e.target.id==='p-back'){document.getEle
 wb.addEventListener('submit',e=>{if(e.target.id!=='pf')return;e.preventDefault();e.stopImmediatePropagation();const f=document.getElementById('pf');f.hidden=true;wt.textContent='Are you sure?';f.insertAdjacentHTML('afterend',`<div id="p-sure" class="wb" style="padding:0"><h3>Are you sure?</h3><p>If lulwah picks your photo, <b>anyone on the internet</b> will be able to see it on London Favorites. Are you sure you want your photo shared in public?</p><div class="row"><button type="button" class="pill" id="p-back">Go back</button><button type="button" class="pill solid" id="p-yes">Yes, share it</button></div></div>`);},true);
 wb.addEventListener('submit',async e=>{if(e.target.id!=='af')return;e.preventDefault();const n=val('a-name');if(!n)return;const row={kind:'spot',place:n.slice(0,120),area:val('a-area').slice(0,120),spot_type:val('a-type').slice(0,40),why:val('a-why').slice(0,600),photos:[]};const f=document.getElementById('a-photo')?.files?.[0];sending();
   try{if(f)row.photos.push(await uploadPhoto(f));await saveSub(row);sentMsg('Thanks for sharing!',`lulwah will look at ${esc(n)} and may add it to London Favorites.`);}catch(err){console.error(err);failMsg();}});
-/* approved visitor submissions -> "From you" folder */
-fetch(SB+'/rest/v1/rpc/approved_submissions',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{const items=[];rows.forEach(s=>(s.photos||[]).forEach(u=>{if(/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u))items.push([u,(s.place||'London')+(s.name?' · '+s.name:'')]);}));if(items.length)spotFolder.add({tab:'From you ♡',color:'#f7a8c0',label:'From you',sub:'favorite photos sent in by visitors',items});}).catch(()=>{});
+/* visitor wall: 1 photo of lulwah + 5 spots for visitors */
+const wallEl=document.getElementById('wall');let wallItems=[];
+function drawWall(){const va=spots.find(x=>x[3]==='va');let h=`<article class="spot c2"><button class="spot-open wall-me"><img class="ph" src="images/va.jpg" alt="lulwah at the V&amp;A Museum" loading="lazy"><span class="txt"><small>South Kensington · from lulwah</small><b>V&amp;A Museum</b></span></button></article>`;
+ for(let i=0;i<5;i++){const w=wallItems[i];h+=w?`<article class="spot c${(i+2)%4+1}"><button class="spot-open wall-v" data-w="${i}"><img class="ph" src="${esc(w[0])}" alt="${esc(w[1])}" loading="lazy"><span class="txt"><small>${w[2]?'from '+esc(w[2]):'from a visitor'}</small><b>${esc(w[1])}</b></span></button></article>`
+  :`<article class="spot slot"><button class="slot-btn" aria-label="Add your photo"><span class="slot-ph"><svg viewBox="0 0 48 40" aria-hidden="true"><rect x="3" y="9" width="42" height="28" rx="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M16 9l3-5h10l3 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="24" cy="23" r="8" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></span><span class="txt"><small>your photo here</small><b>${i===wallItems.length?'You’re next!':'Your photo will be here'}</b></span></button></article>`;}
+ wallEl.innerHTML=h;}
+drawWall();
+wallEl.addEventListener('click',e=>{if(e.target.closest('.slot-btn')){document.getElementById('folder-btn').click();return;}if(e.target.closest('.wall-me')){const i=spots.findIndex(x=>x[3]==='va');showSpot(spots[i]);return;}const v=e.target.closest('.wall-v');if(v){const w=wallItems[+v.dataset.w];openWin(w[1],`<img class="big" src="${esc(w[0])}" alt="${esc(w[1])}"><span class="eyebrow">${w[2]?'from '+esc(w[2]):'from a visitor'}</span><h3>${esc(w[1])}</h3>`);}});
+fetch(SB+'/rest/v1/rpc/approved_submissions',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{rows.forEach(s=>(s.photos||[]).forEach(u=>{if(/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u))wallItems.push([u,s.place||'London',s.name||'']);}));if(wallItems.length)drawWall();}).catch(()=>{});
 document.getElementById('mu-close').onclick=()=>{document.getElementById('music').hidden=true;};
 </script>
 
