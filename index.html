@@ -3,7 +3,38 @@
 <title>London Favorites</title>
 <meta name="description" content="lulwah's favorite corners of London, in photos.">
 <meta property="og:title" content="London Favorites"><meta property="og:description" content="lulwah's favorite corners of London, in photos."><meta property="og:image" content="images/me.jpg">
-<style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}img,svg,video{max-width:100%}</style>
+<style>*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}img,svg,video{max-width:100%}
+/* photo folders */
+.folders{background:#5c1210;background-image:radial-gradient(rgba(255,248,231,.06) 1px,transparent 1px);background-size:16px 16px}
+.folders>.in{padding-block:64px}
+.folders .head{text-align:center;margin-bottom:26px;position:relative}
+.folders h2{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,50px);line-height:1;margin:6px 0 4px;color:#FFF8E7}
+.folders .eyebrow{color:#f3d6cf}.folders .head .hand{color:#f2b8c6}
+.ftabs{display:flex;align-items:flex-end;gap:4px;padding-left:14px;overflow-x:auto;scrollbar-width:none;position:relative;z-index:2}
+.ftabs::-webkit-scrollbar{display:none}
+.ftab{flex:none;border:0;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#4a2a22;padding:12px 22px 14px;border-radius:14px 14px 0 0;background:var(--fc);opacity:.9;transition:padding .2s,opacity .2s;box-shadow:inset 0 -6px 8px rgba(0,0,0,.06)}
+.ftab:hover{opacity:1;padding-top:15px}
+.ftab.on{opacity:1;padding-top:18px;box-shadow:none}
+.folder{--fc:#f2c4cf;position:relative;display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.9fr);gap:0;background:var(--fc);border-radius:0 18px 18px 18px;padding:16px;box-shadow:0 24px 50px rgba(0,0,0,.35);transition:background .3s}
+.f-left{padding:22px 22px 18px 10px;position:relative;min-width:0}
+.f-label{display:inline-block;background:#f7a8c0;color:var(--berry);font-family:"Pinyon Script",cursive;font-size:clamp(30px,4vw,42px);line-height:1.1;padding:6px 18px 8px;transform:rotate(-6deg);box-shadow:0 6px 12px rgba(80,10,5,.18);margin:4px 0 18px -6px}
+.f-sub{font-size:22px;color:#5a2620;margin:0 0 10px}
+.f-count{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6d4038;margin:0}
+.f-extra{margin-top:16px;font-family:var(--mono);font-size:11px;line-height:1.9;color:#4a2a22}
+.f-extra a{color:var(--berry)}
+.f-right{position:relative;background:#FFF8E7;border-radius:6px 14px 14px 6px;padding:46px 18px 22px;box-shadow:-6px 0 14px rgba(80,10,5,.12) inset,0 6px 16px rgba(80,10,5,.15);background-image:repeating-linear-gradient(transparent 0 27px,rgba(149,187,234,.35) 27px 28px);min-width:0}
+.clipper{position:absolute;top:-30px;left:50%;width:54px;transform:translateX(-50%);filter:drop-shadow(0 4px 4px rgba(0,0,0,.3))}
+.f-photos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 14px}
+.fp{background:#fffdf7;padding:6px 6px 26px;box-shadow:0 6px 14px rgba(60,10,5,.18);position:relative;border:0;cursor:pointer;font:inherit;transition:transform .2s;min-width:0}
+.fp:nth-child(4n+1){transform:rotate(-2.5deg)}.fp:nth-child(4n+2){transform:rotate(2deg)}.fp:nth-child(4n+3){transform:rotate(-1deg)}.fp:nth-child(4n){transform:rotate(3deg)}
+.fp:hover{transform:rotate(0) scale(1.06);z-index:2}
+.fp img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:50% 35%}
+.fp span{position:absolute;left:4px;right:4px;bottom:4px;font-family:var(--hand);font-size:15px;line-height:1.1;color:var(--ink);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fp.fptape::before{content:"";position:absolute;top:-9px;left:50%;width:46px;height:16px;transform:translateX(-50%) rotate(-4deg);background:rgba(242,184,198,.8)}
+.f-more{display:block;margin:24px auto 0}
+@media (max-width:820px){.folder{grid-template-columns:1fr}.f-left{padding:8px 6px 18px}.f-photos{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:460px){.f-photos{grid-template-columns:repeat(2,minmax(0,1fr))}.f-right{padding:44px 12px 18px}}
+</style>
 </head><body>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Caveat:wght@600&family=Pinyon+Script&family=DM+Mono:wght@400;500&family=Noto+Naskh+Arabic:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap">
@@ -459,22 +490,14 @@ input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(
     </div>
   </div></section>
 
-  <section class="moments" id="moments"><div class="in">
-    <div class="head"><span class="eyebrow">Little moments</span><h2>Bits of London I loved</h2><span class="hand">squirrels, books, matcha and pink skies</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
-    <div class="strip" id="strip"></div>
+  <section class="folders" id="moments"><div class="in">
+    <div class="head"><span class="eyebrow">My photo folders</span><h2>Little pieces of London</h2><span class="hand">tap a folder tab to open it</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
+    <div class="ftabs" id="ftabs" role="tablist"></div>
+    <div class="folder" id="folder">
+      <div class="f-left"><span class="f-label" id="f-label"></span><p class="f-sub hand" id="f-sub"></p><p class="f-count" id="f-count"></p><div class="f-extra" id="f-extra"></div></div>
+      <div class="f-right"><svg class="clipper" viewBox="0 0 60 70" aria-hidden="true"><path d="M18 30 C18 4 42 4 42 30" stroke="#2a1a18" stroke-width="4" fill="none"/><path d="M14 30 C14 -2 46 -2 46 30" stroke="#2a1a18" stroke-width="3" fill="none" opacity=".55"/><rect x="4" y="28" width="52" height="40" rx="4" fill="#1d1211"/><rect x="8" y="32" width="44" height="6" rx="2" fill="#3a2a28"/></svg><div class="f-photos" id="f-photos"></div><button class="pill f-more" id="f-more" hidden>Show all photos</button></div>
+    </div>
   </div></section>
-
-  <section class="winter" id="winter"><div class="in">
-    <div class="head"><span class="eyebrow">Winter in London</span><h2>Christmas lights &amp; cozy days</h2><span class="hand">my favorite time to be here</span></div>
-    <div class="strip" id="wstrip"></div>
-    <p class="wlinks">Find them: <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Ritz+London" target="_blank" rel="noopener">The Ritz ↗</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Dorchester+London" target="_blank" rel="noopener">The Dorchester ↗</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Hyde+Park+Winter+Wonderland" target="_blank" rel="noopener">Winter Wonderland ↗</a> · <a href="https://www.google.com/maps/search/?api=1&amp;query=Regent+Street+London" target="_blank" rel="noopener">Regent Street lights ↗</a></p>
-  </div></section>
-
-  <section class="daytrip" id="bath"><div class="in">
-    <div class="head"><span class="eyebrow">Day trip</span><h2>A day in <em>Bath</em></h2><span class="hand">just a train ride from London!</span></div>
-    <div class="spots four" id="bathgrid"></div>
-  </div></section>
-
 
   <section class="cal" id="dates"><div class="in">
     <div class="cal-head">
@@ -576,7 +599,7 @@ const grid=document.getElementById('grid');
 const me=[["me-flowers","flowers for me"],["me-matcha","matcha date"],["me-bigben","Big Ben & me"],["me-park","park day"],["me-hoodie","cozy hoodie day"],["me-groceries","groceries stop"],["me-birthday","birthday girl"],["me-train","on the train"],["me-book","my birthday book"],["me-lego","Lego haul"],["me-walk","walk with music"],["me-run","my morning run"],["me-tube","Tube mirror"],["me-camera","my pink camera"],["me-ticket","birthday treat"],["me-bookmirror","bookshop mirror"],["me-mirror","shop mirror"],["me-tube2","red on the Tube"],["me-5k","Battersea 5K medal!"],["me","rooftop at dusk"]];
 const spotCard=(s,i)=>`<article class="spot c${i%4+1}" data-t="${s[2]}"><button class="spot-open" data-i="${i}"><img class="ph" src="images/${s[3]}.jpg" alt="${esc(s[0])}" loading="lazy"><span class="txt"><small>${esc(s[1])} · ${names[s[2]]}</small><b>${esc(s[0])}</b></span></button>${mapLink(s)}</article>`;
 const meCard=(m,j)=>`<article class="spot me" data-t="me"><button class="me-open" data-m="${j}"><img class="ph" src="images/${m[0]}.jpg" alt="lulwah: ${esc(m[1])}" loading="lazy"><span class="txt heart" aria-hidden="true">♡</span></button></article>`;
-let cards=[];spots.forEach((s,i)=>{cards.push(spotCard(s,i));if(me[i])cards.push(meCard(me[i],i));});
+const meShow={2:2,9:17};let cards=[];spots.forEach((s,i)=>{if(s[2]==='bath')return;cards.push(spotCard(s,i));if(meShow[i]!=null)cards.push(meCard(me[meShow[i]],meShow[i]));});
 grid.innerHTML=cards.join('');
 grid.addEventListener('click',e=>{const b=e.target.closest('.me-open');if(!b)return;const m=me[b.dataset.m];openWin('♡',`<img class="big" src="images/${m[0]}.jpg" alt="lulwah"><span class="heart big-heart" aria-hidden="true">♡</span>`);});
 document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
@@ -595,12 +618,28 @@ const bath=[
   ["Green walks","Bath","bath","bath-trees","Bath, UK"]
 ];
 const base=spots.length;spots.push(...bath);
-document.getElementById('bathgrid').innerHTML=bath.map((s,j)=>`<article class="spot c${j%4+1}"><button class="spot-open" data-i="${base+j}"><img class="ph" src="images/${s[3]}.jpg" alt="${esc(s[0])}" loading="lazy"><span class="txt"><small>${esc(s[1])}</small><b>${esc(s[0])}</b></span></button>${mapLink(s)}</article>`).join('');
 const moments=[["squirrel","park friend"],["happy-place","reading in the park"],["pasta","truffle pasta"],["bus","bus & crisps"],["thames-sunset","Thames sunset"],["thames-night","Thames at night"],["tennis","Wimbledon!"],["book","reading time"],["flowers","Tesco flowers"],["victoria-tower","Victoria Tower"],["shard-night","the Shard"],["whitehall","autumn in Whitehall"],["phonebox","red phone box"],["phone-inside","inside the phone box"],["pub-lights","pub fairy lights"],["tunnel","little tunnel"],["serpentine-dusk","Serpentine at dusk"],["fair","summer fair"],["vauxhall-shore","Thames shore, Vauxhall"],["stjames","St James's Park"],["lobby-stairs","grand stairs"],["horseguards","Horse Guards & the Eye"],["tree-restaurant","dinner under a tree"],["shoe-wall","the shoe wall"],["under-bridge","sunset under the bridge"],["train-coffee","coffee on the train"],["latte-matcha","latte & matcha"],["cinema","movie night"],["park-sunset","park sunset"],["story-card","our story card"],["camden-caps","1D caps by the canal"],["rooftop","rooftop sunset"],["westminster-sunset","sunset over Westminster"],["staircase","red carpet stairs"],["nero","Christmas at Caffè Nero"],["toast","I'm happy"],["chanel","Chanel window"]].filter(m=>m.length);
 const winter=[["x-ritz","The Ritz"],["x-angels","Regent Street angels"],["x-bigtree","the big tree"],["x-tree","golden lights"],["x-bow","a red bow"],["m-stocking","my stocking"],["x-ornaments","ornaments"],["x-chandelier","Dorchester chandeliers"],["x-lobby","The Dorchester"],["x-ww","Winter Wonderland"],["x-prizes","fairground prizes"],["x-potatoes","spiral potatoes"],["x-corndog","corn dog at the fair"],["x-matcha","warm matcha"],["x-mayfair","Mayfair sunset"],["x-trees","bare winter trees"],["x-joseph","cozy knits"]];
-document.getElementById('wstrip').innerHTML=winter.map(([f,c])=>`<figure class="mo"><img src="images/${f}.jpg" alt="${esc(c)}" loading="lazy"><span>${esc(c)}</span></figure>`).join('');
-document.getElementById('strip').innerHTML=moments.map(([f,c])=>`<figure class="mo"><img src="images/m-${f}.jpg" alt="${esc(c)}" loading="lazy"><span>${esc(c)}</span></figure>`).join('');
-document.getElementById('bathgrid').addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(b)grid.dispatchEvent(new CustomEvent('openspot',{detail:+b.dataset.i}));});
+/* photo folders */
+(function(){
+const meLeft=me.filter((m,j)=>j!==2&&j!==17&&m[0]!=='me');
+const F=[
+ {k:'moments',tab:'Little moments',color:'#f2c4cf',label:'Little moments',sub:'squirrels, books, matcha and pink skies',items:moments.map(([f,c])=>['m-'+f,c])},
+ {k:'winter',tab:'Winter',color:'#95BBEA',label:'Winter in London',sub:'Christmas lights & cozy days',items:winter,extra:'Find them:<br>'+'<a href="https://www.google.com/maps/search/?api=1&amp;query=The+Ritz+London" target="_blank" rel="noopener">The Ritz ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Dorchester+London" target="_blank" rel="noopener">The Dorchester ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=Hyde+Park+Winter+Wonderland" target="_blank" rel="noopener">Winter Wonderland ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=Regent+Street+London" target="_blank" rel="noopener">Regent Street lights ↗</a>'},
+ {k:'bath',tab:'Bath',color:'#c9d9a8',label:'A day in Bath',sub:'just a train ride from London!',items:bath.map((b,j)=>[b[3],b[0],base+j])},
+ {k:'me',tab:'More of me',color:'#e9d3a8',label:'More of me',sub:'little moments of me around London ♡',items:meLeft.map(m=>[m[0],'♡'])}
+];
+const tabs=document.getElementById('ftabs'),fold=document.getElementById('folder'),ph=document.getElementById('f-photos'),more=document.getElementById('f-more');
+tabs.innerHTML=F.map((f,i)=>`<button class="ftab" role="tab" data-f="${i}" style="--fc:${f.color}">${esc(f.tab)}</button>`).join('');
+let cur=0,all=false;const LIM=12;
+function show(i){cur=i;all=false;const f=F[i];fold.style.setProperty('--fc',f.color);tabs.querySelectorAll('.ftab').forEach((t,j)=>{t.classList.toggle('on',j===i);t.setAttribute('aria-selected',j===i)});
+ document.getElementById('f-label').textContent=f.label;document.getElementById('f-sub').textContent=f.sub;document.getElementById('f-count').textContent=f.items.length+' photos';document.getElementById('f-extra').innerHTML=f.extra||'';draw();}
+function draw(){const f=F[cur],list=all?f.items:f.items.slice(0,LIM);ph.innerHTML=list.map(([img,c,si],n)=>`<button class="fp${n%5===1?' fptape':''}" data-n="${n}"><img src="images/${img}.jpg" alt="${esc(c)}" loading="lazy"><span>${esc(c)}</span></button>`).join('');more.hidden=all||f.items.length<=LIM;more.textContent='Show all '+f.items.length+' photos';}
+tabs.addEventListener('click',e=>{const b=e.target.closest('.ftab');if(b)show(+b.dataset.f);});
+more.addEventListener('click',()=>{all=true;draw();});
+ph.addEventListener('click',e=>{const b=e.target.closest('.fp');if(!b)return;const [img,c,si]=F[cur].items[+b.dataset.n];if(si!=null){showSpot(spots[si]);return;}openWin(c,`<img class="big" src="images/${img}.jpg" alt="${esc(c)}">${c==='♡'?'<span class="heart big-heart" aria-hidden="true">♡</span>':''}`);});
+show(0);
+})();
 grid.addEventListener('openspot',e=>showSpot(spots[e.detail]));
 function showSpot(s){openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);}
 grid.addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(!b)return;const s=spots[b.dataset.i];
