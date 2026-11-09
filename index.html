@@ -684,6 +684,33 @@ a,button{-webkit-tap-highlight-color:transparent}
 .plane-trail{position:fixed;inset:0;z-index:59;pointer-events:none}
 .plane-trail i{position:absolute;width:6px;height:6px;margin:-3px;border-radius:50%;background:#FFF8E7;opacity:.9;animation:trailfade .9s forwards}
 @keyframes trailfade{to{opacity:0;transform:scale(.3)}}
+
+/* instant camera game */
+.game{margin:14px 0 6px;text-align:center}
+.g-intro{font-size:20px;color:var(--berry);margin:0 0 10px}
+.icam{position:relative;width:200px;height:150px;margin:0 auto;border-radius:26px;background:linear-gradient(160deg,#cfe0f5,#95BBEA);box-shadow:inset 0 3px 0 rgba(255,255,255,.7),inset 0 -6px 10px rgba(0,0,0,.12),0 14px 26px rgba(40,60,90,.3);z-index:2}
+.ic-lens{position:absolute;left:50%;top:52%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#3a4a5e 0 30%,#1b2230 31% 46%,#e9eef4 47% 60%,#b9c7d6 61%);box-shadow:0 3px 6px rgba(0,0,0,.25)}
+.ic-lens i{position:absolute;left:30%;top:28%;width:12px;height:8px;border-radius:50%;background:rgba(255,255,255,.7);transform:rotate(-30deg)}
+.ic-flash{position:absolute;right:16px;top:14px;width:42px;height:24px;border-radius:6px;background:repeating-linear-gradient(90deg,#fff 0 3px,#e6eef7 3px 6px);box-shadow:inset 0 0 0 2px #b9c7d6}
+.ic-view{position:absolute;left:18px;top:16px;width:24px;height:20px;border-radius:5px;background:#1b2230;box-shadow:inset 0 0 0 3px #e9eef4}
+.ic-name{position:absolute;left:16px;bottom:12px;font-family:"Pinyon Script",cursive;font-size:20px;color:#fff}
+.ic-btn{position:absolute;right:-6px;top:30px;width:16px;height:30px;border:0;border-radius:6px;background:var(--berry);cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,.3)}
+.ic-slot{position:absolute;left:30px;right:30px;bottom:-4px;height:8px;border-radius:4px;background:#2a2a33}
+.icam.shoot{animation:icshake .4s}
+.icam.shoot::after{content:"";position:absolute;inset:-30px;border-radius:40px;background:radial-gradient(#fff,transparent 70%);animation:icflash .5s forwards;pointer-events:none}
+@keyframes icshake{30%{transform:translateY(3px) rotate(-1.5deg)}60%{transform:translateY(-2px) rotate(1deg)}}
+@keyframes icflash{from{opacity:1}to{opacity:0}}
+.ic-out{position:relative;margin-top:-8px;z-index:1;overflow:hidden;padding:0 10px 10px}
+.ic-photo{display:inline-block;width:170px;background:#fffdf7;padding:8px 8px 30px;box-shadow:0 8px 18px rgba(60,10,5,.22);position:relative;animation:iceject 1.6s cubic-bezier(.3,.6,.3,1) both}
+.ic-photo img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;animation:icdev 2.6s .9s ease-out both}
+.ic-photo span{position:absolute;left:6px;right:6px;bottom:6px;font-family:var(--hand);font-size:16px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@keyframes iceject{from{transform:translateY(-105%)}70%{transform:translateY(4%)}to{transform:rotate(-2deg)}}
+@keyframes icdev{from{filter:brightness(2.2) contrast(.3) sepia(.6)}to{filter:none}}
+.ic-form{margin-top:14px;text-align:left;animation:pfin .5s 1.4s both}
+.ic-form label{display:block;font-size:13px;color:var(--muted);margin-bottom:8px}
+.ic-form textarea,.ic-form input{display:block;width:100%;margin-top:4px;font:inherit;font-size:16px;padding:9px 11px;border:1.5px solid var(--line);border-radius:10px;background:#fff;resize:vertical}
+.ic-thanks{font-size:22px;color:var(--berry);margin:14px 0 4px}
+#ic-go{margin-top:16px}
 </style>
 
 <div class="page">
@@ -1067,12 +1094,35 @@ function paperPlane(){return new Promise(res=>{
   },600);
 });}
 const val=id=>(document.getElementById(id)?.value||'').trim();
+/* instant camera game: after sending, print someone else's photo and leave an opinion */
+const gamePool=[];
+function gamePick(){const own=spots.filter(x=>x[2]!=='bath').map(x=>({url:'images/'+x[3]+'.jpg',id:null,place:x[0],name:'lulwah'}));
+  const pool=gamePool.length?gamePool:own;let last=gamePick.last;let p;let n=0;do{p=pool[Math.floor(Math.random()*pool.length)];}while(pool.length>1&&p===last&&n++<6);gamePick.last=p;return p;}
+function gameHTML(h,p){return `<h3>${h}</h3><p>${p}</p>
+<div class="game"><p class="g-intro hand">now a little game! press the button and see whose photo comes out ↓</p>
+<div class="icam" id="icam"><span class="ic-flash"></span><span class="ic-view"></span><span class="ic-lens"><i></i></span><span class="ic-name">travel</span><button type="button" class="ic-btn" id="ic-shoot" aria-label="Print a photo"></button><span class="ic-slot"></span></div>
+<div class="ic-out" id="ic-out"></div>
+<button type="button" class="pill solid" id="ic-go">Print a photo 📸</button></div>
+<div class="row"><button class="pill" data-close>Done</button></div>`;}
+function gamePrint(){const out=document.getElementById('ic-out'),cam=document.getElementById('icam'),go=document.getElementById('ic-go');if(!out)return;const p=gamePick();
+  cam.classList.remove('shoot');void cam.offsetWidth;cam.classList.add('shoot');go.hidden=true;
+  out.innerHTML=`<div class="ic-photo"><img src="${esc(p.url)}" alt="A traveler's photo"><span>${esc(p.place||'somewhere')}${p.name?' · from '+esc(p.name):''}</span></div>
+  <form class="ic-form" id="ic-form"><label>What do you think of this photo?<textarea id="ic-body" maxlength="300" rows="2" required placeholder="love the colors! where is this?"></textarea></label><label>Your name (optional)<input id="ic-name" maxlength="60"></label><div class="row"><button type="button" class="pill" id="ic-again">Print another</button><button class="pill solid">Send my opinion</button></div></form>`;
+  out.dataset.url=p.url;out.dataset.id=p.id||'';}
+wb.addEventListener('click',e=>{if(e.target.closest('#ic-go,#ic-shoot,#ic-again'))gamePrint();});
+wb.addEventListener('submit',async e=>{if(e.target.id!=='ic-form')return;e.preventDefault();const out=document.getElementById('ic-out');const body=val('ic-body').slice(0,300);if(!body)return;
+  const row={photo_url:out.dataset.url.slice(0,500),body,name:val('ic-name').slice(0,60)||null};if(out.dataset.id)row.submission_id=out.dataset.id;
+  const btn=e.target.querySelector('.solid');btn.disabled=true;btn.textContent='Sending…';
+  try{const r=await fetch(SB+'/rest/v1/photo_comments',{method:'POST',headers:{...sbH,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify(row)});if(!r.ok)throw new Error(r.status);
+    e.target.outerHTML='<p class="ic-thanks hand">sent! thank you ♡</p><div class="row"><button type="button" class="pill solid" id="ic-again">Print another</button></div>';}
+  catch(err){btn.disabled=false;btn.textContent='Try again';}});
+
 const sending=()=>{wt.textContent='Sending…';wb.innerHTML='<h3>Sending…</h3><p>Hold on a second, your photos are on their way.</p>';};
 const sentMsg=(h,p)=>{wt.textContent='Thank you!';wb.innerHTML=`<h3>${h}</h3><p>${p}</p><div class="row"><button class="pill solid" data-close>Done</button></div>`;};
 const failMsg=()=>{wt.textContent='Oops';wb.innerHTML='<h3>That didn’t send</h3><p>Something went wrong. Please check your internet and try again.</p><div class="row"><button class="pill solid" data-close>Close</button></div>';};
 wb.addEventListener('click',async e=>{if(e.target.id==='p-back'){document.getElementById('pf').hidden=false;document.getElementById('p-sure').remove();wt.textContent='Add your photos';}
   if(e.target.id==='p-yes'){const files=[...(document.getElementById('p-files')?.files||[])].slice(0,6);const row={kind:'photo',city:val('p-city').slice(0,80),place:val('p-where').slice(0,120),name:val('p-name').slice(0,80)};sending();const fly=paperPlane();
-    try{row.photos=[];for(const f of files)row.photos.push(await uploadPhoto(f));await saveSub(row);await fly;sentMsg('Your photos are flying to lulwah ✈︎','She will look at them and may add them to Travel Favorites.');}catch(err){console.error(err);await fly;failMsg();}}});
+    try{row.photos=[];for(const f of files)row.photos.push(await uploadPhoto(f));await saveSub(row);await fly;wt.textContent='Thank you!';wb.innerHTML=gameHTML('Your photos are flying to lulwah ✈︎','She will look at them and may add them to Travel Favorites.');}catch(err){console.error(err);await fly;failMsg();}}});
 
 wb.addEventListener('submit',e=>{if(e.target.id!=='pf')return;e.preventDefault();e.stopImmediatePropagation();const f=document.getElementById('pf');f.hidden=true;wt.textContent='Are you sure?';f.insertAdjacentHTML('afterend',`<div id="p-sure" class="wb" style="padding:0"><h3>Are you sure?</h3><p>If lulwah picks your photo, <b>anyone on the internet</b> will be able to see it on Travel Favorites. Are you sure you want your photo shared in public?</p><div class="row"><button type="button" class="pill" id="p-back">Go back</button><button type="button" class="pill solid" id="p-yes">Yes, share it</button></div></div>`);},true);
 wb.addEventListener('submit',async e=>{if(e.target.id!=='af')return;e.preventDefault();const n=val('a-name');if(!n)return;const row={kind:'spot',place:n.slice(0,120),area:val('a-area').slice(0,120),spot_type:val('a-type').slice(0,40),why:val('a-why').slice(0,600),photos:[]};const f=document.getElementById('a-photo')?.files?.[0];sending();const fly=paperPlane();
@@ -1085,7 +1135,7 @@ function drawWall(){const va=spots.find(x=>x[3]==='va');let h=`<article class="s
  wallEl.innerHTML=h;}
 drawWall();
 wallEl.addEventListener('click',e=>{if(e.target.closest('.slot-btn')){document.getElementById('folder-btn').click();return;}if(e.target.closest('.wall-me')){const i=spots.findIndex(x=>x[3]==='va');showSpot(spots[i]);return;}const v=e.target.closest('.wall-v');if(v){const w=wallItems[+v.dataset.w];openWin(w[1],`<img class="big" src="${esc(w[0])}" alt="${esc(w[1])}"><span class="eyebrow">${w[2]?'from '+esc(w[2]):'from a visitor'}</span><h3>${esc(w[1])}</h3>`);}});
-fetch(SB+'/rest/v1/rpc/approved_photos',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{rows.forEach(s=>(s.photos||[]).forEach(u=>{if(/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u))wallItems.push([u,s.place||s.city||'a trip',s.name||'']);}));if(wallItems.length)drawWall();}).catch(()=>{});
+fetch(SB+'/rest/v1/rpc/approved_photos',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{rows.forEach(s=>(s.photos||[]).forEach(u=>{if(/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u))wallItems.push([u,s.place||s.city||'a trip',s.name||'']);gamePool.push({url:u,id:s.id,place:s.place||s.city||'',name:s.name||''});}));if(wallItems.length)drawWall();}).catch(()=>{});
 document.getElementById('mu-close').onclick=()=>{document.getElementById('music').hidden=true;};
 
 
