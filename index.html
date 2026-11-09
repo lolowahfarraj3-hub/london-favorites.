@@ -823,13 +823,13 @@ a,button{-webkit-tap-highlight-color:transparent}
   <section class="candy" id="photos"><div class="in">
     <div>
       <span class="eyebrow">Your photos</span>
-      <h2>Share your <em>London</em> photos</h2>
+      <h2>Share your <em>travel</em> shots</h2>
       <p>Took a pretty photo anywhere in the world? Pop it into my camera. I look at every one and add my favorites to the site.</p>
       <p class="small-note">Any city is welcome. Read the photo rules before you send.</p>
       <span class="hand">tap the camera to add yours ↘</span>
     </div>
     <div class="cam-stage">
-      <div class="postcard" aria-hidden="true"><span class="pc-top">greetings from</span><span class="pc-big">London</span><span class="pc-note">wish you were here! x</span></div>
+      <div class="postcard" aria-hidden="true"><span class="pc-top">greetings from</span><span class="pc-big">anywhere</span><span class="pc-note">wish you were here! x</span></div>
       <button class="camera" id="folder-btn" aria-label="Add your photos">
         <span class="lens"></span><span class="flash"></span><span class="dial"></span>
         <span class="screen"><b>photo</b> +</span>
@@ -849,7 +849,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 
 
 
-  <footer class="foot"><div class="in"><span>London favorites</span><span>made by lulwah · all photos are my own</span></div></footer>
+  <footer class="foot"><div class="in"><span>Travel favorites</span><span>made by lulwah · all photos are my own</span></div></footer>
 </div>
 
 <div class="notice" id="notice" role="dialog" aria-modal="true" aria-labelledby="notice-t">
@@ -1085,7 +1085,7 @@ function drawWall(){const va=spots.find(x=>x[3]==='va');let h=`<article class="s
  wallEl.innerHTML=h;}
 drawWall();
 wallEl.addEventListener('click',e=>{if(e.target.closest('.slot-btn')){document.getElementById('folder-btn').click();return;}if(e.target.closest('.wall-me')){const i=spots.findIndex(x=>x[3]==='va');showSpot(spots[i]);return;}const v=e.target.closest('.wall-v');if(v){const w=wallItems[+v.dataset.w];openWin(w[1],`<img class="big" src="${esc(w[0])}" alt="${esc(w[1])}"><span class="eyebrow">${w[2]?'from '+esc(w[2]):'from a visitor'}</span><h3>${esc(w[1])}</h3>`);}});
-fetch(SB+'/rest/v1/rpc/approved_photos',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{rows.forEach(s=>(s.photos||[]).forEach(u=>{if(/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u))wallItems.push([u,s.place||'London',s.name||'']);}));if(wallItems.length)drawWall();}).catch(()=>{});
+fetch(SB+'/rest/v1/rpc/approved_photos',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{rows.forEach(s=>(s.photos||[]).forEach(u=>{if(/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u))wallItems.push([u,s.place||s.city||'a trip',s.name||'']);}));if(wallItems.length)drawWall();}).catch(()=>{});
 document.getElementById('mu-close').onclick=()=>{document.getElementById('music').hidden=true;};
 
 
@@ -1142,7 +1142,7 @@ Promise.all([load('https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min
   wrap.addEventListener('pointermove',e=>{if(!drag)return;const k=180/W;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;rot=[drag.r[0]+dx*k,Math.max(-70,Math.min(70,drag.r[1]-dy*k)),0];const now=performance.now();vel=(e.clientX-drag.lx)*k/Math.max(1,now-drag.t);drag.lx=e.clientX;drag.t=now;});
   const end=()=>{drag=null;};wrap.addEventListener('pointerup',end);wrap.addEventListener('pointercancel',end);
   window.__globeRedraw=()=>{drawPins();render();};
-}).catch(()=>{svg.outerHTML='<div class="globe-fallback">London ♡</div>';pinsEl.hidden=true;});
+}).catch(()=>{svg.outerHTML='<div class="globe-fallback">Travel ♡</div>';pinsEl.hidden=true;});
 /* visitor photos -> wall + city groups */
 fetch(SB+'/rest/v1/rpc/approved_photos',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{
   const ok=u=>/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u);let any=false;
