@@ -575,10 +575,10 @@ a,button{-webkit-tap-highlight-color:transparent}
 }
 
 /* two-page passport */
-.collage:has(.pass2) .st-queen{left:auto;right:-2%;top:-6px;bottom:auto;width:86px;transform:rotate(12deg);z-index:4}
-@media (max-width:460px){.collage:has(.pass2) .st-queen{width:62px;right:-1%;top:0}}
+.collage:has(.pass2) .st-queen{left:-4%;bottom:-6px;width:80px;transform:rotate(-10deg);z-index:4}
+@media (max-width:460px){.collage:has(.pass2) .st-queen{width:56px;left:-1%;bottom:-18px}}
 
-.collage:has(.pass2){height:560px}
+.collage:has(.pass2){height:400px}
 .idcard.pass2{background:transparent;padding:0;box-shadow:none;width:min(440px,96%);display:flex;flex-direction:column;gap:5px}
 .pass2 .id-in{border:5px solid var(--berry);border-radius:20px;box-shadow:0 12px 30px rgba(80,10,5,.18);padding:24px}
 .pass2 .id-in::before{inset:20px}
@@ -595,11 +595,12 @@ a,button{-webkit-tap-highlight-color:transparent}
 .p2f{display:grid;grid-template-columns:1fr 1fr;align-self:start;margin-top:2px}
 .p2f div{border-right:1px solid color-mix(in srgb,var(--berry) 35%,transparent)}
 .p2f div:nth-child(2){border-right:0}
+.p2f .jobrow{min-height:0!important;border-bottom:1px solid color-mix(in srgb,var(--berry) 35%,transparent)!important}
 .p2f .sigrow{grid-column:span 2;border-right:0;border-bottom:0;display:flex;flex-direction:column;justify-content:center;min-height:76px}
 .p2f dd.sig{font-size:30px;text-align:center}
 .p2exp{position:absolute;right:6px;bottom:-14px;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:460px){
-  .collage:has(.pass2){height:470px}
+  .collage:has(.pass2){height:320px}
   .idcard.pass2{width:94%}
   .pass2 .id-in{padding:20px}.pass2 .id-in::before{inset:16px}
   .pg1{min-height:170px}.pg1 .pv{font-size:42px}.pg1 .ppx1{min-height:120px}
@@ -625,17 +626,13 @@ a,button{-webkit-tap-highlight-color:transparent}
     </div>
     <div class="collage" aria-hidden="true">
       <div class="idcard pass2"><i class="tape"></i>
-        <div class="id-in pg1">
-          <span class="pp-script pv">Passport.</span>
-          <div class="pp-photo has ppx1"><img src="images/thames-night.jpg" alt=""><i class="pp-star sa">★</i><i class="pp-star sb">★</i></div>
-        </div>
         <div class="id-in pg2">
           <div class="p2l">
             <div class="pp-photo has ppx2"><img src="images/me.jpg" alt="lulwah"><i class="pp-star sc">★</i></div>
             <span class="pp-script">Passport.</span>
             <span class="p2tiny">signature of authorized traveler.</span>
           </div>
-          <dl class="id-f p2f"><div><dt>name:</dt><dd>LULWAH</dd></div><div><dt>from:</dt><dd>KHOBAR</dd></div><div class="sigrow"><dt>signature:</dt><dd class="sig">lulwah</dd></div></dl>
+          <dl class="id-f p2f"><div><dt>name:</dt><dd>LULWAH</dd></div><div><dt>from:</dt><dd>KHOBAR</dd></div><div class="sigrow jobrow"><dt>job:</dt><dd>CREATIVITY &amp; CS</dd></div><div class="sigrow"><dt>signature:</dt><dd class="sig">lulwah</dd></div></dl>
           <span class="p2exp">London Favorites · traveler ID</span>
         </div>
       </div>
