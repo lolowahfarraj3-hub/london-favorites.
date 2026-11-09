@@ -573,6 +573,39 @@ a,button{-webkit-tap-highlight-color:transparent}
   .notice-body h2{font-size:26px}
   footer{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 }
+
+/* two-page passport */
+.collage:has(.pass2) .st-queen{left:auto;right:-2%;top:-6px;bottom:auto;width:86px;transform:rotate(12deg);z-index:4}
+@media (max-width:460px){.collage:has(.pass2) .st-queen{width:62px;right:-1%;top:0}}
+
+.collage:has(.pass2){height:560px}
+.idcard.pass2{background:transparent;padding:0;box-shadow:none;width:min(440px,96%);display:flex;flex-direction:column;gap:5px}
+.pass2 .id-in{border:5px solid var(--berry);border-radius:20px;box-shadow:0 12px 30px rgba(80,10,5,.18);padding:24px}
+.pass2 .id-in::before{inset:20px}
+.pg1{display:flex;align-items:center;gap:6px;min-height:228px}
+.pg1 .pv{writing-mode:vertical-rl;transform:rotate(180deg);font-size:58px;line-height:.9;padding:0 2px}
+.pg1 .ppx1{flex:1;align-self:stretch;min-height:170px;margin:6px 4px 6px 0}
+.pass2 .pp-star{font-size:34px}
+.pass2 .sa{right:-12px;top:-12px}.pass2 .sb{left:-16px;bottom:-12px}.pass2 .sc{right:-10px;bottom:-12px;font-size:26px}
+.pg2{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:12px;align-items:start}
+.p2l{display:flex;flex-direction:column;gap:4px;min-width:0}
+.p2l .ppx2{min-height:130px;flex:none}
+.p2l .pp-script{font-size:34px;margin-top:4px}
+.p2tiny{font-family:var(--mono);font-size:8px;color:var(--muted)}
+.p2f{display:grid;grid-template-columns:1fr 1fr;align-self:start;margin-top:2px}
+.p2f div{border-right:1px solid color-mix(in srgb,var(--berry) 35%,transparent)}
+.p2f div:nth-child(2){border-right:0}
+.p2f .sigrow{grid-column:span 2;border-right:0;border-bottom:0;display:flex;flex-direction:column;justify-content:center;min-height:76px}
+.p2f dd.sig{font-size:30px;text-align:center}
+.p2exp{position:absolute;right:6px;bottom:-14px;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:460px){
+  .collage:has(.pass2){height:470px}
+  .idcard.pass2{width:94%}
+  .pass2 .id-in{padding:20px}.pass2 .id-in::before{inset:16px}
+  .pg1{min-height:170px}.pg1 .pv{font-size:42px}.pg1 .ppx1{min-height:120px}
+  .p2l .ppx2{min-height:100px}.p2l .pp-script{font-size:26px}
+  .p2f dd{font-size:11px}.p2f dd.sig{font-size:24px}.p2f .sigrow{min-height:60px}
+}
 </style>
 
 <div class="page">
@@ -591,13 +624,19 @@ a,button{-webkit-tap-highlight-color:transparent}
       <div class="arrow"><svg viewBox="0 0 90 40" aria-hidden="true"><path d="M4 8c10 26 30 30 42 18 8-8-2-18-8-8-6 12 18 22 46 12M76 22l8 8-10 4"/></svg><span class="hand">coffeeeee first, then a walk!</span></div>
     </div>
     <div class="collage" aria-hidden="true">
-      <div class="idcard"><i class="tape"></i>
-        <div class="id-in">
-          <div class="id-top"><span class="pp-script">Passport.</span><span class="id-tag">London Favorites · traveler ID</span></div>
-          <div class="id-body">
-            <div class="pp-photo has id-photo"><img src="images/me.jpg" alt="lulwah"><i class="pp-star s3">★</i></div>
-            <dl class="id-f"><div><dt>name:</dt><dd>LULWAH</dd></div><div><dt>from:</dt><dd>KHOBAR</dd></div><div><dt>favorite city:</dt><dd>LONDON, UK</dd></div><div><dt>signature:</dt><dd class="sig">lulwah</dd></div></dl>
+      <div class="idcard pass2"><i class="tape"></i>
+        <div class="id-in pg1">
+          <span class="pp-script pv">Passport.</span>
+          <div class="pp-photo has ppx1"><img src="images/thames-night.jpg" alt=""><i class="pp-star sa">★</i><i class="pp-star sb">★</i></div>
+        </div>
+        <div class="id-in pg2">
+          <div class="p2l">
+            <div class="pp-photo has ppx2"><img src="images/me.jpg" alt="lulwah"><i class="pp-star sc">★</i></div>
+            <span class="pp-script">Passport.</span>
+            <span class="p2tiny">signature of authorized traveler.</span>
           </div>
+          <dl class="id-f p2f"><div><dt>name:</dt><dd>LULWAH</dd></div><div><dt>from:</dt><dd>KHOBAR</dd></div><div class="sigrow"><dt>signature:</dt><dd class="sig">lulwah</dd></div></dl>
+          <span class="p2exp">London Favorites · traveler ID</span>
         </div>
       </div>
       <img class="sticker st-queen" src="images/st-queen.png" alt="">
