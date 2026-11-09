@@ -518,6 +518,34 @@ input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(
   @keyframes flash{0%{box-shadow:0 0 0 0 rgba(255,255,255,.9)}100%{box-shadow:0 0 0 40px rgba(255,255,255,0)}}
 }
 
+
+/* ---------- globe ---------- */
+.globesec{background:#24121a;background-image:radial-gradient(rgba(255,248,231,.55) 1px,transparent 1.5px),radial-gradient(rgba(255,248,231,.3) 1px,transparent 1.5px);background-size:120px 120px,70px 70px;background-position:0 0,35px 50px;color:#FFF8E7}
+.globesec>.in{padding-block:56px 64px}
+.g-head{text-align:center;display:flex;flex-direction:column;align-items:center}
+.g-cam{position:relative;width:170px;height:150px;margin-bottom:2px}
+.g-cam .camera{width:100%;right:0;bottom:0}
+.g-add{color:#f2b8c6;font-size:22px;margin-bottom:18px}
+.globesec .eyebrow{color:#f3d6cf}
+.globesec h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;margin:6px 0 4px;color:#FFF8E7}
+.g-sub{color:#95BBEA;font-size:22px}
+.globe-wrap{position:relative;width:min(560px,100%);aspect-ratio:1/1;margin:26px auto 40px;touch-action:pan-y;cursor:grab}
+.globe-wrap:active{cursor:grabbing}
+.gsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.gpins{position:absolute;inset:0;pointer-events:none}
+.gpin{position:absolute;left:0;top:0;pointer-events:auto;border:0;background:none;padding:0;cursor:pointer;transform-origin:50% 100%;will-change:transform}
+.gpin .pol{display:block;background:#fffdf7;padding:4px 4px 16px;box-shadow:0 8px 16px rgba(0,0,0,.35);rotate:-5deg;transition:scale .2s}
+.gpin:nth-child(even) .pol{rotate:5deg}
+.gpin img{display:block;width:54px;height:54px;object-fit:cover}
+.gpin .cap{position:absolute;left:0;right:0;bottom:2px;font-family:var(--hand);font-size:13px;line-height:1;color:var(--ink);text-align:center;white-space:nowrap;overflow:hidden}
+.gpin .stem{display:block;width:2px;height:22px;margin:0 auto;background:#FFF8E7}
+.gpin .dot{display:block;width:10px;height:10px;margin:-2px auto 0;border-radius:50%;background:var(--berry);border:2px solid #FFF8E7}
+.gpin .n{position:absolute;right:-8px;top:-8px;min-width:22px;height:22px;padding:0 5px;border-radius:999px;background:var(--berry);color:#FFF8E7;font:500 11px/22px var(--mono)}
+.gpin:hover .pol,.gpin:focus-visible .pol{scale:1.15}
+.globe-fallback{position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#bcd5f3,#6f97c8 70%);display:grid;place-items:center;color:#24121a;font-family:var(--hand);font-size:22px}
+.city-folders .folder{box-shadow:0 24px 50px rgba(0,0,0,.45)}
+@media (max-width:600px){.g-cam{width:130px;height:115px}.globe-wrap{margin:18px auto 30px}.gpin img{width:40px;height:40px}.gpin .pol{padding:3px 3px 13px}.gpin .cap{font-size:11px}.gpin .stem{height:14px}}
+@media (prefers-reduced-motion: no-preference){.g-cam .camera{animation:bob 3s ease-in-out infinite}}
 /* ---------- iPhone / small screens ---------- */
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 a,button{-webkit-tap-highlight-color:transparent}
@@ -584,6 +612,25 @@ a,button{-webkit-tap-highlight-color:transparent}
 
   <div class="ticker" aria-hidden="true"><div>mind the gap · tea at four · rainy day walks · red phone boxes · flowers on sunday · sunset on primrose hill · mind the gap · tea at four · rainy day walks · red phone boxes · flowers on sunday · sunset on primrose hill · </div></div>
 
+  <section class="globesec" id="globe"><div class="in">
+    <div class="g-head">
+      <div class="g-cam"><button class="camera" id="globe-cam" aria-label="Add your photo"><span class="lens"></span><span class="flash"></span><span class="dial"></span><span class="screen"><b>photo</b> +</span><span class="pad"><i></i></span><span class="btn1"></span><span class="btn2"></span></button></div>
+      <span class="hand g-add">add your photo ↑</span>
+      <span class="eyebrow">Around the world</span>
+      <h2>Everyone's favorite places</h2>
+      <span class="hand g-sub">spin the globe and tap a photo</span>
+    </div>
+    <div class="globe-wrap" id="globe-wrap"><svg class="gsvg" id="gsvg" aria-hidden="true"></svg><div class="gpins" id="gpins"></div></div>
+    <div class="city-folders" id="fold-cities">
+      <div class="ftabs" role="tablist"></div>
+      <div class="folder">
+        <div class="f-left"><span class="f-label"></span><p class="f-sub hand"></p><p class="f-count"></p><div class="f-extra"></div></div>
+        <div class="f-right"><svg class="clipper" viewBox="0 0 60 70" aria-hidden="true"><path d="M18 30 C18 4 42 4 42 30" stroke="#2a1a18" stroke-width="4" fill="none"/><path d="M14 30 C14 -2 46 -2 46 30" stroke="#2a1a18" stroke-width="3" fill="none" opacity=".55"/><rect x="4" y="28" width="52" height="40" rx="4" fill="#1d1211"/><rect x="8" y="32" width="44" height="6" rx="2" fill="#3a2a28"/></svg><div class="f-photos"></div><button class="pill f-more" hidden>Show all photos</button></div>
+      </div>
+    </div>
+    <datalist id="city-list"></datalist>
+  </div></section>
+
 
   <section class="mapsec" id="map"><div class="in">
     <div class="head"><span class="eyebrow">Every spot, pinned</span><h2>My London map</h2><span class="hand">tap a photo to see the place</span></div>
@@ -623,15 +670,15 @@ a,button{-webkit-tap-highlight-color:transparent}
 
   <section class="candy" id="photos"><div class="in">
     <div>
-      <span class="eyebrow">Your England photos</span>
+      <span class="eyebrow">Your photos</span>
       <h2>Share your <em>London</em> photos</h2>
-      <p>Took a pretty photo in England? Pop it into my camera. I look at every one and add my favorites to the site.</p>
-      <p class="small-note">England photos only, please. Read the photo rules before you send.</p>
+      <p>Took a pretty photo in London, or anywhere in the world? Pop it into my camera. I look at every one and add my favorites to the site.</p>
+      <p class="small-note">Any city is welcome. Read the photo rules before you send.</p>
       <span class="hand">tap the camera to add yours ↘</span>
     </div>
     <div class="cam-stage">
       <div class="postcard" aria-hidden="true"><span class="pc-top">greetings from</span><span class="pc-big">London</span><span class="pc-note">wish you were here! x</span></div>
-      <button class="camera" id="folder-btn" aria-label="Add your England photos">
+      <button class="camera" id="folder-btn" aria-label="Add your photos">
         <span class="lens"></span><span class="flash"></span><span class="dial"></span>
         <span class="screen"><b>photo</b> +</span>
         <span class="pad"><i></i></span><span class="btn1"></span><span class="btn2"></span>
@@ -821,13 +868,14 @@ const calSummer=[5,6,7,8],calWinter=[10,11,0];
 const clip=`<svg class="clip" viewBox="0 0 46 40" aria-hidden="true"><rect x="4" y="16" width="38" height="20" rx="3" fill="#b07a52"/><rect x="4" y="16" width="38" height="6" rx="2" fill="#c99168"/><path d="M14 18 C14 4 32 4 32 18" stroke="#8a5a3a" stroke-width="3" fill="none"/></svg>`;
 document.getElementById('cals').innerHTML=`<div class="month year">${clip}<h3>My London year</h3><div class="months">${['January','February','March','April','May','June','July','August','September','October','November','December'].map((m,i)=>{const t=calSummer.includes(i)?'summer':calWinter.includes(i)?'winter':'';const bd=i===0;return `<span class="mth${t?' here '+t:''}${bd?' bday':''}">${bd?'<b class="bday-note">my birthday month <svg viewBox="0 0 40 30" aria-hidden="true"><path d="M36 4 C26 6 14 10 8 24" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M3 17 L8 25 L15 19" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></b>':''}${m}${t?`<small>${bd?'winter ♡':t}</small>`:''}</span>`}).join('')}</div><div class="legend"><span><i class="k summer"></i>summer</span><span><i class="k winter"></i>winter</span><span><i class="k bday"></i>birthday</span></div></div>`;
 /* photo folder */
-document.getElementById('folder-btn').onclick=()=>openWin('Add your England photos',`<form id="pf" class="wb" style="padding:0">
-  <div class="rules"><b>Photo rules</b><ul><li>Photos taken in <b>England only</b></li><li>Only photos you took yourself</li><li>Nothing private, like names or home addresses</li><li>lulwah checks every photo first and can choose not to post it</li><li>Approved photos are shown <b>publicly</b> on this website for anyone to see</li></ul></div>
+document.getElementById('folder-btn').onclick=()=>openWin('Add your photos',`<form id="pf" class="wb" style="padding:0">
+  <div class="rules"><b>Photo rules</b><ul><li>Photos from <b>any city in the world</b></li><li>Only photos you took yourself</li><li>Nothing private, like names or home addresses</li><li>lulwah checks every photo first and can choose not to post it</li><li>Approved photos are shown <b>publicly</b> on this website for anyone to see</li></ul></div>
   <label class="drop" id="pdrop">Choose photos<input type="file" id="p-files" accept="image/*" multiple></label>
   <div class="thumbs" id="thumbs"></div>
-  <label>Where did you take them?<input id="p-where" placeholder="e.g. Notting Hill, London"></label>
+  <label>City<input id="p-city" list="city-list" required placeholder="e.g. London, Paris, Jeddah" autocomplete="off"></label>
+  <label>Which place? (optional)<input id="p-where" placeholder="e.g. Notting Hill, Eiffel Tower"></label>
   <label>Your name (optional)<input id="p-name" placeholder="So I can credit you"></label>
-  <label class="check"><input type="checkbox" id="p-agree" required> I took these photos in England and I agree they can be shared publicly on London Favorites.</label>
+  <label class="check"><input type="checkbox" id="p-agree" required> I took these photos myself and I agree they can be shared publicly on London Favorites.</label>
   <div class="row"><button type="button" class="pill" data-close>Cancel</button><button class="pill solid">Send photos</button></div></form>`);
 wb.addEventListener('change',e=>{if(e.target.id!=='p-files')return;const th=document.getElementById('thumbs');th.innerHTML='';[...e.target.files].slice(0,9).forEach(f=>{const r=new FileReader();r.onload=()=>{const im=new Image();im.src=r.result;im.alt='';th.appendChild(im);};r.readAsDataURL(f);});});
 /* saving submissions (Supabase) */
@@ -842,8 +890,8 @@ const val=id=>(document.getElementById(id)?.value||'').trim();
 const sending=()=>{wt.textContent='Sending…';wb.innerHTML='<h3>Sending…</h3><p>Hold on a second, your photos are on their way.</p>';};
 const sentMsg=(h,p)=>{wt.textContent='Thank you!';wb.innerHTML=`<h3>${h}</h3><p>${p}</p><div class="row"><button class="pill solid" data-close>Done</button></div>`;};
 const failMsg=()=>{wt.textContent='Oops';wb.innerHTML='<h3>That didn’t send</h3><p>Something went wrong. Please check your internet and try again.</p><div class="row"><button class="pill solid" data-close>Close</button></div>';};
-wb.addEventListener('click',async e=>{if(e.target.id==='p-back'){document.getElementById('pf').hidden=false;document.getElementById('p-sure').remove();wt.textContent='Add your England photos';}
-  if(e.target.id==='p-yes'){const files=[...(document.getElementById('p-files')?.files||[])].slice(0,6);const row={kind:'photo',place:val('p-where').slice(0,120),name:val('p-name').slice(0,80)};sending();
+wb.addEventListener('click',async e=>{if(e.target.id==='p-back'){document.getElementById('pf').hidden=false;document.getElementById('p-sure').remove();wt.textContent='Add your photos';}
+  if(e.target.id==='p-yes'){const files=[...(document.getElementById('p-files')?.files||[])].slice(0,6);const row={kind:'photo',city:val('p-city').slice(0,80),place:val('p-where').slice(0,120),name:val('p-name').slice(0,80)};sending();
     try{row.photos=[];for(const f of files)row.photos.push(await uploadPhoto(f));await saveSub(row);sentMsg('Photos sent!','lulwah will look at them and may add them to London Favorites.');}catch(err){console.error(err);failMsg();}}});
 
 wb.addEventListener('submit',e=>{if(e.target.id!=='pf')return;e.preventDefault();e.stopImmediatePropagation();const f=document.getElementById('pf');f.hidden=true;wt.textContent='Are you sure?';f.insertAdjacentHTML('afterend',`<div id="p-sure" class="wb" style="padding:0"><h3>Are you sure?</h3><p>If lulwah picks your photo, <b>anyone on the internet</b> will be able to see it on London Favorites. Are you sure you want your photo shared in public?</p><div class="row"><button type="button" class="pill" id="p-back">Go back</button><button type="button" class="pill solid" id="p-yes">Yes, share it</button></div></div>`);},true);
@@ -857,8 +905,72 @@ function drawWall(){const va=spots.find(x=>x[3]==='va');let h=`<article class="s
  wallEl.innerHTML=h;}
 drawWall();
 wallEl.addEventListener('click',e=>{if(e.target.closest('.slot-btn')){document.getElementById('folder-btn').click();return;}if(e.target.closest('.wall-me')){const i=spots.findIndex(x=>x[3]==='va');showSpot(spots[i]);return;}const v=e.target.closest('.wall-v');if(v){const w=wallItems[+v.dataset.w];openWin(w[1],`<img class="big" src="${esc(w[0])}" alt="${esc(w[1])}"><span class="eyebrow">${w[2]?'from '+esc(w[2]):'from a visitor'}</span><h3>${esc(w[1])}</h3>`);}});
-fetch(SB+'/rest/v1/rpc/approved_submissions',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{rows.forEach(s=>(s.photos||[]).forEach(u=>{if(/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u))wallItems.push([u,s.place||'London',s.name||'']);}));if(wallItems.length)drawWall();}).catch(()=>{});
+fetch(SB+'/rest/v1/rpc/approved_photos',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{rows.forEach(s=>(s.photos||[]).forEach(u=>{if(/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u))wallItems.push([u,s.place||'London',s.name||'']);}));if(wallItems.length)drawWall();}).catch(()=>{});
 document.getElementById('mu-close').onclick=()=>{document.getElementById('music').hidden=true;};
+
+
+/* ---------- globe + city folders ---------- */
+(function(){
+const CITIES={london:[51.507,-0.128],"لندن":[51.507,-0.128],bath:[51.381,-2.359],paris:[48.857,2.352],"باريس":[48.857,2.352],edinburgh:[55.953,-3.189],manchester:[53.481,-2.243],liverpool:[53.408,-2.991],oxford:[51.752,-1.258],cambridge:[52.205,0.119],brighton:[50.823,-0.137],birmingham:[52.486,-1.890],york:[53.960,-1.087],dublin:[53.350,-6.260],amsterdam:[52.368,4.904],brussels:[50.850,4.352],berlin:[52.520,13.405],munich:[48.135,11.582],vienna:[48.208,16.373],prague:[50.075,14.438],zurich:[47.377,8.541],geneva:[46.204,6.143],rome:[41.903,12.496],"روما":[41.903,12.496],milan:[45.464,9.190],florence:[43.770,11.256],venice:[45.441,12.316],madrid:[40.417,-3.704],barcelona:[41.385,2.173],lisbon:[38.722,-9.139],istanbul:[41.008,28.978],"اسطنبول":[41.008,28.978],athens:[37.984,23.728],copenhagen:[55.676,12.568],stockholm:[59.329,18.069],oslo:[59.914,10.752],"new york":[40.713,-74.006],nyc:[40.713,-74.006],"los angeles":[34.052,-118.244],"san francisco":[37.775,-122.419],chicago:[41.878,-87.630],boston:[42.360,-71.059],miami:[25.762,-80.192],toronto:[43.653,-79.383],vancouver:[49.283,-123.121],"cape cod":[41.668,-70.296],tokyo:[35.676,139.650],seoul:[37.567,126.978],singapore:[1.352,103.820],"hong kong":[22.320,114.169],bangkok:[13.756,100.502],bali:[-8.409,115.189],sydney:[-33.869,151.209],melbourne:[-37.814,144.963],dubai:[25.205,55.271],"دبي":[25.205,55.271],"abu dhabi":[24.454,54.377],doha:[25.285,51.531],"الدوحة":[25.285,51.531],kuwait:[29.376,47.977],manama:[26.229,50.586],riyadh:[24.713,46.675],"الرياض":[24.713,46.675],jeddah:[21.486,39.193],"جدة":[21.486,39.193],"جده":[21.486,39.193],khobar:[26.217,50.197],"الخبر":[26.217,50.197],dammam:[26.420,50.089],"الدمام":[26.420,50.089],makkah:[21.389,39.858],mecca:[21.389,39.858],"مكة":[21.389,39.858],madinah:[24.525,39.569],medina:[24.525,39.569],"المدينة":[24.525,39.569],alula:[26.608,37.923],"العلا":[26.608,37.923],abha:[18.216,42.505],taif:[21.270,40.416],cairo:[30.044,31.236],"القاهرة":[30.044,31.236],marrakech:[31.629,-7.981],beirut:[33.894,35.502],amman:[31.954,35.911],muscat:[23.588,58.383],baku:[40.409,49.867],tbilisi:[41.716,44.783],"cape town":[-33.925,18.424],"mexico city":[19.433,-99.133],"rio de janeiro":[-22.907,-43.173],maldives:[3.202,73.221]};
+const norm=c=>(c||'').trim().toLowerCase().replace(/\s+/g,' ');
+const title=c=>{c=(c||'').trim();return c?c.replace(/\b\w/g,m=>m.toUpperCase()):'Somewhere';};
+document.getElementById('city-list').innerHTML=['London','Paris','Bath','Edinburgh','Manchester','Rome','Barcelona','Istanbul','Dubai','Riyadh','Jeddah','Khobar','New York','Tokyo'].map(c=>`<option value="${c}">`).join('');
+const citySpots=spots.filter(x=>x[2]!=='bath').map((x,j)=>[x[3],x[0],spots.indexOf(x)]);
+const groups={}; // key -> {name,items,coord,mine}
+const add=(name,items,mine)=>{const k=norm(name);if(!groups[k])groups[k]={name:title(name),items:[],coord:CITIES[k]||null,mine:false};groups[k].items.push(...items);if(mine)groups[k].mine=true;};
+const COLORS=['#f2c4cf','#95BBEA','#c9d9a8','#e9d3a8','#f7a8c0','#b9d3f0','#f5dcd5'];
+let folder=null;
+function build(){
+  const keys=Object.keys(groups).sort((a,b)=>(b==='london')-(a==='london')||groups[b].items.length-groups[a].items.length);
+  const F=keys.map((k,i)=>{const g=groups[k];return {key:k,tab:g.name,color:COLORS[i%COLORS.length],label:g.name,sub:g.mine&&g.items.length&&k==='london'?'everyone’s photos from '+g.name:'photos from '+g.name,items:g.items};});
+  const root=document.getElementById('fold-cities');
+  if(!F.length){root.hidden=true;return;}
+  root.hidden=false;folder=makeFolder(root,F);folder.keys=keys;
+}
+// lulwah's own photos seed London + Bath so the globe is never empty
+add('London',citySpots,true);
+add('Bath',bath.map((b,j)=>[b[3],b[0],base+j]),true);
+build();
+/* globe */
+const wrap=document.getElementById('globe-wrap'),svg=document.getElementById('gsvg'),pinsEl=document.getElementById('gpins');
+function pinsData(){return Object.keys(groups).filter(k=>groups[k].coord).map(k=>{const g=groups[k];return {k,name:g.name,lat:g.coord[0],lon:g.coord[1],img:g.items[0][0],n:g.items.length};});}
+function openCity(k){const root=document.getElementById('fold-cities');const i=(folder&&folder.keys||[]).indexOf(k);if(i<0)return;root.querySelectorAll('.ftab')[i]?.click();root.scrollIntoView({behavior:'smooth',block:'start'});}
+const src=img=>/^https?:/.test(img)?img:'images/'+img+'.jpg';
+function drawPins(){pinsEl.innerHTML=pinsData().map((p,i)=>`<button class="gpin" data-k="${esc(p.k)}" aria-label="${esc(p.name)} photos"><span class="pol"><img src="${esc(src(p.img))}" alt="" loading="lazy"><span class="cap">${esc(p.name)}</span>${p.n>1?`<span class="n">${p.n}</span>`:''}</span><span class="stem"></span><span class="dot"></span></button>`).join('');}
+pinsEl.addEventListener('click',e=>{const b=e.target.closest('.gpin');if(b)openCity(b.dataset.k);});
+drawPins();
+function load(u){return new Promise((ok,no)=>{const s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=no;document.head.appendChild(s);});}
+Promise.all([load('https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min.js'),load('https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js')]).then(()=>load('https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/dist/d3-geo.min.js')).then(()=>fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json')).then(r=>r.json()).then(world=>{
+  const land=topojson.feature(world,world.objects.land);
+  const NS='http://www.w3.org/2000/svg';
+  svg.innerHTML=`<defs><radialGradient id="gsea" cx="38%" cy="32%" r="75%"><stop offset="0" stop-color="#cfe0f6"/><stop offset=".6" stop-color="#95BBEA"/><stop offset="1" stop-color="#5f86b8"/></radialGradient><radialGradient id="gshade" cx="35%" cy="30%" r="80%"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#1b0b10" stop-opacity=".35"/></radialGradient></defs><circle class="g-glow" fill="none" stroke="rgba(149,187,234,.35)" stroke-width="10"/><path class="g-sea" fill="url(#gsea)"/><path class="g-grat" fill="none" stroke="rgba(255,248,231,.35)" stroke-width=".6"/><path class="g-land" fill="#FFF8E7" stroke="#930500" stroke-width=".8" stroke-linejoin="round"/><path class="g-shade" fill="url(#gshade)" pointer-events="none"/>`;
+  const sea=svg.querySelector('.g-sea'),grat=svg.querySelector('.g-grat'),lnd=svg.querySelector('.g-land'),shade=svg.querySelector('.g-shade'),glow=svg.querySelector('.g-glow');
+  const proj=d3.geoOrthographic().clipAngle(90).precision(.6),path=d3.geoPath(proj),gr=d3.geoGraticule10();
+  let rot=[0.13,-38,0],W=0,last=performance.now(),drag=null,hover=false,vel=0;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // start facing London
+  rot=[0.128-20,-42,0];
+  function size(){W=wrap.clientWidth;svg.setAttribute('viewBox',`0 0 ${W} ${W}`);proj.translate([W/2,W/2]).scale(W/2-14);glow.setAttribute('cx',W/2);glow.setAttribute('cy',W/2);glow.setAttribute('r',W/2-9);}
+  size();addEventListener('resize',size);
+  function render(){proj.rotate(rot);const sp={type:'Sphere'};sea.setAttribute('d',path(sp));shade.setAttribute('d',path(sp));grat.setAttribute('d',path(gr));lnd.setAttribute('d',path(land));
+    const c=[-rot[0],-rot[1]];pinsEl.querySelectorAll('.gpin').forEach(el=>{const p=groups[el.dataset.k];if(!p)return;const ll=[p.coord[1],p.coord[0]];const vis=d3.geoDistance(ll,c)<Math.PI/2-.08;if(!vis){el.style.visibility='hidden';return;}const [x,y]=proj(ll);el.style.visibility='visible';el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;el.style.zIndex=Math.round(y)+(p.mine?2000:0)+(el.dataset.k==='london'?1000:0);});}
+  function tick(t){const dt=Math.min(64,t-last);last=t;if(!drag){if(Math.abs(vel)>.001){rot[0]+=vel*dt;vel*=.95;}else if(!hover&&!reduce)rot[0]+=dt*.006;}render();requestAnimationFrame(tick);}
+  requestAnimationFrame(tick);
+  wrap.addEventListener('pointerenter',()=>hover=true);wrap.addEventListener('pointerleave',()=>{hover=false;});
+  wrap.addEventListener('pointerdown',e=>{if(e.target.closest('.gpin'))return;drag={x:e.clientX,y:e.clientY,r:rot.slice(),t:performance.now(),lx:e.clientX};wrap.setPointerCapture(e.pointerId);});
+  wrap.addEventListener('pointermove',e=>{if(!drag)return;const k=180/W;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;rot=[drag.r[0]+dx*k,Math.max(-70,Math.min(70,drag.r[1]-dy*k)),0];const now=performance.now();vel=(e.clientX-drag.lx)*k/Math.max(1,now-drag.t);drag.lx=e.clientX;drag.t=now;});
+  const end=()=>{drag=null;};wrap.addEventListener('pointerup',end);wrap.addEventListener('pointercancel',end);
+  window.__globeRedraw=()=>{drawPins();render();};
+}).catch(()=>{svg.outerHTML='<div class="globe-fallback">London ♡</div>';pinsEl.hidden=true;});
+/* visitor photos -> wall + city groups */
+fetch(SB+'/rest/v1/rpc/approved_photos',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>{
+  const ok=u=>/^https:\/\/bvpruzwymudrsgfloidc\.supabase\.co\//.test(u);let any=false;
+  rows.forEach(s=>{const ph=(s.photos||[]).filter(ok);if(!ph.length)return;any=true;const cap=(s.place||s.city||'')+(s.name?' · '+s.name:'');const g=norm(s.city)||'london';
+    const k=g;if(!groups[k])groups[k]={name:title(s.city||'London'),items:[],coord:CITIES[k]||null,mine:false};groups[k].items.unshift(...ph.map(u=>[u,cap||groups[k].name]));});
+  if(any){const root=document.getElementById('fold-cities');const tabs=root.querySelector('.ftabs');tabs.replaceWith(tabs.cloneNode(false));const ph=root.querySelector('.f-photos');ph.replaceWith(ph.cloneNode(false));const mo=root.querySelector('.f-more');mo.replaceWith(mo.cloneNode(true));build();drawPins();window.__globeRedraw&&window.__globeRedraw();}
+}).catch(()=>{});
+document.getElementById('globe-cam').addEventListener('click',()=>document.getElementById('folder-btn').click());
+})();
 
 /* animation: scroll reveal */
 (function(){
