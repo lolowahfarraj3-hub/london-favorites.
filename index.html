@@ -384,6 +384,7 @@ input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(
 /* London map */
 .mapsec{background:#f6ead9;background-image:radial-gradient(rgba(147,5,0,.05) 1px,transparent 1px);background-size:14px 14px}
 .mapsec>.in{padding-block:60px}
+.mapsec[hidden]{display:none}
 .mapsec .head{text-align:center;margin-bottom:22px}
 .mapsec h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;margin:6px 0 4px;color:var(--berry)}
 .map-scroll{overflow-x:auto;overflow-y:hidden;border-radius:10px;-webkit-overflow-scrolling:touch;box-shadow:0 18px 40px rgba(80,10,5,.18);border:6px solid var(--berry);background:#f3e2c7}
@@ -576,7 +577,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 
 <div class="page">
   <header class="nav"><div class="in">
-    <nav class="links"><a href="#map">Map</a><a href="#moments">My spots</a><a href="#spots">Your photos</a></nav>
+    <nav class="links"><a href="#globe">London</a><a href="#moments">Moments</a><a href="#spots">Your photos</a></nav>
     <div class="logo">London <i>favorites</i></div>
     <nav class="links"><a href="#dates">When I'm there</a><a href="#photos">Share photos</a></nav>
   </div></header>
@@ -632,7 +633,7 @@ a,button{-webkit-tap-highlight-color:transparent}
   </div></section>
 
 
-  <section class="mapsec" id="map"><div class="in">
+  <section class="mapsec" id="map" hidden><div class="in">
     <div class="head"><span class="eyebrow">Every spot, pinned</span><h2>My London map</h2><span class="hand">tap a photo to see the place</span></div>
     <div class="map-scroll"><div class="map" id="lmap"></div></div>
     <p class="map-hint">swipe the map sideways ↔</p>
@@ -643,7 +644,7 @@ a,button{-webkit-tap-highlight-color:transparent}
     <div class="sheet">
       <span class="eyebrow">Your turn</span>
       <h2>Your favorite spots</h2>
-      <span class="hand spots-hint">send me your London photo and it could be here!</span>
+      <span class="hand spots-hint">send me your photo and it could be here!</span>
       <div class="spots" id="wall"></div>
       <div id="grid" hidden></div>
       <div class="signup"><span>Psst! Got a favorite London place too?</span><button class="pill solid" id="band-add">Add your spot</button></div>
@@ -651,7 +652,7 @@ a,button{-webkit-tap-highlight-color:transparent}
   </div></section>
 
   <section class="folders" id="moments"><div class="in" id="fold-moments">
-    <div class="head"><span class="eyebrow">My photo folders</span><h2>Little pieces of London</h2><span class="hand">tap a folder tab to open it</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
+    <div class="head"><span class="eyebrow">My photo folders</span><h2>Little moments</h2><span class="hand">tap a folder tab to open it</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
     <div class="ftabs" role="tablist"></div>
     <div class="folder">
       <div class="f-left"><span class="f-label"></span><p class="f-sub hand"></p><p class="f-count"></p><div class="f-extra"></div></div>
@@ -792,10 +793,8 @@ return {add(f){F.push(f);drawTabs();}};
 const meLeft=me.filter(m=>m[0]!=='me');
 const spotIdx=t=>spots.map((s,i)=>[s,i]).filter(([s])=>t==='all'?s[2]!=='bath':s[2]===t).map(([s,i])=>[s[3],s[0],i]);
 makeFolder(document.getElementById('fold-moments'),[
- {tab:'My spots',color:'#f5dcd5',label:'My favorite spots',sub:'every place I love in London',items:spotIdx('all'),unit:' spots'},
  {tab:'Little moments',color:'#f2c4cf',label:'Little moments',sub:'squirrels, books, matcha and pink skies',items:moments.map(([f,c])=>['m-'+f,c])},
  {tab:'Winter',color:'#95BBEA',label:'Winter in London',sub:'Christmas lights & cozy days',items:winter,extra:'Find them:<br>'+'<a href="https://www.google.com/maps/search/?api=1&amp;query=The+Ritz+London" target="_blank" rel="noopener">The Ritz ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Dorchester+London" target="_blank" rel="noopener">The Dorchester ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=Hyde+Park+Winter+Wonderland" target="_blank" rel="noopener">Winter Wonderland ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=Regent+Street+London" target="_blank" rel="noopener">Regent Street lights ↗</a>'},
- {tab:'Bath',color:'#c9d9a8',label:'A day in Bath',sub:'just a train ride from London!',items:bath.map((b,j)=>[b[3],b[0],base+j])},
  {tab:'More of me',color:'#e9d3a8',label:'More of me',sub:'little moments of me around London ♡',items:meLeft.map(m=>[m[0],'♡'])}
 ]);
 const spotFolder=null;
@@ -804,7 +803,7 @@ grid.addEventListener('openspot',e=>showSpot(spots[e.detail]));
 function showSpot(s){openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);}
 grid.addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(!b)return;const s=spots[b.dataset.i];
   openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);});
-document.getElementById('hero-btn').onclick=()=>document.getElementById('moments').scrollIntoView({behavior:'smooth'});
+document.getElementById('hero-btn').onclick=()=>document.getElementById('fold-cities').scrollIntoView({behavior:'smooth',block:'start'});
 function openAdd(){openWin('Add your favorite spot',`<form id="af" class="wb" style="padding:0">
   <label>Place name<input id="a-name" required placeholder="e.g. Daunt Books"></label>
   <label>Area<input id="a-area" placeholder="e.g. Marylebone"></label>
