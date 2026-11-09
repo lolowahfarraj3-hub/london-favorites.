@@ -530,7 +530,7 @@ input:focus,select:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(
 .globesec .eyebrow{color:#f3d6cf}
 .globesec h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;margin:6px 0 4px;color:#FFF8E7}
 .g-sub{color:#95BBEA;font-size:22px}
-.globe-wrap{position:relative;width:min(560px,100%);aspect-ratio:1/1;margin:26px auto 40px;touch-action:pan-y;cursor:grab}
+.globe-wrap{position:relative;isolation:isolate;width:min(560px,100%);aspect-ratio:1/1;margin:26px auto 40px;touch-action:pan-y;cursor:grab}
 .globe-wrap:active{cursor:grabbing}
 .gsvg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .gpins{position:absolute;inset:0;pointer-events:none}
@@ -983,13 +983,14 @@ Promise.all([load('https://cdn.jsdelivr.net/npm/d3-array@3.2.4/dist/d3-array.min
   const proj=d3.geoOrthographic().clipAngle(90).precision(.6),path=d3.geoPath(proj),gr=d3.geoGraticule10();
   let rot=[0.13,-38,0],W=0,last=performance.now(),drag=null,hover=false,vel=0;
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // start facing London
+  // start facing London; only spin while the globe is on screen
+  let inView=false,drawn=false;if('IntersectionObserver' in window){new IntersectionObserver(es=>{inView=es[0].isIntersecting;}).observe(wrap);}else inView=true;
   rot=[0.128-20,-42,0];
   function size(){W=wrap.clientWidth;svg.setAttribute('viewBox',`0 0 ${W} ${W}`);proj.translate([W/2,W/2]).scale(W/2-14);glow.setAttribute('cx',W/2);glow.setAttribute('cy',W/2);glow.setAttribute('r',W/2-9);}
   size();addEventListener('resize',size);
   function render(){proj.rotate(rot);const sp={type:'Sphere'};sea.setAttribute('d',path(sp));shade.setAttribute('d',path(sp));grat.setAttribute('d',path(gr));lnd.setAttribute('d',path(land));
     const c=[-rot[0],-rot[1]];pinsEl.querySelectorAll('.gpin').forEach(el=>{const p=groups[el.dataset.k];if(!p)return;const ll=[p.coord[1],p.coord[0]];const vis=d3.geoDistance(ll,c)<Math.PI/2-.08;if(!vis){el.style.visibility='hidden';return;}const [x,y]=proj(ll);el.style.visibility='visible';el.style.transform=`translate(${x}px,${y}px) translate(-50%,-100%)`;el.style.zIndex=Math.round(y)+(p.mine?2000:0)+(el.dataset.k==='london'?1000:0);});}
-  function tick(t){const dt=Math.min(64,t-last);last=t;if(!drag){if(Math.abs(vel)>.001){rot[0]+=vel*dt;vel*=.95;}else if(!hover&&!reduce)rot[0]+=dt*.006;}render();requestAnimationFrame(tick);}
+  function tick(t){const dt=Math.min(64,t-last);last=t;if(!drag){if(Math.abs(vel)>.001){rot[0]+=vel*dt;vel*=.95;}else if(!hover&&!reduce&&inView)rot[0]+=dt*.006;}if(inView||drag||Math.abs(vel)>.001||!drawn){render();drawn=true;}requestAnimationFrame(tick);}
   requestAnimationFrame(tick);
   wrap.addEventListener('pointerenter',()=>hover=true);wrap.addEventListener('pointerleave',()=>{hover=false;});
   wrap.addEventListener('pointerdown',e=>{if(e.target.closest('.gpin'))return;drag={x:e.clientX,y:e.clientY,r:rot.slice(),t:performance.now(),lx:e.clientX};wrap.setPointerCapture(e.pointerId);});
