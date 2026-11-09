@@ -607,6 +607,76 @@ a,button{-webkit-tap-highlight-color:transparent}
   .p2l .ppx2{min-height:100px}.p2l .pp-script{font-size:26px}
   .p2f dd{font-size:11px}.p2f dd.sig{font-size:24px}.p2f .sigrow{min-height:60px}
 }
+
+/* ===== mini portfolio (your favorite spots) ===== */
+.pfolio{position:relative;perspective:1600px}
+.pf-cover{display:block;position:relative;width:min(520px,100%);margin:10px auto 18px;border:0;padding:0;background:none;cursor:pointer;font:inherit;color:#4a2c1a;text-align:left;transform-origin:left center;transition:transform .8s cubic-bezier(.6,.05,.3,1),opacity .5s .3s}
+.pf-sheets{position:absolute;inset:0}
+.pf-sheets i{position:absolute;top:3%;bottom:2%;left:4%;right:-3%;background:#efe6d6;border-radius:6px 12px 12px 6px;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.pf-sheets i:nth-child(2){right:-5.5%;top:6%;bottom:4%;background:#e9dccb}
+.pf-sheets i:nth-child(3){right:-1.5%;top:1%;background:#d9c3a0}
+.pf-sheets i::after{content:"";position:absolute;right:-10px;width:12px;height:56px;border-radius:0 6px 6px 0}
+.pf-sheets i:nth-child(1)::after{top:24%;background:#a9b9c9}.pf-sheets i:nth-child(2)::after{top:44%;background:#d8b1b8}.pf-sheets i:nth-child(3)::after{top:64%;background:#cbbfa9}
+.pf-front{position:relative;display:block;aspect-ratio:4/5;background:#d2b98f;background-image:radial-gradient(rgba(90,60,30,.08) 1px,transparent 1.5px),linear-gradient(160deg,#dcc59d,#c8ad80);background-size:6px 6px,100% 100%;border-radius:4px 14px 10px 10px;box-shadow:0 22px 44px rgba(0,0,0,.4),inset 0 0 0 1px rgba(90,60,30,.15)}
+.pf-front::before{content:"";position:absolute;right:6%;top:-22px;width:38%;height:24px;background:#d6be95;border-radius:10px 10px 0 0;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.pf-clip{position:absolute;left:24%;top:-30px;width:34px;z-index:3;filter:drop-shadow(0 3px 3px rgba(0,0,0,.3))}
+.pf-badge{position:absolute;left:6%;top:6%;width:56%;padding:12px 12px 10px;background:#f6efe2;border:6px solid rgba(255,255,255,.55);outline:1px solid rgba(0,0,0,.08);border-radius:6px;transform:rotate(-7deg);box-shadow:0 10px 20px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:6px;z-index:2}
+.pf-b-title{font-family:var(--serif);font-size:clamp(17px,3.4vw,24px);line-height:1;color:#3a2418}
+.pf-b-title em{font-style:normal;color:var(--berry)}
+.pf-b-row{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #cdbfa8;padding-bottom:5px}
+.pf-b-id{font-family:var(--mono);font-size:8px;letter-spacing:.06em;color:#6b5848;line-height:1.4}
+.pf-b-seal{width:30px;height:30px;border-radius:50%;border:1px solid #8a7766;display:grid;place-items:center;font-size:13px;color:#6b5848}
+.pf-b-body{display:grid;grid-template-columns:1fr 40%;grid-template-rows:auto auto auto;column-gap:8px;align-items:end}
+.pf-b-body img{grid-column:2;grid-row:1/4;width:100%;aspect-ratio:3/4;object-fit:cover;filter:saturate(.85) sepia(.15)}
+.pf-b-f{grid-column:1;font-size:clamp(9px,1.8vw,12px);border-bottom:1px solid #d9cdb9;padding:3px 0;min-width:0}
+.pf-b-f b{font-family:var(--mono);font-weight:400;font-size:8px;color:#6b5848;display:block}
+.pf-b-f i{font-family:"Pinyon Script",cursive;font-style:normal;font-size:clamp(15px,2.8vw,19px);color:#3a2418;line-height:1.1}
+.pf-b-bar{height:18px;background:repeating-linear-gradient(90deg,#2b201a 0 2px,transparent 2px 3px,#2b201a 3px 4px,transparent 4px 7px,#2b201a 7px 10px,transparent 10px 11px);opacity:.85}
+.pf-b-ref{font-family:var(--mono);font-size:8px;color:#6b5848}
+.pf-star{position:absolute;width:44px;z-index:3;filter:drop-shadow(0 3px 3px rgba(0,0,0,.3))}
+.pf-star svg{display:block;width:100%}
+.pf-star.s1{left:2%;top:4%;transform:rotate(-14deg)}.pf-star.s2{right:5%;top:44%;width:52px;transform:rotate(12deg)}
+.pf-title{position:absolute;right:7%;bottom:24%;text-align:right;font-family:var(--serif);font-size:clamp(38px,8.5vw,64px);line-height:.88;color:#5b3520;letter-spacing:.01em;transform:rotate(-3deg)}
+.pf-title em{font-style:normal;font-family:var(--hand);color:var(--berry);font-size:.6em}
+.pf-line{position:absolute;right:8%;bottom:20%;width:56%;height:10px;border-bottom:2px solid #5b3520;border-radius:0 0 60% 40%;transform:rotate(-4deg)}
+.pf-ref{position:absolute;left:8%;bottom:6%;font-family:var(--mono);font-size:clamp(9px,1.8vw,12px);color:#5b3520;border-top:1px solid rgba(91,53,32,.45);padding-top:6px;width:52%}
+.pf-ref b{font-weight:500;font-size:1.25em}
+.pf-open{position:absolute;right:8%;bottom:6%;font-size:22px;color:var(--berry)}
+.pf-cover:hover .pf-front{transform:rotate(-1deg) translateY(-3px)}
+.pf-front{transition:transform .3s}
+.pf-inside{display:none}
+.pfolio.open .pf-cover{transform:rotateY(-110deg);opacity:0;pointer-events:none;position:absolute;left:0;right:0;top:0}
+.pfolio.open .pf-inside{display:block;animation:pfin .7s .2s cubic-bezier(.2,.9,.3,1.1) both}
+@keyframes pfin{from{opacity:0;transform:scale(.92) translateY(20px)}to{opacity:1;transform:none}}
+.pf-close{position:absolute;right:14px;top:14px;border:1.5px solid var(--berry);background:var(--paper);color:var(--berry);font:500 12px var(--sans);padding:6px 12px;border-radius:999px;cursor:pointer;z-index:3}
+@media (prefers-reduced-motion: no-preference){.pf-cover .pf-front{animation:pfbob 5s ease-in-out infinite}.pf-cover:hover .pf-front{animation:none}}
+@keyframes pfbob{0%,100%{transform:rotate(0)}50%{transform:rotate(-1deg) translateY(-4px)}}
+@media (max-width:460px){.pf-badge{width:52%;top:5%}.pf-title{font-size:32px;bottom:23%}.pf-line{bottom:19%}.pf-cover{width:92%}.pf-badge{padding:8px;border-width:4px;gap:4px}.pf-star{width:32px}.pf-star.s2{width:38px}.pf-open{font-size:18px}.pf-b-bar{height:12px}}
+
+/* ===== Flowery Love folder (little moments) ===== */
+.flcover{position:relative;width:min(560px,100%);margin:84px auto 10px;padding-top:150px}
+.fl-closed .ftabs,.fl-closed .folder{display:none}
+#fold-moments:not(.fl-closed) .flcover{display:none}
+.fl-opening .folder,.fl-opening .ftabs{animation:pfin .65s cubic-bezier(.2,.9,.3,1.1) both}
+.fl-layers{position:absolute;left:0;right:0;top:0;height:230px}
+.fl-layer{position:absolute;left:calc(4% + var(--i)*3%);right:calc(4% + var(--i)*3%);top:calc(var(--i)*38px);height:200px;border:0;padding:0;cursor:pointer;background:var(--lc);border-radius:10px 10px 0 0;box-shadow:0 -4px 14px rgba(0,0,0,.18);transition:transform .25s;z-index:var(--i)}
+.fl-layer:hover{transform:translateY(-10px)}
+.fl-ltab{position:absolute;top:-24px;height:26px;padding:6px 18px 0;background:var(--lc);border-radius:10px 10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#2b2626;text-decoration:underline;text-underline-offset:3px}
+.fl-layer:nth-child(1) .fl-ltab{right:6%}.fl-layer:nth-child(2) .fl-ltab{left:10%}.fl-layer:nth-child(3) .fl-ltab{left:40%}.fl-layer:nth-child(4) .fl-ltab{right:20%}
+.fl-pk{position:absolute;width:26%;aspect-ratio:4/3;object-fit:cover;border:6px solid #fff;box-shadow:0 6px 12px rgba(0,0,0,.25);top:-64px}
+.fl-pk0{left:5%;transform:rotate(-6deg)}.fl-pk1{left:30%;transform:rotate(3deg);top:-76px}.fl-pk2{left:55%;transform:rotate(-2deg);top:-58px;width:22%}
+.fl-pocket{position:relative;display:block;width:100%;border:0;cursor:pointer;font:inherit;text-align:left;z-index:10;aspect-ratio:5/3.4;background:#b8cbd0;background-image:radial-gradient(rgba(40,60,70,.07) 1px,transparent 1.5px),linear-gradient(180deg,#c3d4d8,#adc1c7);background-size:5px 5px,100% 100%;border-radius:4px 4px 12px 12px;box-shadow:0 18px 36px rgba(0,0,0,.35);clip-path:polygon(0 12%,40% 12%,46% 0,100% 0,100% 100%,0 100%)}
+.fl-clip{position:absolute;right:6%;top:7%;width:54px}
+.fl-tag{position:absolute;left:8%;top:40%;background:#eceae6;padding:6px 10px;font-family:var(--mono);font-size:9px;line-height:1.5;color:#3a3434;border-radius:3px;transform:rotate(-4deg);box-shadow:0 4px 8px rgba(0,0,0,.2)}
+.fl-tag b{font-weight:500}
+.fl-spark{position:absolute;left:34%;top:30%;font-size:30px;color:#e3c27a;text-shadow:0 0 8px rgba(255,230,160,.8)}
+.fl-title{position:absolute;left:8%;bottom:10%;font-family:"Pinyon Script",cursive;font-size:clamp(40px,9vw,66px);color:#2f3a3c;line-height:1}
+.fl-open{position:absolute;right:7%;bottom:9%;font-size:22px;color:#2f3a3c}
+.fl-pocket:hover{filter:brightness(1.03)}
+@media (prefers-reduced-motion: no-preference){.fl-layer{animation:flpeek 4s ease-in-out infinite;animation-delay:calc(var(--i)*.4s)}}
+@keyframes flpeek{0%,100%{translate:0 0}50%{translate:0 -5px}}
+.folder .fl-close{top:10px;right:10px}
+@media (max-width:460px){.fl-title{font-size:38px}.fl-open{bottom:auto;top:46%;right:8%}.folder .fl-close{top:auto;bottom:14px;right:12px}.flcover{padding-top:120px;margin-top:60px}.fl-pk{border-width:4px;top:-48px}.fl-pk1{top:-56px}.fl-layers{height:190px}.fl-layer{top:calc(var(--i)*30px)}.fl-ltab{font-size:9px;padding:6px 10px 0;height:24px;top:-22px}.fl-clip{width:40px}.fl-open{font-size:18px}.fl-tag{font-size:8px}}
 </style>
 
 <div class="page">
@@ -677,7 +747,33 @@ a,button{-webkit-tap-highlight-color:transparent}
   </div></section>
 
   <section class="band" id="spots"><div class="in">
-    <div class="sheet">
+    <div class="pfolio" id="pfolio">
+    <button class="pf-cover" id="pf-cover" aria-label="Open the folder: Your favorite spots">
+      <span class="pf-sheets" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="pf-front">
+        <span class="pf-clip" aria-hidden="true"><svg viewBox="0 0 40 70"><rect x="12" y="2" width="16" height="26" rx="8" fill="none" stroke="#b9bbc2" stroke-width="4"/><rect x="15" y="22" width="10" height="22" rx="3" fill="#d6d7dc" stroke="#8e9097"/><path d="M20 44v16" stroke="#8e9097" stroke-width="3"/></svg></span>
+        <span class="pf-badge">
+          <span class="pf-b-title">London Favorites <em>♡</em></span>
+          <span class="pf-b-row"><span class="pf-b-id">ID NO. 001<br>THE SPOT CARD</span><span class="pf-b-seal">✦</span></span>
+          <span class="pf-b-body">
+            <span class="pf-b-f"><b>NAME:</b> <i>you?</i></span>
+            <span class="pf-b-f"><b>BASED IN:</b> <i>anywhere</i></span>
+            <span class="pf-b-f"><b>SPECIALTY:</b> <i>favorite spots</i></span>
+            <img src="images/va.jpg" alt="" loading="lazy">
+          </span>
+          <span class="pf-b-bar"></span>
+          <span class="pf-b-ref">REF.001 · · · ♡ · · ·</span>
+        </span>
+        <span class="pf-star s1" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="slv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f6"/><stop offset=".5" stop-color="#a9abb2"/><stop offset="1" stop-color="#e2e3e7"/></linearGradient></defs><path d="M20 2l5.3 11.6 12.7 1.4-9.5 8.6 2.7 12.5L20 29.6 8.8 36.1l2.7-12.5L2 15l12.7-1.4z" fill="url(#slv)" stroke="#7d7f86" stroke-width="1"/></svg></span>
+        <span class="pf-star s2" aria-hidden="true"><svg viewBox="0 0 40 40"><defs><linearGradient id="slv2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f6"/><stop offset=".5" stop-color="#a9abb2"/><stop offset="1" stop-color="#e2e3e7"/></linearGradient></defs><path d="M20 2l5.3 11.6 12.7 1.4-9.5 8.6 2.7 12.5L20 29.6 8.8 36.1l2.7-12.5L2 15l12.7-1.4z" fill="url(#slv2)" stroke="#7d7f86" stroke-width="1"/></svg></span>
+        <span class="pf-title">YOUR<br>FAVORITE <em>♡</em><br>SPOTS</span>
+        <span class="pf-line" aria-hidden="true"></span>
+        <span class="pf-ref"><b>REF.002</b><br>photos from you &amp; me, 2026</span>
+        <span class="pf-open hand">tap to open ↗</span>
+      </span>
+    </button>
+    <div class="sheet pf-inside" id="pf-inside">
+      <button class="pf-close" id="pf-close" aria-label="Close the folder">close folder ✕</button>
       <span class="eyebrow">Your turn</span>
       <h2>Your favorite spots</h2>
       <span class="hand spots-hint">send me your photo and it could be here!</span>
@@ -685,12 +781,24 @@ a,button{-webkit-tap-highlight-color:transparent}
       <div id="grid" hidden></div>
       <div class="signup"><span>Psst! Got a favorite London place too?</span><button class="pill solid" id="band-add">Add your spot</button></div>
     </div>
+    </div>
   </div></section>
 
-  <section class="folders" id="moments"><div class="in" id="fold-moments">
-    <div class="head"><span class="eyebrow">My photo folders</span><h2>Little moments</h2><span class="hand">tap a folder tab to open it</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
+  <section class="folders" id="moments"><div class="in fl-closed" id="fold-moments">
+    <div class="head"><span class="eyebrow">My photo folders</span><h2>Little moments</h2><span class="hand">tap the folder to open it</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
+    <div class="flcover" id="flcover">
+      <div class="fl-layers" id="fl-layers"></div>
+      <button class="fl-pocket" id="fl-pocket" aria-label="Open Little moments">
+        <span class="fl-clip" aria-hidden="true"><svg viewBox="0 0 60 50"><path d="M8 18h44l-4 28H12z" fill="#1f1a1a"/><path d="M18 18C18 4 42 4 42 18" stroke="#2b2626" stroke-width="4" fill="none"/><rect x="14" y="20" width="32" height="4" fill="#3a3434"/></svg></span>
+        <span class="fl-tag"><b>LULWAH</b> · LONDON<br>little things I love<br>2026 ♡</span>
+        <span class="fl-spark" aria-hidden="true">✦</span>
+        <span class="fl-title">Little moments</span>
+        <span class="fl-open hand">tap to open ↗</span>
+      </button>
+    </div>
     <div class="ftabs" role="tablist"></div>
     <div class="folder">
+      <button class="pf-close fl-close" id="fl-close" aria-label="Close the folder">close folder ✕</button>
       <div class="f-left"><span class="f-label"></span><p class="f-sub hand"></p><p class="f-count"></p><div class="f-extra"></div></div>
       <div class="f-right"><svg class="clipper" viewBox="0 0 60 70" aria-hidden="true"><path d="M18 30 C18 4 42 4 42 30" stroke="#2a1a18" stroke-width="4" fill="none"/><path d="M14 30 C14 -2 46 -2 46 30" stroke="#2a1a18" stroke-width="3" fill="none" opacity=".55"/><rect x="4" y="28" width="52" height="40" rx="4" fill="#1d1211"/><rect x="8" y="32" width="44" height="6" rx="2" fill="#3a2a28"/></svg><div class="f-photos"></div><button class="pill f-more" hidden>Show all photos</button></div>
     </div>
@@ -824,11 +932,11 @@ tabs.addEventListener('click',e=>{const b=e.target.closest('.ftab,.flayer');if(!
 more.addEventListener('click',()=>{all=true;draw();});
 ph.addEventListener('click',e=>{const b=e.target.closest('.fp');if(!b)return;const [img,c,si]=F[cur].items[+b.dataset.n];if(si!=null){showSpot(spots[si]);return;}openWin(c,`<img class="big" src="${esc(src(img))}" alt="${esc(c)}">${c==='♡'?'<span class="heart big-heart" aria-hidden="true">♡</span>':''}`);});
 show(0);
-return {add(f){F.push(f);drawTabs();}};
+return {add(f){F.push(f);drawTabs();},show,F};
 }
 const meLeft=me.filter(m=>m[0]!=='me');
 const spotIdx=t=>spots.map((s,i)=>[s,i]).filter(([s])=>t==='all'?s[2]!=='bath':s[2]===t).map(([s,i])=>[s[3],s[0],i]);
-makeFolder(document.getElementById('fold-moments'),[
+const momF=makeFolder(document.getElementById('fold-moments'),[
  {tab:'Little moments',color:'#f2c4cf',label:'Little moments',sub:'squirrels, books, matcha and pink skies',items:moments.map(([f,c])=>['m-'+f,c])},
  {tab:'Winter',color:'#95BBEA',label:'Winter in London',sub:'Christmas lights & cozy days',items:winter,extra:'Find them:<br>'+'<a href="https://www.google.com/maps/search/?api=1&amp;query=The+Ritz+London" target="_blank" rel="noopener">The Ritz ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Dorchester+London" target="_blank" rel="noopener">The Dorchester ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=Hyde+Park+Winter+Wonderland" target="_blank" rel="noopener">Winter Wonderland ↗</a><br><a href="https://www.google.com/maps/search/?api=1&amp;query=Regent+Street+London" target="_blank" rel="noopener">Regent Street lights ↗</a>'},
  {tab:'More of me',color:'#e9d3a8',label:'More of me',sub:'little moments of me around London ♡',items:meLeft.map(m=>[m[0],'♡'])}
@@ -1006,6 +1114,23 @@ fetch(SB+'/rest/v1/rpc/approved_photos',{method:'POST',headers:{...sbH,'Content-
   if(any){const root=document.getElementById('fold-cities');const tabs=root.querySelector('.ftabs');tabs.replaceWith(tabs.cloneNode(false));const ph=root.querySelector('.f-photos');ph.replaceWith(ph.cloneNode(false));const mo=root.querySelector('.f-more');mo.replaceWith(mo.cloneNode(true));build();drawPins();window.__globeRedraw&&window.__globeRedraw();}
 }).catch(()=>{});
 document.getElementById('globe-cam').addEventListener('click',()=>document.getElementById('folder-btn').click());
+})();
+
+
+/* folder covers: open / close */
+(function(){
+const pf=document.getElementById('pfolio');
+const setPf=o=>{pf.classList.toggle('open',o);if(o)setTimeout(()=>document.getElementById('pf-inside').scrollIntoView({behavior:'smooth',block:'start'}),350);};
+document.getElementById('pf-cover').onclick=()=>setPf(true);
+document.getElementById('pf-close').onclick=()=>{setPf(false);pf.scrollIntoView({behavior:'smooth',block:'center'});};
+const root=document.getElementById('fold-moments'),lay=document.getElementById('fl-layers');
+const src=img=>/^https?:/.test(img)?img:'images/'+img+'.jpg';
+const tints=['#efe7d8','#e4ddd0','#d9d1c4'];
+lay.innerHTML=momF.F.map((f,i)=>{const pk=i?'':momF.F.slice(0,3).map(g=>g.items[0]).map(([img],n)=>`<img class="fl-pk fl-pk${n}" src="${esc(src(img))}" alt="" loading="lazy">`).join('');return `<button class="fl-layer" data-f="${i}" style="--i:${i};--lc:${tints[i%3]}" aria-label="Open ${esc(f.tab)}">${pk}<span class="fl-ltab">${esc(f.tab)}</span></button>`;}).join('');
+const open=i=>{momF.show(i);root.classList.remove('fl-closed');root.classList.add('fl-opening');setTimeout(()=>root.classList.remove('fl-opening'),700);root.querySelector('.ftabs').scrollIntoView({behavior:'smooth',block:'start'});};
+lay.addEventListener('click',e=>{const b=e.target.closest('.fl-layer');if(b)open(+b.dataset.f);});
+document.getElementById('fl-pocket').onclick=()=>open(0);
+document.getElementById('fl-close').onclick=()=>{root.classList.add('fl-closed');root.scrollIntoView({behavior:'smooth',block:'start'});};
 })();
 
 /* animation: scroll reveal */
