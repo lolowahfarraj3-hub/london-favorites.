@@ -762,11 +762,35 @@ section[hidden]{display:none!important}
 @media (prefers-reduced-motion: no-preference){.collage:not(.pp-open) .pp-closed img{animation:ppwiggle 3.5s ease-in-out infinite}}
 @keyframes ppwiggle{0%,100%{transform:rotate(0)}50%{transform:rotate(2deg) translateY(-4px)}}
 @media (max-width:460px){.pp-closed{width:52%}.pp-tap{font-size:19px;left:auto;right:-34%;top:auto;bottom:-14%}}
+
+/* city folders closed state */
+.cf-closed .folder{max-height:64px;overflow:hidden;padding-block:0;cursor:pointer}
+.cf-closed .folder>*{visibility:hidden}
+.cf-label{display:none}
+.cf-closed .cf-label{display:grid;place-items:center;position:absolute;inset:0;visibility:visible!important;font-family:"Pinyon Script",cursive;font-size:30px;color:var(--berry)}
+.cf-closed .ftab.on{padding-top:12px}
+.city-folders .folder{transition:max-height .7s cubic-bezier(.3,.7,.2,1)}
+.cf-opening .folder{animation:cfopen .7s cubic-bezier(.2,.9,.3,1.05)}
+@keyframes cfopen{from{max-height:64px}to{max-height:2400px}}
+.cf-hint{text-align:center;color:#f2b8c6;font-size:22px;margin:10px 0 0}
+#fold-cities:not(.cf-closed)~.cf-hint{display:none}
+.folder .cf-close{top:10px;right:10px}
+/* one camera + sticky note */
+.cam-block{display:grid;grid-template-columns:auto minmax(0,320px);justify-content:center;align-items:center;gap:10px 34px;margin:46px auto 10px}
+.cb-cam{position:relative;width:190px;height:170px}
+.cb-cam .camera{width:100%;right:0;bottom:0}
+.cb-note{background:#fff3a8;color:#3a0a05;font-family:var(--hand);font-size:21px;line-height:1.25;padding:20px 18px 18px;transform:rotate(2.5deg);box-shadow:0 12px 22px rgba(0,0,0,.35);position:relative}
+.cb-note::before{content:"";position:absolute;left:50%;top:-12px;width:80px;height:24px;margin-left:-40px;background:rgba(245,220,213,.85);transform:rotate(-4deg)}
+.cb-note b{display:block;font-family:var(--serif);font-weight:400;font-size:26px;color:var(--berry);margin-bottom:4px}
+.cb-spot{grid-column:1/-1;text-align:center;margin:8px 0 0;color:#f2b8c6;font-size:14px}
+.cb-spot button{background:none;border:0;color:#fff8e7;text-decoration:underline;font:inherit;cursor:pointer;padding:0}
+@media (prefers-reduced-motion: no-preference){.cb-cam .camera{animation:bob 3s ease-in-out infinite}}
+@media (max-width:560px){.cam-block{grid-template-columns:1fr;justify-items:center}.cb-cam{width:150px;height:135px}.cb-note{font-size:19px;max-width:300px}}
 </style>
 
 <div class="page">
   <header class="nav"><div class="in">
-    <nav class="links"><a href="#globe">Globe</a><a href="#moments">Moments</a><a href="#spots">Your photos</a><a href="#game">Game</a></nav>
+    <nav class="links"><a href="#globe">Globe</a><a href="#moments">Moments</a><a href="#spots">Your photos</a><a href="#cam">Add a photo</a></nav>
     <div class="logo">Travel <i>favorites</i></div>
     <nav class="links"><a href="#dates">When I'm there</a><a href="#photos">Share photos</a></nav>
   </div></header>
@@ -807,19 +831,24 @@ section[hidden]{display:none!important}
 
   <section class="globesec" id="globe"><div class="in">
     <div class="g-head">
-      <div class="g-cam"><button class="camera" id="globe-cam" aria-label="Add your photo"><span class="lens"></span><span class="flash"></span><span class="dial"></span><span class="screen"><b>photo</b> +</span><span class="pad"><i></i></span><span class="btn1"></span><span class="btn2"></span></button></div>
-      <span class="hand g-add">add your photo ↑</span>
       <span class="eyebrow">Around the world</span>
       <h2>Everyone's favorite places</h2>
       <span class="hand g-sub">spin the globe and tap a photo</span>
     </div>
     <div class="globe-wrap" id="globe-wrap"><svg class="gsvg" id="gsvg" aria-hidden="true"></svg><div class="gpins" id="gpins"></div></div>
-    <div class="city-folders" id="fold-cities">
+    <div class="city-folders cf-closed" id="fold-cities">
       <div class="ftabs" role="tablist"></div>
       <div class="folder">
+        <button class="pf-close cf-close" id="cf-close" aria-label="Close the folder">close folder ✕</button><span class="cf-label">everyone's photos, by city ✈︎</span>
         <div class="f-left"><span class="f-label"></span><p class="f-sub hand"></p><p class="f-count"></p><div class="f-extra"></div></div>
         <div class="f-right"><svg class="clipper" viewBox="0 0 60 70" aria-hidden="true"><path d="M18 30 C18 4 42 4 42 30" stroke="#2a1a18" stroke-width="4" fill="none"/><path d="M14 30 C14 -2 46 -2 46 30" stroke="#2a1a18" stroke-width="3" fill="none" opacity=".55"/><rect x="4" y="28" width="52" height="40" rx="4" fill="#1d1211"/><rect x="8" y="32" width="44" height="6" rx="2" fill="#3a2a28"/></svg><div class="f-photos"></div><button class="pill f-more" hidden>Show all photos</button></div>
       </div>
+    </div>
+    <p class="cf-hint hand">tap a city to open its folder ↑</p>
+    <div class="cam-block" id="cam">
+      <div class="cb-cam"><button class="camera" id="globe-cam" aria-label="Add your photo"><span class="lens"></span><span class="flash"></span><span class="dial"></span><span class="screen"><b>photo</b> +</span><span class="pad"><i></i></span><span class="btn1"></span><span class="btn2"></span></button></div>
+      <div class="cb-note"><b>How it works ♡</b>Tap the camera and add your travel photo. If I pick it, it goes up on the globe! And right away the camera prints you a photo from someone else, so you can tell them what you think.</div>
+      <p class="cb-spot">or <button type="button" id="cb-spot">tell me your favorite spot →</button></p>
     </div>
     <datalist id="city-list"></datalist>
   </div></section>
@@ -893,18 +922,7 @@ section[hidden]{display:none!important}
 
 
 
-  <section class="gameband" id="game"><div class="in">
-    <div class="gb-card">
-      <div class="gb-cam" aria-hidden="true"><span></span></div>
-      <div class="gb-txt"><span class="eyebrow">a little game</span><h2>Whose photo is it?</h2><p>Press the camera and a photo from another traveler comes out. Tell them what you think of it!</p></div>
-      <button class="pill solid" id="play-game">Play 📸</button>
-    </div>
-    <div class="gb-card gb-spot">
-      <div class="gb-pin" aria-hidden="true">📍</div>
-      <div class="gb-txt"><span class="eyebrow">your turn</span><h2>Tell me your favorite spot</h2><p>Send me a place you love, with a photo if you like.</p></div>
-      <button class="pill" id="add-btn2">Add your spot</button>
-    </div>
-  </div></section>
+
 
   <section class="cal" id="dates"><div class="in">
     <div class="cal-head">
@@ -1182,8 +1200,7 @@ function gamePrint(){const out=document.getElementById('ic-out'),cam=document.ge
   <form class="ic-form" id="ic-form"><label>What do you think of this photo?<textarea id="ic-body" maxlength="300" rows="2" required placeholder="love the colors! where is this?"></textarea></label><label>Your name (optional)<input id="ic-name" maxlength="60"></label><div class="row"><button type="button" class="pill" id="ic-again">Print another</button><button class="pill solid">Send my opinion</button></div></form>`;
   out.dataset.url=p.url;out.dataset.id=p.id||'';}
 wb.addEventListener('click',e=>{if(e.target.closest('#ic-go,#ic-shoot,#ic-again'))gamePrint();});
-document.getElementById('add-btn2').addEventListener('click',()=>document.getElementById('add-btn').click());
-document.getElementById('play-game').addEventListener('click',()=>openWin('Camera game',gameHTML('','')));
+document.getElementById('cb-spot').addEventListener('click',()=>document.getElementById('add-btn').click());
 wb.addEventListener('submit',async e=>{if(e.target.id!=='ic-form')return;e.preventDefault();const out=document.getElementById('ic-out');const body=val('ic-body').slice(0,300);if(!body)return;
   const row={photo_url:out.dataset.url.slice(0,500),body,name:val('ic-name').slice(0,60)||null};if(out.dataset.id)row.submission_id=out.dataset.id;
   const btn=e.target.querySelector('.solid');btn.disabled=true;btn.textContent='Sending…';
@@ -1299,6 +1316,12 @@ document.getElementById('fl-close').onclick=()=>{root.classList.add('fl-closed')
 (function(){const c=document.querySelector('.collage');const b=document.getElementById('pp-closed');if(!c||!b)return;
 b.addEventListener('click',()=>c.classList.add('pp-open'));
 document.getElementById('idcard').addEventListener('click',()=>c.classList.remove('pp-open'));})();
+
+
+/* city folders: closed until a city is tapped */
+(function(){const root=document.getElementById('fold-cities');if(!root)return;
+root.addEventListener('click',e=>{if((e.target.closest('.ftab')||e.target.closest('.folder'))&&root.classList.contains('cf-closed')){root.classList.remove('cf-closed');root.classList.add('cf-opening');setTimeout(()=>root.classList.remove('cf-opening'),700);}
+  if(e.target.closest('#cf-close')){root.classList.add('cf-closed');root.scrollIntoView({behavior:'smooth',block:'center'});}});})();
 
 /* animation: scroll reveal */
 (function(){
