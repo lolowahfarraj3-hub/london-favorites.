@@ -824,6 +824,19 @@ section[hidden]{display:none!important}
 .icam.digicam:hover{transform:none}
 .icam .ic-slot{left:12%;right:12%;bottom:-4px;height:8px;border-radius:4px;background:#2a2a33}
 @media (max-width:420px){.icam.digicam{--u:.75px}}
+
+/* make adding a photo obvious */
+.hero-ctas{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:4px}
+.hero-add{font-size:16px;padding:14px 24px;box-shadow:0 10px 22px rgba(147,5,0,.28)}
+@media (prefers-reduced-motion: no-preference){.hero-add{animation:addpulse 2.6s ease-in-out infinite}}
+@keyframes addpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.how{background:var(--paper)}
+.how>.in{padding-block:26px 30px;display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:center}
+.how ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;flex:1;min-width:280px;max-width:900px}
+.how li{background:#fffdf7;border:1.5px dashed color-mix(in srgb,var(--berry) 35%,transparent);border-radius:16px;padding:14px 14px 14px 56px;position:relative;font-size:14px;color:var(--muted);line-height:1.35}
+.how li b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;color:var(--berry);line-height:1.1;margin-bottom:2px}
+.how li span{position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--berry);color:var(--paper);display:grid;place-items:center;font:500 14px var(--mono)}
+@media (max-width:720px){.how ol{grid-template-columns:1fr}.how>.in{padding-block:20px 26px}#how-add{width:100%}}
 </style>
 
 <div class="page">
@@ -837,11 +850,11 @@ section[hidden]{display:none!important}
     <div>
       <span class="eyebrow">(travel shots by lulwah)</span>
       <h1>My favorite <em>travel</em> shots</h1>
-      <p>The cities, cafés and little streets I keep going back to, all in photos I took myself.</p>
-      <button class="pill solid" id="hero-btn">See my spots</button>
+      <p>My favorite cities, cafés and little streets. <b>You can add yours too!</b> Send me a travel photo from anywhere in the world, and it could end up on my globe.</p>
+      <div class="hero-ctas"><button class="pill solid hero-add" id="hero-add">📸 Add your travel photo</button><button class="pill" id="hero-btn">See the photos</button></div>
       <div class="arrow"><svg viewBox="0 0 90 40" aria-hidden="true"><path d="M4 8c10 26 30 30 42 18 8-8-2-18-8-8-6 12 18 22 46 12M76 22l8 8-10 4"/></svg><span class="hand">coffeeeee first, then a walk!</span></div>
     </div>
-    <div class="collage" aria-hidden="true">
+    <div class="collage">
       <button class="pp-closed" id="pp-closed" aria-label="Open lulwah's passport"><img src="images/passport-cover.png" alt="A closed passport with two boarding passes"><span class="hand pp-tap">tap to open ↗</span></button>
       <div class="idcard pass2" id="idcard"><i class="tape"></i>
         <div class="id-in pg2">
@@ -864,6 +877,11 @@ section[hidden]{display:none!important}
       <svg class="sticker" style="left:30%;bottom:-4px;width:52px;transform:rotate(-8deg)" viewBox="0 0 52 36"><path d="M4 30 L8 8 L18 20 L26 4 L34 20 L44 8 L48 30 Z" fill="#e8c26a" stroke="#7a1c27" stroke-width="1.5"/><circle cx="26" cy="22" r="3" fill="#c23a33"/></svg>
     </div>
   </div></section>
+  <section class="how" aria-label="How it works"><div class="in"><ol>
+    <li><span>1</span><b>Add your photo</b>Tap the camera and pick a travel photo you took.</li>
+    <li><span>2</span><b>I pick my favorites</b>The ones I love go on the globe, in their city's folder.</li>
+    <li><span>3</span><b>Get one back</b>The camera prints you a photo from another traveler.</li>
+  </ol><button class="pill solid" id="how-add">Try it 📸</button></div></section>
 
   <div class="ticker" aria-hidden="true"><div>window seats · passport stamps · golden hour · coffee in every city · new streets · sunset somewhere · window seats · passport stamps · golden hour · coffee in every city · new streets · sunset somewhere · </div></div>
 
@@ -1108,6 +1126,7 @@ grid.addEventListener('openspot',e=>showSpot(spots[e.detail]));
 function showSpot(s){openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);}
 grid.addEventListener('click',e=>{const b=e.target.closest('.spot-open');if(!b)return;const s=spots[b.dataset.i];
   openWin(s[0],`<img class="big" src="images/${s[3]}.jpg" alt="${esc(s[0])}"><span class="eyebrow">${esc(s[1])} · ${names[s[2]]}</span><h3>${esc(s[0])}</h3><p>${spotNote(s)}</p>${mapLink(s)}`);});
+const openPhotoForm=()=>document.getElementById('globe-cam').click();document.getElementById('hero-add').onclick=openPhotoForm;document.getElementById('how-add').onclick=openPhotoForm;
 document.getElementById('hero-btn').onclick=()=>document.getElementById('fold-cities').scrollIntoView({behavior:'smooth',block:'start'});
 function openAdd(){openWin('Add your favorite spot',`<form id="af" class="wb" style="padding:0">
   <label>Place name<input id="a-name" required placeholder="e.g. Daunt Books"></label>
