@@ -717,6 +717,19 @@ a,button{-webkit-tap-highlight-color:transparent}
 .opin{margin:0;background:#fff3c9;padding:10px 12px 8px;font-family:var(--hand);font-size:19px;line-height:1.2;color:var(--ink);box-shadow:0 4px 10px rgba(60,10,5,.12);transform:rotate(-1deg)}
 .opin:nth-child(odd){transform:rotate(1deg);background:#fde2e4}
 .opin small{display:block;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:4px}
+
+/* game band */
+.gameband{background:var(--paper)}
+.gameband>.in{padding-block:34px}
+.gb-card{display:flex;align-items:center;gap:22px;max-width:760px;margin:0 auto;background:#e6eefa;border:2px dashed #95BBEA;border-radius:22px;padding:22px 26px;flex-wrap:wrap}
+.gb-cam{position:relative;width:86px;height:66px;border-radius:16px;background:linear-gradient(160deg,#cfe0f5,#95BBEA);box-shadow:0 8px 16px rgba(40,60,90,.25);flex:none}
+.gb-cam span{position:absolute;left:50%;top:50%;width:36px;height:36px;margin:-18px;border-radius:50%;background:radial-gradient(#3a4a5e 0 30%,#1b2230 31% 46%,#e9eef4 47% 60%,#b9c7d6 61%)}
+.gb-cam::after{content:"";position:absolute;left:22px;right:22px;bottom:-14px;height:18px;background:#fffdf7;box-shadow:0 3px 6px rgba(0,0,0,.15);z-index:-1}
+.gb-txt{flex:1;min-width:200px}
+.gb-txt h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4vw,38px);color:var(--berry);margin:2px 0 4px;line-height:1}
+.gb-txt p{margin:0;color:var(--muted);font-size:15px}
+@media (prefers-reduced-motion: no-preference){.gb-cam{animation:bob 3s ease-in-out infinite}}
+@media (max-width:460px){.gb-card{padding:18px;gap:14px;text-align:center;justify-content:center}#play-game{width:100%}}
 </style>
 
 <div class="page">
@@ -824,6 +837,14 @@ a,button{-webkit-tap-highlight-color:transparent}
     </div>
   </div></section>
 
+
+  <section class="gameband" id="game"><div class="in">
+    <div class="gb-card">
+      <div class="gb-cam" aria-hidden="true"><span></span></div>
+      <div class="gb-txt"><span class="eyebrow">a little game</span><h2>Whose photo is it?</h2><p>Press the camera and a photo from another traveler comes out. Tell them what you think of it!</p></div>
+      <button class="pill solid" id="play-game">Play 📸</button>
+    </div>
+  </div></section>
   <section class="folders" id="moments"><div class="in fl-closed" id="fold-moments">
     <div class="head"><span class="eyebrow">My photo folders</span><h2>Little moments</h2><span class="hand">tap the folder to open it</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
     <div class="flcover" id="flcover">
@@ -1107,8 +1128,8 @@ const gamePool=[];
 fetch(SB+'/rest/v1/rpc/approved_comments',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>rows.forEach(c=>{(comMap[c.photo_url]=comMap[c.photo_url]||[]).push(c);})).catch(()=>{});
 function gamePick(){const own=spots.filter(x=>x[2]!=='bath').map(x=>({url:'images/'+x[3]+'.jpg',id:null,place:x[0],name:'lulwah'}));
   const pool=gamePool.length?gamePool:own;let last=gamePick.last;let p;let n=0;do{p=pool[Math.floor(Math.random()*pool.length)];}while(pool.length>1&&p===last&&n++<6);gamePick.last=p;return p;}
-function gameHTML(h,p){return `<h3>${h}</h3><p>${p}</p>
-<div class="game"><p class="g-intro hand">now a little game! press the button and see whose photo comes out ↓</p>
+function gameHTML(h,p){return `${h?`<h3>${h}</h3><p>${p}</p>`:''}
+<div class="game"><p class="g-intro hand">${h?'now a little game! ':''}press the button and see whose photo comes out ↓</p>
 <div class="icam" id="icam"><span class="ic-flash"></span><span class="ic-view"></span><span class="ic-lens"><i></i></span><span class="ic-name">travel</span><button type="button" class="ic-btn" id="ic-shoot" aria-label="Print a photo"></button><span class="ic-slot"></span></div>
 <div class="ic-out" id="ic-out"></div>
 <button type="button" class="pill solid" id="ic-go">Print a photo 📸</button></div>
@@ -1119,6 +1140,7 @@ function gamePrint(){const out=document.getElementById('ic-out'),cam=document.ge
   <form class="ic-form" id="ic-form"><label>What do you think of this photo?<textarea id="ic-body" maxlength="300" rows="2" required placeholder="love the colors! where is this?"></textarea></label><label>Your name (optional)<input id="ic-name" maxlength="60"></label><div class="row"><button type="button" class="pill" id="ic-again">Print another</button><button class="pill solid">Send my opinion</button></div></form>`;
   out.dataset.url=p.url;out.dataset.id=p.id||'';}
 wb.addEventListener('click',e=>{if(e.target.closest('#ic-go,#ic-shoot,#ic-again'))gamePrint();});
+document.getElementById('play-game').addEventListener('click',()=>openWin('Camera game',gameHTML('','')));
 wb.addEventListener('submit',async e=>{if(e.target.id!=='ic-form')return;e.preventDefault();const out=document.getElementById('ic-out');const body=val('ic-body').slice(0,300);if(!body)return;
   const row={photo_url:out.dataset.url.slice(0,500),body,name:val('ic-name').slice(0,60)||null};if(out.dataset.id)row.submission_id=out.dataset.id;
   const btn=e.target.querySelector('.solid');btn.disabled=true;btn.textContent='Sending…';
