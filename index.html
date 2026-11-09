@@ -730,11 +730,30 @@ a,button{-webkit-tap-highlight-color:transparent}
 .gb-txt p{margin:0;color:var(--muted);font-size:15px}
 @media (prefers-reduced-motion: no-preference){.gb-cam{animation:bob 3s ease-in-out infinite}}
 @media (max-width:460px){.gb-card{padding:18px;gap:14px;text-align:center;justify-content:center}#play-game{width:100%}}
+
+/* ===== clean-up: one calm flow ===== */
+section[hidden]{display:none!important}
+.duo,.gameband,.cal{background:transparent!important;background-image:none!important}
+.duo>.in{padding-block:64px}
+.duo-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 44px;align-items:start}
+.duo-head{grid-column:1/-1;text-align:center;position:relative}
+.duo-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;margin:6px 0 4px;color:var(--berry)}
+.duo-head .st-1d{position:absolute;right:4%;top:-10px;width:86px;transform:rotate(8deg)}
+.duo .pf-cover{margin-top:40px}
+.duo .flcover{margin-top:90px}
+.pfolio.open,.duo-m:has(#fold-moments:not(.fl-closed)){grid-column:1/-1}
+.duo .sheet{box-shadow:0 18px 40px rgba(80,10,5,.16);border:1px solid var(--line)}
+.duo .head{display:none}
+.gameband>.in{padding-block:0 56px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.gameband .gb-card{max-width:none;margin:0}
+.gb-spot{background:#fbe3e4;border-color:#e9a9b0}
+.gb-pin{font-size:40px;flex:none;width:86px;text-align:center}
+@media (max-width:820px){.duo-in{grid-template-columns:1fr}.duo .flcover{margin-top:110px}.gameband>.in{grid-template-columns:1fr}.duo-head .st-1d{width:60px;right:0}}
 </style>
 
 <div class="page">
   <header class="nav"><div class="in">
-    <nav class="links"><a href="#globe">Globe</a><a href="#moments">Moments</a><a href="#spots">Your photos</a></nav>
+    <nav class="links"><a href="#globe">Globe</a><a href="#moments">Moments</a><a href="#spots">Your photos</a><a href="#game">Game</a></nav>
     <div class="logo">Travel <i>favorites</i></div>
     <nav class="links"><a href="#dates">When I'm there</a><a href="#photos">Share photos</a></nav>
   </div></header>
@@ -799,7 +818,8 @@ a,button{-webkit-tap-highlight-color:transparent}
     <div class="map-note" id="mapmore"></div>
   </div></section>
 
-  <section class="band" id="spots"><div class="in">
+  <section class="duo" id="spots"><div class="in duo-in">
+    <div class="duo-head"><span class="eyebrow">My photo folders</span><h2>Open a folder</h2><span class="hand">tap one to see the photos inside</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
     <div class="pfolio" id="pfolio">
     <button class="pf-cover" id="pf-cover" aria-label="Open the folder: Your favorite spots">
       <span class="pf-sheets" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -835,18 +855,7 @@ a,button{-webkit-tap-highlight-color:transparent}
       <div class="signup"><span>Psst! Got a favorite place too?</span><button class="pill solid" id="band-add">Add your spot</button></div>
     </div>
     </div>
-  </div></section>
-
-
-  <section class="gameband" id="game"><div class="in">
-    <div class="gb-card">
-      <div class="gb-cam" aria-hidden="true"><span></span></div>
-      <div class="gb-txt"><span class="eyebrow">a little game</span><h2>Whose photo is it?</h2><p>Press the camera and a photo from another traveler comes out. Tell them what you think of it!</p></div>
-      <button class="pill solid" id="play-game">Play 📸</button>
-    </div>
-  </div></section>
-  <section class="folders" id="moments"><div class="in fl-closed" id="fold-moments">
-    <div class="head"><span class="eyebrow">My photo folders</span><h2>Little moments</h2><span class="hand">tap the folder to open it</span><img class="sticker st-1d" src="images/st-1d.png" alt=""></div>
+    <div class="duo-m" id="moments"><div class="fl-closed" id="fold-moments">
     <div class="flcover" id="flcover">
       <div class="fl-layers" id="fl-layers"></div>
       <button class="fl-pocket" id="fl-pocket" aria-label="Open Little moments">
@@ -863,6 +872,24 @@ a,button{-webkit-tap-highlight-color:transparent}
       <div class="f-left"><span class="f-label"></span><p class="f-sub hand"></p><p class="f-count"></p><div class="f-extra"></div></div>
       <div class="f-right"><svg class="clipper" viewBox="0 0 60 70" aria-hidden="true"><path d="M18 30 C18 4 42 4 42 30" stroke="#2a1a18" stroke-width="4" fill="none"/><path d="M14 30 C14 -2 46 -2 46 30" stroke="#2a1a18" stroke-width="3" fill="none" opacity=".55"/><rect x="4" y="28" width="52" height="40" rx="4" fill="#1d1211"/><rect x="8" y="32" width="44" height="6" rx="2" fill="#3a2a28"/></svg><div class="f-photos"></div><button class="pill f-more" hidden>Show all photos</button></div>
     </div>
+  </div></div>
+  </div></section>
+
+
+
+
+
+  <section class="gameband" id="game"><div class="in">
+    <div class="gb-card">
+      <div class="gb-cam" aria-hidden="true"><span></span></div>
+      <div class="gb-txt"><span class="eyebrow">a little game</span><h2>Whose photo is it?</h2><p>Press the camera and a photo from another traveler comes out. Tell them what you think of it!</p></div>
+      <button class="pill solid" id="play-game">Play 📸</button>
+    </div>
+    <div class="gb-card gb-spot">
+      <div class="gb-pin" aria-hidden="true">📍</div>
+      <div class="gb-txt"><span class="eyebrow">your turn</span><h2>Tell me your favorite spot</h2><p>Send me a place you love, with a photo if you like.</p></div>
+      <button class="pill" id="add-btn2">Add your spot</button>
+    </div>
   </div></section>
 
   <section class="cal" id="dates"><div class="in">
@@ -874,7 +901,8 @@ a,button{-webkit-tap-highlight-color:transparent}
     <div class="cals" id="cals"></div>
       </div></section>
 
-  <section class="candy" id="photos"><div class="in">
+
+  <section class="candy" id="photos" hidden><div class="in">
     <div>
       <span class="eyebrow">Your photos</span>
       <h2>Share your <em>travel</em> shots</h2>
@@ -892,7 +920,7 @@ a,button{-webkit-tap-highlight-color:transparent}
     </div>
   </div></section>
 
-  <section class="add" id="add"><div class="in">
+  <section class="add" id="add" hidden><div class="in">
     <div>
       <span class="eyebrow">Your turn</span>
       <h2>Tell me your favorite spot</h2>
@@ -1140,6 +1168,7 @@ function gamePrint(){const out=document.getElementById('ic-out'),cam=document.ge
   <form class="ic-form" id="ic-form"><label>What do you think of this photo?<textarea id="ic-body" maxlength="300" rows="2" required placeholder="love the colors! where is this?"></textarea></label><label>Your name (optional)<input id="ic-name" maxlength="60"></label><div class="row"><button type="button" class="pill" id="ic-again">Print another</button><button class="pill solid">Send my opinion</button></div></form>`;
   out.dataset.url=p.url;out.dataset.id=p.id||'';}
 wb.addEventListener('click',e=>{if(e.target.closest('#ic-go,#ic-shoot,#ic-again'))gamePrint();});
+document.getElementById('add-btn2').addEventListener('click',()=>document.getElementById('add-btn').click());
 document.getElementById('play-game').addEventListener('click',()=>openWin('Camera game',gameHTML('','')));
 wb.addEventListener('submit',async e=>{if(e.target.id!=='ic-form')return;e.preventDefault();const out=document.getElementById('ic-out');const body=val('ic-body').slice(0,300);if(!body)return;
   const row={photo_url:out.dataset.url.slice(0,500),body,name:val('ic-name').slice(0,60)||null};if(out.dataset.id)row.submission_id=out.dataset.id;
