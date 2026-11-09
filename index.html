@@ -711,6 +711,12 @@ a,button{-webkit-tap-highlight-color:transparent}
 .ic-form textarea,.ic-form input{display:block;width:100%;margin-top:4px;font:inherit;font-size:16px;padding:9px 11px;border:1.5px solid var(--line);border-radius:10px;background:#fff;resize:vertical}
 .ic-thanks{font-size:22px;color:var(--berry);margin:14px 0 4px}
 #ic-go{margin-top:16px}
+
+/* approved opinions under a photo */
+.opins{margin-top:16px;padding-top:12px;border-top:1px dashed var(--line);display:grid;gap:8px}
+.opin{margin:0;background:#fff3c9;padding:10px 12px 8px;font-family:var(--hand);font-size:19px;line-height:1.2;color:var(--ink);box-shadow:0 4px 10px rgba(60,10,5,.12);transform:rotate(-1deg)}
+.opin:nth-child(odd){transform:rotate(1deg);background:#fde2e4}
+.opin small{display:block;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:4px}
 </style>
 
 <div class="page">
@@ -939,7 +945,9 @@ const meCard=(m,j)=>`<article class="spot me" data-t="me"><button class="me-open
 grid.addEventListener('click',e=>{const b=e.target.closest('.me-open');if(!b)return;const m=me[b.dataset.m];openWin('♡',`<img class="big" src="images/${m[0]}.jpg" alt="lulwah"><span class="heart big-heart" aria-hidden="true">♡</span>`);});
 
 const ov=document.getElementById('ov'),wt=document.getElementById('wt'),wb=document.getElementById('wb');
-function openWin(t,h){wt.textContent=t;wb.innerHTML=h;ov.hidden=false;(wb.querySelector('input')||ov.querySelector('.tl.r')).focus();}
+var comMap={};
+function addComments(){const im=wb.querySelector('img.big');if(!im)return;const k=im.getAttribute('src');const list=comMap[k];if(!list||!list.length)return;wb.insertAdjacentHTML('beforeend',`<div class="opins"><span class="eyebrow">what people said ♡</span>${list.slice(0,8).map(c=>`<p class="opin">“${esc(c.body)}”<small>${c.name?esc(c.name):'a visitor'}</small></p>`).join('')}</div>`);}
+function openWin(t,h){wt.textContent=t;wb.innerHTML=h;addComments();ov.hidden=false;(wb.querySelector('input')||ov.querySelector('.tl.r')).focus();}
 function closeWin(){ov.hidden=true;}
 ov.addEventListener('click',e=>{if(e.target===ov||e.target.closest('[data-close]'))closeWin();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWin();});
@@ -1096,6 +1104,7 @@ function paperPlane(){return new Promise(res=>{
 const val=id=>(document.getElementById(id)?.value||'').trim();
 /* instant camera game: after sending, print someone else's photo and leave an opinion */
 const gamePool=[];
+fetch(SB+'/rest/v1/rpc/approved_comments',{method:'POST',headers:{...sbH,'Content-Type':'application/json'},body:'{}'}).then(r=>r.ok?r.json():[]).then(rows=>rows.forEach(c=>{(comMap[c.photo_url]=comMap[c.photo_url]||[]).push(c);})).catch(()=>{});
 function gamePick(){const own=spots.filter(x=>x[2]!=='bath').map(x=>({url:'images/'+x[3]+'.jpg',id:null,place:x[0],name:'lulwah'}));
   const pool=gamePool.length?gamePool:own;let last=gamePick.last;let p;let n=0;do{p=pool[Math.floor(Math.random()*pool.length)];}while(pool.length>1&&p===last&&n++<6);gamePick.last=p;return p;}
 function gameHTML(h,p){return `<h3>${h}</h3><p>${p}</p>
