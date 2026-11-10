@@ -837,6 +837,14 @@ section[hidden]{display:none!important}
 .how li b{display:block;font-family:var(--serif);font-weight:400;font-size:22px;color:var(--berry);line-height:1.1;margin-bottom:2px}
 .how li span{position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--berry);color:var(--paper);display:grid;place-items:center;font:500 14px var(--mono)}
 @media (max-width:720px){.how ol{grid-template-columns:1fr}.how>.in{padding-block:20px 26px}#how-add{width:100%}}
+
+/* comment box on every photo */
+.com-form{margin-top:6px;background:#fff3c9;padding:12px;border-radius:10px;box-shadow:0 4px 10px rgba(60,10,5,.1)}
+.com-form label{display:block;font-family:var(--hand);font-size:20px;color:var(--berry)}
+.com-form textarea,.com-form input{display:block;width:100%;margin-top:6px;font:inherit;font-size:16px;padding:9px 11px;border:1.5px solid var(--line);border-radius:10px;background:#fff;resize:vertical;color:var(--ink)}
+.com-row{display:flex;gap:8px;align-items:center;margin-top:2px}
+.com-row input{flex:1;min-width:0}
+.com-row .pill{flex:none;margin-top:6px}
 </style>
 
 <div class="page">
@@ -1083,7 +1091,13 @@ grid.addEventListener('click',e=>{const b=e.target.closest('.me-open');if(!b)ret
 
 const ov=document.getElementById('ov'),wt=document.getElementById('wt'),wb=document.getElementById('wb');
 var comMap={};
-function addComments(){const im=wb.querySelector('img.big');if(!im)return;const k=im.getAttribute('src');const list=comMap[k];if(!list||!list.length)return;wb.insertAdjacentHTML('beforeend',`<div class="opins"><span class="eyebrow">what people said ♡</span>${list.slice(0,8).map(c=>`<p class="opin">“${esc(c.body)}”<small>${c.name?esc(c.name):'a visitor'}</small></p>`).join('')}</div>`);}
+function addComments(){const im=wb.querySelector('img.big');if(!im)return;const k=im.getAttribute('src');const list=comMap[k]||[];
+  wb.insertAdjacentHTML('beforeend',`<div class="opins">${list.length?`<span class="eyebrow">what people said ♡</span>${list.slice(0,8).map(c=>`<p class="opin">“${esc(c.body)}”<small>${c.name?esc(c.name):'a visitor'}</small></p>`).join('')}`:''}
+  <form class="com-form" data-url="${esc(k)}"><label>What do you think of this photo?<textarea maxlength="300" rows="2" required placeholder="love this place! 😍"></textarea></label><div class="com-row"><input maxlength="60" placeholder="Your name (optional)"><button class="pill solid">Send</button></div></form></div>`);}
+wb.addEventListener('submit',async e=>{const f=e.target.closest('.com-form');if(!f)return;e.preventDefault();const body=f.querySelector('textarea').value.trim().slice(0,300);if(!body)return;
+  const btn=f.querySelector('button');btn.disabled=true;btn.textContent='Sending…';
+  try{const r=await fetch(SB+'/rest/v1/photo_comments',{method:'POST',headers:{...sbH,'Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({photo_url:f.dataset.url.slice(0,500),body,name:f.querySelector('input').value.trim().slice(0,60)||null})});if(!r.ok)throw new Error(r.status);
+    f.outerHTML='<p class="ic-thanks hand">sent to lulwah ♡ thank you!</p>';}catch(err){btn.disabled=false;btn.textContent='Try again';}});
 function openWin(t,h){wt.textContent=t;wb.innerHTML=h;addComments();ov.hidden=false;(wb.querySelector('input')||ov.querySelector('.tl.r')).focus();}
 function closeWin(){ov.hidden=true;}
 ov.addEventListener('click',e=>{if(e.target===ov||e.target.closest('[data-close]'))closeWin();});
